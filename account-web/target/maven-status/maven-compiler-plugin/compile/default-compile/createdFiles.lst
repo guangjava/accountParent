@@ -1,0 +1,5 @@
+com\guang\mvnbook\account\web\LoginServlet.class
+com\guang\mvnbook\account\web\ServletContextLTest.class
+com\guang\mvnbook\account\web\ActivateServlet.class
+com\guang\mvnbook\account\web\SignUpServlet.class
+com\guang\mvnbook\account\web\CaptchaImageServlet.class

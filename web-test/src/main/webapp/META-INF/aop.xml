@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE aspectj PUBLIC "-//AspectJ//DTD//EN" "http://www.eclipse.org/aspectj/dtd/aspectj.dtd">
+<aspectj>
+	<weaver>
+		<include within="com.guang.webtest..*" />
+	</weaver>
+	<aspects>
+		<aspect name="com.guang.webtest.aspect.ProfilingAspect" />
+	</aspects>
+</aspectj>
