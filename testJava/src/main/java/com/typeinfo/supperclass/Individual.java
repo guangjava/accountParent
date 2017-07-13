@@ -2,44 +2,48 @@ package com.typeinfo.supperclass;
 
 
 public abstract class Individual implements Comparable<Individual>{
-	int id;
-	String name;
+	private static long count = 0;
+	private final long id = count++;
+	String name; // name is optional
 	@Override
 	public int compareTo(Individual o) {
+		 // Compare by class name first:
+		
 		if (o == null) {
 			return 1;
 		}
-		if (this.equals(o)) {
-			return 0;
+		String first = getClass().getSimpleName();
+		String oFirst = o.getClass().getSimpleName();
+		int firstCompare = first.compareTo(oFirst);
+		if (firstCompare != 0) {
+			return firstCompare;
 		}
-		if (this.id == o.id) {
-			return 0;
+		if (name!=null && o.name!=null) {
+			int secondCompare = name.compareTo(o.name);
+			if (secondCompare != 0) {
+				return secondCompare;
+			}
 		}
-		return this.id>o.id ? 1 : -1;
+		return id>o.id ? 1 :id==o.id ? 0 : -1;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (!(obj instanceof Individual)) {
-			return false;
-		}
-		Individual individual = (Individual)obj;
-		if (this.id==individual.id && (this.name==null && individual.name==null)||(this.name!=null&&this.name.equals(individual.name))) {
-			return true;
-		}
-		else {
-			return false;
-		}
+		return obj instanceof Individual && id==((Individual)obj).id;
 	}
 
 	@Override
 	public int hashCode() {
-		return 17+id;
+		int result = 17;
+		if (name != null) {
+			result = result * 37 + name.hashCode();
+		}
+		result = result * 37 + (int)id;
+		return result;
 	}
 
-	public Individual(int id, String name) {
+	public Individual(String name) {
 		super();
-		this.id = id;
 		this.name = name;
 	}
 
@@ -47,4 +51,11 @@ public abstract class Individual implements Comparable<Individual>{
 		super();
 	}
 
+	@Override
+	public String toString() {
+		return getClass().getSimpleName()+name==null?"":" "+name;
+	}
+	public long id() {
+		return id;
+	}
 }

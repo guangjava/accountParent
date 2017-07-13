@@ -1,13 +1,14 @@
 package com.typeinfo.supperclass;
 
-public abstract class Dog extends Individual{
+public abstract class Dog extends Pet{
 
 	public Dog() {
 		super();
 	}
 
-	public Dog(int id, String name) {
-		super(id, name);
+	public Dog(String name) {
+		super(name);
 	}
+
 
 }
