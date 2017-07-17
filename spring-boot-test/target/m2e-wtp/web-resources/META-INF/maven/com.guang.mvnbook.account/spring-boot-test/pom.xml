@@ -24,5 +24,15 @@
 			<artifactId>spring-boot-starter-batch</artifactId>
 			<version>1.5.4.RELEASE</version>
 		</dependency>
+		<dependency>
+			<groupId>org.mybatis.spring.boot</groupId>
+			<artifactId>mybatis-spring-boot-starter</artifactId>
+			<version>1.2.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.guang</groupId>
+			<artifactId>log-starter</artifactId>
+			<version>1.0.0</version>
+		</dependency>
 	</dependencies>
 </project>
