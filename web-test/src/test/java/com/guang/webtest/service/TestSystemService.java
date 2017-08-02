@@ -18,6 +18,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.guang.webtest.bean.BaseBean;
 import com.guang.webtest.bean.impl.DemoBean;
 import com.guang.webtest.domain.User;
+import com.guang.webtest.service.impl.SimpleService;
 import com.guang.webtest.task.Task;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -44,6 +45,8 @@ public class TestSystemService {
 	private User user;
 	@Autowired
 	private Task task;
+	@Autowired
+	private SimpleService simpleService;
 	
 	@Test
 	public void testPrintKeyLoadMessage(){
@@ -172,6 +175,12 @@ public class TestSystemService {
 			System.out.println("continue doing something else");
 			Thread.sleep(2000);
 		}
+	}
+	@Test
+	public void testLogAop(){
+		simpleService.test(1);
+		simpleService.core(2);
+		simpleService.work(3);
 	}
 	/**测试context:load-time-weaver
 	 * @param args

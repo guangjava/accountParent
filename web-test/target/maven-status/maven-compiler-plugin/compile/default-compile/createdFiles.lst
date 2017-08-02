@@ -1,6 +1,0 @@
-com\guang\webtest\controller\TestController.class
-com\guang\webtest\service\BaseService.class
-com\guang\webtest\service\SystemService.class
-com\guang\webtest\listener\WebContextListener.class
-com\guang\webtest\service\SubService.class
-com\guang\webtest\servlet\TestServlet.class

@@ -13,4 +13,10 @@
 		<property name="targetMethod" value="getProperty"></property>
 		<property name="arguments" value="${java.version.key}"></property>
 	</bean>
+	<bean
+		class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator">
+		<property name="proxyTargetClass"><!-- 基于类的代理 -->
+			<value>true</value>
+		</property>
+	</bean>
 </beans>
