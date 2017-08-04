@@ -2,15 +2,15 @@ package com.guang.core.logtest;
 
 import org.springframework.stereotype.Service;
 
-import com.guang.springboot.log.annotation.Log;
+//import com.guang.springboot.log.annotation.Log;
 
 @Service
 public class SimpleService {
-	@Log
+//	@Log
 	public void test(int num) {
 		System.out.println("---test---"+num);
 	}
-	@Log
+//	@Log
 	public void core(int num) {
 		System.out.println("---core---"+num);
 	}
