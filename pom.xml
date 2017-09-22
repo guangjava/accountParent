@@ -192,6 +192,7 @@
 		<module>spring-boot-test</module>
 		<module>java8Test</module>
 		<module>testJava</module>
+		<module>springSecurityDemo</module>
 	</modules>
 
 
