@@ -1,0 +1,203 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD>
+<title>暗黑2（diablo2）武器攻击速度在线模拟计算器-Weapon Speed Calculator</title>
+<link rel="stylesheet" href="css.css" type="text/css">
+<script type="text/javascript" src="script.js"></script>
+</HEAD>
+<BODY text=#cccccc vLink=#d0ccd0 aLink=#ffb818 link=#efefef bgColor=#000000 
+leftMargin=0 topMargin=0 marginwidth="0" marginheight="0">
+<TD width="100%">
+<P align=center><BR><BR><A ><FONT 
+color=#ff0000 size=3>暗黑（diablo2）武器攻击速度在线计算器</FONT></A></P>
+<HR noShade SIZE=1>
+
+<FORM name=theForm>
+<TABLE cellSpacing=2 cellPadding=5 align=center border=0>
+  <TBODY>
+  <TR class=one>
+    <TH class=header colSpan=2>主要资料(Main materials)</TH></TR>
+  <TR class=one>
+    <TD class=header>人物:(Character)</TD>
+    <TD><SELECT style="WIDTH: 16em" onchange=setCharValues(form) size=1 
+      name=uchar> 
+      <OPTION value=0>亚马逊女战士(Amazon)
+      <OPTION value=6>刺客(Assassin)
+      <OPTION value=1>野蛮人(Barbarian)
+      <OPTION value=5>德鲁伊教徒(Druid)
+      <OPTION value=3 selected>圣骑士(Paladin)
+      <OPTION value=2>亡灵巫师(Necromancer)
+      <OPTION value=4>法师(Sorceress)
+      <OPTION value=8>雇佣兵(Mercenary) - Act 1
+      <OPTION value=7>雇佣兵(Mercenary) - Act 2
+      <OPTION value=9>雇佣兵(Mercenary) - Act 5</OPTION></SELECT> </TD></TR>
+  <TR class=one>
+    <TD class=header rowSpan=5>右手武器:(Right weapon)</TD>
+    <TD><SELECT style="WIDTH: 16em" onchange=changeDeWeapon(form) size=1 
+      name=waffe></SELECT>[中文]</TD></TR>
+  <TR class=one>
+    <TD><SELECT style="WIDTH: 16em" onchange=changeEnWeapon(form) size=1 
+      name=weapon></SELECT>[english]</TD></TR>
+  <TR class=one>
+    <TD><SELECT style="WIDTH: 8em" onchange=changeWeapon(form) size=1 
+        name=h2h> <OPTION value=0 selected>-</OPTION></SELECT> 
+        -手持(handed) [barbarian only]</TD></TR>
+  <TR class=one>
+    <TD>武器提速(Weapon IAS)<SELECT style="WIDTH: 4em" onchange=compute(form) 
+      size=1 name=weaponias> <OPTION selected>-</OPTION></SELECT> 
+      % [only weredruid/barbarian/assassin]</TD></TR>
+  <TR class=two>
+    <TD>武器种类(Weapon type):<BR><INPUT class=two readOnly size=70 
+      name=weapontype1> 
+      </TD></TR>
+  <TR class=one>
+    <TD class=header rowSpan=2>左手武器:(Left weapon)</TD>
+    <TD><SELECT style="WIDTH: 16em" onchange=changeLeftWeapon(form) size=1 
+      name=c2h> <OPTION value=0 selected>-</OPTION></SELECT> </TD></TR>
+  <TR class=one>
+    <TD>武器提速(Weapon IAS) <SELECT style="WIDTH: 4em" onchange=compute(form) 
+      size=1 name=cwias> <OPTION value=0 selected>-</OPTION></SELECT> 
+      % [only barbarian/assassin] </TD></TR>
+  <TR class=one>
+    <TD class=header>装备提速:(IAS)</TD>
+    <TD><SELECT style="WIDTH: 4em" onchange=compute(form) size=1 name=ias> 
+        <OPTION selected>0
+        <OPTION>5
+        <OPTION>10
+        <OPTION>15
+        <OPTION>20
+        <OPTION>25
+        <OPTION>30
+        <OPTION>35
+        <OPTION>40
+        <OPTION>45
+        <OPTION>50
+        <OPTION>55
+        <OPTION>60
+        <OPTION>65
+        <OPTION>70
+        <OPTION>75
+        <OPTION>80
+        <OPTION>85
+        <OPTION>90
+        <OPTION>95
+        <OPTION>100
+        <OPTION>105
+        <OPTION>110
+        <OPTION>115
+        <OPTION>120
+        <OPTION>125
+        <OPTION>130
+        <OPTION>135
+        <OPTION>140
+        <OPTION>145
+        <OPTION>150
+        <OPTION>155
+        <OPTION>160
+        <OPTION>165
+        <OPTION>170
+        <OPTION>175
+        <OPTION>180
+        <OPTION>185
+        <OPTION>190
+        <OPTION>195
+        <OPTION>200
+        <OPTION>205
+        <OPTION>210
+        <OPTION>215
+        <OPTION>220
+        <OPTION>225
+        <OPTION>230
+        <OPTION>235
+        <OPTION>240
+        <OPTION>245
+        <OPTION>250
+        <OPTION>255
+        <OPTION>260
+        <OPTION>265
+        <OPTION>270
+        <OPTION>275
+        <OPTION>280
+        <OPTION>285
+        <OPTION>290
+        <OPTION>295
+        <OPTION>300</OPTION></SELECT> 
+      %</TD></TR>
+  <TR class=one>
+    <TD class=header>使用技能:(Skill)</TD>
+    <TD><SELECT style="WIDTH: 16em" onchange="changeSkill(form, false)" size=1 
+      name=skill><OPTION value=0 selected>Standard<OPTION value=1>Eifer<OPTION 
+        value=2>Schildschlag</OPTION></SELECT> </TD></TR>
+  <TR class=one>
+    <TH class=header colSpan=2>其他持续性技能加成(Other constant Skill IAS)</TH></TR>
+  <TR class=one>
+    <TD class=header>狂热灵气:(Fanaticism)</TD>
+    <TD>等级(Level)<SELECT style="WIDTH: 4em" onchange=compute(form) size=1 
+      name=fana> 
+      <OPTION value=0 selected>0
+      <OPTION value=14>1
+      <OPTION value=18>2
+      <OPTION value=20>3
+      <OPTION value=23>4
+      <OPTION value=25>5
+      <OPTION value=26>6
+      <OPTION value=27>7
+      <OPTION value=28>8
+      <OPTION value=29>9
+      <OPTION value=30>10
+      <OPTION value=31>11
+      <OPTION value=31>12
+      <OPTION value=32>13
+      <OPTION value=33>14
+      <OPTION value=33>15
+      <OPTION value=34>16
+      <OPTION value=34>17
+      <OPTION value=34>18
+      <OPTION value=34>19
+      <OPTION value=35>20
+      <OPTION value=35>21
+      <OPTION value=35>22
+      <OPTION value=36>23
+      <OPTION value=36>24
+      <OPTION value=36>25
+      <OPTION value=36>26
+      <OPTION value=37>27
+      <OPTION value=37>28
+      <OPTION value=37>29
+      <OPTION value=37>30
+      <OPTION value=37>31
+      <OPTION value=37>32
+      <OPTION value=37>33
+      <OPTION value=37>34
+      <OPTION value=37>35
+      <OPTION value=38>36
+      <OPTION value=38>37
+      <OPTION value=38>38
+      <OPTION value=38>39
+      <OPTION value=38>40</OPTION></SELECT></TD></TR>
+  <TR class=one>
+    <TD class=header>狂乱:(Frenzy)</TD>
+    <TD>等级(Level)<SELECT style="WIDTH: 4em" onchange=compute(form) size=1 
+      name=frenzy> <OPTION value=0 selected>-</OPTION></SELECT> 
+      [barbarian only]</TD></TR>
+  <TR class=one>
+    <TD class=header>变身狼人:(Werewolf)</TD>
+    <TD>等级(Level) <SELECT style="WIDTH: 4em" onchange=compute(form) size=1 
+      name=ww> <OPTION value=0 selected>-</OPTION></SELECT> [druid only]</TD></TR>
+  <TR class=one>
+    <TD class=header>速度爆发:(Burst of Speed)</TD>
+    <TD>等级(Level) <SELECT style="WIDTH: 4em" onchange=compute(form) size=1 
+      name=burst> <OPTION value=0 selected>-</OPTION></SELECT> 
+      [assassin only]</TD></TR>
+  <TR class=one>
+    <TH class=header colSpan=2>结果(Results)</TH></TR>
+  <TR class=one>
+    <TD vAlign=top><B>最终攻击速度: (Attack Speed)</B></TD>
+    <TD><INPUT class=one readOnly size=35 name=fps1></INPUT><BR><INPUT 
+      class=onered readOnly size=35 name=fps2></INPUT> </TD></TR>
+  <TR class=one>
+    <TD><B>攻击频率: (Frequency)</B></TD>
+    <TD><INPUT class=one readOnly size=35 name=sps1> </TD></TR>
+  </TBODY></TABLE></FORM>
+ </FONT></FONT></B></FONT>
+</BODY></HTML>

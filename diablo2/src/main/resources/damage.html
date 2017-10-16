@@ -1,0 +1,163 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>暗黑2 武器造成的最终伤害在线计算器 Peterpaulruben's D2X/1.11 Damage Calculator-1.10-1.12版通用</title>
+<script type="text/javascript" src="damage.js"></script>
+
+
+</head>
+<!-- Background white, links blue (unvisited), navy (visited), red (active) -->
+<body bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#000080" alink="#FF0000" onLoad="do_populate();">
+<center>
+<font size="5"><b><center>Peterpaulruben's D2X/1.11 Weapon Damage Calculator</b></font></center><br>
+<!--<font color="blue" size="+1">PLEASE IGNORE THE JAVASCRIPT POPUPS AS I'M DEBUGGING RIGHT NOW! -PPR</font><br>-->
+<form name='dc' action="">
+<table>
+  <tr>
+    <td align="right">Base Weapon:（武器）</td>
+    <td align="left"><select name="base_weapon" onChange="do_base_damage_change();"></select></td>
+  </tr>
+  <tr>
+    <td align="right">Ethereal?（是否无形）</td>
+    <td align="left"><input type="checkbox" value="eth" name="ethereal" onChange="do_base_damage_change();"></td>
+  </tr>
+  <tr>
+    <td align="right">Use Secondary Damage Stat?</td>
+    <td align="left"><input type="checkbox" value="2hand" name="twohand" disabled  onChange="do_base_damage_change();"><font color="red" size="-1"> 2-handed swords, thrown weapons.  Default (unchecked) is 1-handed melee.</font></td>
+  </tr>
+  <tr>
+    <td align="right">Total + to Minimum Damage:（累计加成的最小伤害）</td>
+    <td align="left"><input type="text" name="plus_min_damage" onChange="do_base_damage_change();"></td>
+  </tr>
+  <tr>
+    <td align="right">Total + to Maximum Damage:（累计加成的最大伤害值）</td>
+    <td align="left"><input type="text" name="plus_max_damage" onChange="do_base_damage_change();"></td>
+  </tr>
+  <tr>
+    <td align="right">Weapon Enhanced Damage %:（武器和装备的总计ED%）</td>
+    <td align="left"><input type="text" name="weapon_ed" onChange="do_base_damage_change();"><font color="red" size="-1"> add all the %ED on the weapon, including that of jewels, Ohm runes, etc. ON-WEAPON ONLY!</font></td>
+  </tr>
+  <tr>
+    <td align="right">Damage +X:（累计加成的伤害值）</td>
+    <td align="left"><input type="text" name="plus_constant_damage" onChange="do_base_damage_change();"><font color="red" size="-1"> displayed in-game as "Damage +X" (Grief, Astreon's Iron Ward, StoneCrusher, etc.)</font></td>
+  </tr>
+  <tr>
+    <td colspan=2>&nbsp;</td>
+  </tr>
+  <tr>
+
+    <td align="right">Base Minimum Damage:（武器基础最小伤害）</td>
+    <td align="left"><input type="text" readonly name="base_min_damage"><font color="red" size="-1"> this is the value boosted by skills, off-weapon ED etc.</font></td>
+  </tr>
+  <tr>
+    <td align="right">Base Maximum Damage:（武器基础最大伤害）</td>
+    <td align="left"><input type="text" readonly name="base_max_damage"><font color="red" size="-1"> this is the value boosted by skills, off-weapon ED etc.</font></td>
+  </tr>
+  <tr>
+    <td colspan=2>&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan=2>&nbsp;</td>
+  </tr>
+  <tr>
+
+    <td align="right">Base Vengeance Damage:</td>
+    <td align="left"><input type="text" readonly name="base_vengeance_min_damage"><font color="red" size="-1">  Use this value for Vengeance calculations. Damage +X doesn't help.</font></td>
+  </tr>
+  <tr>
+    <td align="right">Base Vengeance Damage:</td>
+    <td align="left"><input type="text" readonly name="base_vengeance_max_damage"><font color="red" size="-1"> Use this value for Vengeance calculations. Damage + X doesn't help.</font></td>
+  </tr>
+  <tr>
+    <td colspan=2>&nbsp;</td>
+  </tr>
+  <tr>
+    <td align="right">Strength:（力量）</td>
+    <td align="left"><input type="text" name="strength" onChange="calc_final_damage();" value="15"><font color="red" size="-1"> YES THIS IS NECESSARY</font></td>
+  </tr>
+  <tr>
+    <td align="right">Dexterity:（敏捷）</td>
+    <td align="left"><input type="text" name="dexterity" onChange="calc_final_damage();" value="15"><font color="red" size="-1"> YES THIS IS NECESSARY</font></td>
+  </tr>
+  <tr>
+    <td align="right">Total of Non-Weapon Enhanced Damage %:（非武器上的累计ED%）</td>
+    <td align="left"><input type="text" name="non_weapon_ed" onChange="calc_final_damage();"><font color="red" size="-1"> OFF-WEAPON ONLY</font></td>
+  </tr>
+  <tr>
+    <td align="right">Total of Skill Bonus To Damage %:（靠技能增加的ED%）</td>
+    <td align="left"><input type="text" name="skill_ed" onChange="calc_final_damage();"><font color="red" size="-1"> ADD TOGETHER ALL YOUR SKILL-BASED DAMAGE BONUSES (MASTERIES, COMBAT SKILLS, ETC.)</font></td>
+  </tr>
+  <tr>
+    <td colspan=2>&nbsp;</td>
+  </tr>
+  <tr>
+    <td align="right">Total Elemental Minimum Damage:（总计最小元素伤害）</td>
+    <td align="left"><input type="text" name="elemental_min_damage" onChange="calc_final_damage();"></td>
+  </tr>
+  <tr>
+    <td align="right">Total Elemental Maximum Damage:（总计最大元素伤害）</td>
+    <td align="left"><input type="text" name="elemental_max_damage" onChange="calc_final_damage();"></td>
+  </tr>
+  <tr>
+    <td colspan=2>&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan=2>&nbsp;</td>
+  </tr>
+  <tr>
+    <td align="right">Total Minimum Damage:（最终效果：最小伤害）</td>
+    <td align="left"><input type="text" readonly name="total_min_damage"><font color="red" size="-1"> this is the final minimum damage.</font></td>
+  </tr>
+  <tr>
+    <td align="right">Total Maximum Damage:（最终效果：最大伤害）</td>
+    <td align="left"><input type="text" readonly name="total_max_damage"><font color="red" size="-1"> this is the final maximum damage.</font></td>
+  </tr>
+  <tr>
+    <td align="right">Average Damage:</td>
+    <td align="left"><input type="text" readonly name="average_damage"><font color="red" size="-1"> this is the average damage per hit.</font></td>
+  </tr>
+  <tr>
+    <td colspan=2>&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan=2>&nbsp;</td>
+  </tr>
+  <input type="hidden" name="phys_min" value=0>
+  <input type="hidden" name="phys_max" value=0>
+  <tr>
+    <td align="right">Critical Strike %:（CS百分比）</td>
+    <td align="left"><select name="critstrike" onChange="calc_double_damage();"></td>
+  </tr>
+  <tr>
+    <td align="right">Deadly Strike %:（DS百分比）</td>
+    <td align="left"><select name="deadlystrike" onChange="calc_double_damage();"></td>
+  </tr>
+  <tr>
+    <td align="right">Average Damage factored for CS/DS:</td>
+    <td align="left"><input type="text" readonly name="csds_average_damage"><font color="red" size="-1"> this is the average damage per hit, adjusted for CS/DS.</font></td>
+  </tr>
+  <tr>
+    <td colspan=2>&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan=2>&nbsp;</td>
+  </tr>
+  <tr>
+    <td align="right"><a href='' onClick="document.title = document.dc.thetitle.value;return false;">Change Window Title:</a></td>
+    <td align="left"><input type="text" name="thetitle"><font color="red" size="-1"> for comparing different setups</font></td>
+  </tr>
+</table>
+</form>
+<br>
+<br>
+<br>
+<b>Thanks to Mikeandroe, Beomagi, Oramin, Bloodshrike, et. al. for the help with the formulae and testing. -PPR</b>
+<br>
+<br>
+<br>
+<a href="/ppr/index.html">Home</a>
+<br>
+<br>
+</center>
+</body>
+</html>

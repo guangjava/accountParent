@@ -193,6 +193,7 @@
 		<module>java8Test</module>
 		<module>testJava</module>
 		<module>springSecurityDemo</module>
+		<module>diablo2</module>
 	</modules>
 
 
