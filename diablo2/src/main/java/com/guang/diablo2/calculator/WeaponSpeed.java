@@ -149,7 +149,7 @@ public class WeaponSpeed {
 	public void do_base_damage_change(Form form) {
 		Weapon weapon = weaponlist.get(((Option) form.getWeapon().getSelectedItem()).getValue());
 		TRCheckBox thrown = form.getThrown();
-		if (weapon.getMinB()>0 && weapon.getType()==Weapon.type_throw) {
+		if (weapon.getMinB()>0 && (weapon.getType()==Weapon.type_throw || weapon.getType()==Weapon.type_javelin)) {
 			thrown.setEnabled(true);
 		}else {
 			thrown.setEnabled(false);
@@ -178,9 +178,8 @@ public class WeaponSpeed {
 		int type = weapon.getType();
 		JComboBox<Option> h2h = form.getH2h();
 		JComboBox<Option> c2h = form.getC2h();
-		//TODO 类型扩展
 		if (((uchar == Character.CHAR_ASN) && (type == Weapon.type_claw))
-				|| ((uchar == Character.CHAR_BAR) &&  ((type == Weapon.type_1H_slash) || (type == Weapon.type_1H_thrust) || (type == Weapon.type_throw) ||
+				|| ((uchar == Character.CHAR_BAR) &&  ((type <= Weapon.type_1H_sword) || (type == Weapon.type_dagger) || (type == Weapon.type_throw) || (type == Weapon.type_javelin) ||
 						((type == Weapon.type_2H_sword) && ((h2h.getItemCount() < 2) || (((Option)h2h.getSelectedItem()).getValue() == Weapon.h2h_one_handed)))))){
 			if (c2h.getItemCount() > 0) c2h.removeAllItems();
 
@@ -207,9 +206,8 @@ public class WeaponSpeed {
 					Collections.sort(weaponlist, new WeaponZhComparator());
 				for (int i=0; i < weaponlist.size(); i++){
 					Weapon c2hWeapon = weaponlist.get(i);
-					//TODO 类型扩展
-					if ((c2hWeapon.getType() == Weapon.type_1H_slash) || (c2hWeapon.getType() == Weapon.type_1H_thrust)
-							|| (c2hWeapon.getType() == Weapon.type_2H_sword) || (c2hWeapon.getType() == Weapon.type_throw)){
+					if ((c2hWeapon.getType() <= Weapon.type_1H_sword) || (c2hWeapon.getType() == Weapon.type_dagger)
+							|| (c2hWeapon.getType() == Weapon.type_2H_sword) || (c2hWeapon.getType() == Weapon.type_throw) || (c2hWeapon.getType() == Weapon.type_javelin)){
 						if (LANG.equals("中文"))
 							c2h.addItem(new Option(c2hWeapon.getName_zh()+"("+c2hWeapon.getName_en()+")",c2hWeapon.getIndex()));
 						else
@@ -568,8 +566,7 @@ public class WeaponSpeed {
 		if (skill.getValue() > 0) {
 			jsonObject.put("技能", skill.getLable());
 		}else if (skill.getValue() == 0) {
-			//TODO 类型扩展
-			if (character.getId()<Character.CHAR_ACT2 && r_weapon.getType()==Weapon.type_throw && r_weapon.isThrown()) {
+			if (character.getId()<Character.CHAR_ACT2 && (r_weapon.getType()==Weapon.type_throw || r_weapon.getType()==Weapon.type_javelin) && r_weapon.isThrown()) {
 				jsonObject.put("技能", "投掷");
 			}else {
 				jsonObject.put("技能", skill.getLable());
@@ -605,15 +602,24 @@ public class WeaponSpeed {
 		String weapontype = "";
 		switch (r_weapon.getType())
 		{
-		case Weapon.type_1H_slash: weapontype = Form.properties.getProperty("DYN_WEAPON_1"); break;
-		case Weapon.type_1H_thrust: weapontype = Form.properties.getProperty("DYN_WEAPON_2"); break;
-		case Weapon.type_2H_sword: weapontype = Form.properties.getProperty("DYN_WEAPON_3"); break;
-		case Weapon.type_2H_thrust: weapontype = Form.properties.getProperty("DYN_WEAPON_4"); break;
-		case Weapon.type_2H_else: weapontype = Form.properties.getProperty("DYN_WEAPON_5"); break;
-		case Weapon.type_bow: weapontype = Form.properties.getProperty("DYN_WEAPON_6"); break;
-		case Weapon.type_crossbow: weapontype = Form.properties.getProperty("DYN_WEAPON_7"); break;
-		case Weapon.type_throw: weapontype = Form.properties.getProperty("DYN_WEAPON_8"); break;
-		case Weapon.type_claw: weapontype = Form.properties.getProperty("DYN_WEAPON_9"); break;
+		case Weapon.type_wand: weapontype = Form.properties.getProperty("DYN_WEAPON_1"); break;
+		case Weapon.type_scepter: weapontype = Form.properties.getProperty("DYN_WEAPON_2"); break;
+		case Weapon.type_1H_axe: weapontype = Form.properties.getProperty("DYN_WEAPON_3"); break;
+		case Weapon.type_orb: weapontype = Form.properties.getProperty("DYN_WEAPON_4"); break;
+		case Weapon.type_1H_mace: weapontype = Form.properties.getProperty("DYN_WEAPON_5"); break;
+		case Weapon.type_1H_sword: weapontype = Form.properties.getProperty("DYN_WEAPON_6"); break;
+		case Weapon.type_dagger: weapontype = Form.properties.getProperty("DYN_WEAPON_7"); break;
+		case Weapon.type_2H_sword: weapontype = Form.properties.getProperty("DYN_WEAPON_8"); break;
+		case Weapon.type_spear: weapontype = Form.properties.getProperty("DYN_WEAPON_9"); break;
+		case Weapon.type_2H_axe: weapontype = Form.properties.getProperty("DYN_WEAPON_10"); break;
+		case Weapon.type_staff: weapontype = Form.properties.getProperty("DYN_WEAPON_11"); break;
+		case Weapon.type_2H_mace: weapontype = Form.properties.getProperty("DYN_WEAPON_12"); break;
+		case Weapon.type_polearm: weapontype = Form.properties.getProperty("DYN_WEAPON_13"); break;
+		case Weapon.type_bow: weapontype = Form.properties.getProperty("DYN_WEAPON_14"); break;
+		case Weapon.type_crossbow: weapontype = Form.properties.getProperty("DYN_WEAPON_15"); break;
+		case Weapon.type_javelin: weapontype = Form.properties.getProperty("DYN_WEAPON_16"); break;
+		case Weapon.type_throw: weapontype = Form.properties.getProperty("DYN_WEAPON_17"); break;
+		case Weapon.type_claw: weapontype = Form.properties.getProperty("DYN_WEAPON_18"); break;
 		}
 		return weapontype;
 	}
@@ -639,7 +645,7 @@ public class WeaponSpeed {
 		}
 		// Smite weapon check 其他类型都是双手武器，不能使用盾击
 		if (uchar==Character.CHAR_PAL && skill==Skill.SKILL_PAL_SMITE_NO &&
-				type!=Weapon.type_1H_slash && type!=Weapon.type_1H_thrust && type!=Weapon.type_throw) {
+				type>=Weapon.type_1H_sword && type!=Weapon.type_dagger && type!=Weapon.type_throw && type!=Weapon.type_javelin) {
 			return Double.NaN;
 		}
 		// set proper base frames
@@ -653,8 +659,8 @@ public class WeaponSpeed {
 		// Smite
 		if ((uchar ==Character.CHAR_PAL) && (skill == Skill.SKILL_PAL_SMITE_NO)) baseframe = 11;
 		// 2H Zeal
-		if ((uchar == Character.CHAR_PAL) && (skill == Skill.SKILL_PAL_ZEAL_NO) && ((type == Weapon.type_2H_sword) || (type == Weapon.type_2H_thrust))) baseframe = 7;
-		if ((uchar == Character.CHAR_PAL) && (skill == Skill.SKILL_PAL_ZEAL_NO) && (type == Weapon.type_2H_else)) baseframe = 8;
+		if ((uchar == Character.CHAR_PAL) && (skill == Skill.SKILL_PAL_ZEAL_NO) && ((type == Weapon.type_2H_sword) || (type == Weapon.type_spear))) baseframe = 7;
+		if ((uchar == Character.CHAR_PAL) && (skill == Skill.SKILL_PAL_ZEAL_NO) && (type >= Weapon.type_2H_axe && type <= Weapon.type_polearm)) baseframe = 8;
 		// Strafe + Bow
 		if ((uchar == Character.CHAR_AMA) && (skill == Skill.SKILL_AMA_STRAFE_NO) && (type == Weapon.type_bow)) baseframe = 3;
 		// Strafe + XBow
@@ -704,7 +710,7 @@ public class WeaponSpeed {
 		// Fend
 		else if ((uchar == Character.CHAR_AMA) && (skill == Skill.SKILL_AMA_FEND_NO))
 		{
-			if (type == Weapon.type_2H_thrust) //spears
+			if (type == Weapon.type_spear) //spears
 			{
 				fps = 10;
 				for (int i=0; i < Skill.SD_fend_spear.length; i++)
@@ -717,7 +723,7 @@ public class WeaponSpeed {
 					capped = 1;
 				}
 			}
-			else if (type == Weapon.type_throw) // javelins
+			else if (type == Weapon.type_javelin) // javelins
 			{
 				fps = 10;
 				for (int i=0; i < Skill.SD_fend_jav.length; i++)
@@ -736,7 +742,7 @@ public class WeaponSpeed {
 			}
 		}
 		// Jab with spears
-		else if ((uchar == Character.CHAR_AMA) && (skill == Skill.SKILL_AMA_JAB_NO) && (type != Weapon.type_throw))
+		else if ((uchar == Character.CHAR_AMA) && (skill == Skill.SKILL_AMA_JAB_NO) && (type != Weapon.type_javelin))
 		{
 			fps = 14;
 			for (int i=0; i < Skill.SD_jab.length; i++)
@@ -744,7 +750,7 @@ public class WeaponSpeed {
 				if (effias >= Skill.SD_jab[i]) fps -= 0.5;
 			}
 
-			if (type != Weapon.type_2H_thrust)
+			if (type != Weapon.type_spear)
 			{
 				fps = Double.NaN;
 			}
@@ -766,7 +772,7 @@ public class WeaponSpeed {
 		// Barbar normal
 		else if ((uchar == Character.CHAR_BAR) && (skill == Skill.SKILL_BAR_STANDARD_NO))
 		{
-			if ((type == Weapon.type_1H_slash) || (type == Weapon.type_1H_thrust) || (type == Weapon.type_throw) || ((type == Weapon.type_2H_sword) && (h2h > Weapon.h2h_two_handed)))
+			if ((type <= Weapon.type_1H_sword) || (type == Weapon.type_dagger) || (type == Weapon.type_throw) || (type == Weapon.type_javelin) || ((type == Weapon.type_2H_sword) && (h2h > Weapon.h2h_two_handed)))
 			{
 				effias = skill_ias + Math.floor(120*(item_ias+r_ias)/(120+item_ias+r_ias));
 				Double speed_inc = cap(100 + (r_base + l_base) / 2 + effias, 15, 175);
@@ -804,7 +810,7 @@ public class WeaponSpeed {
 			fps = Math.ceil(256 * (baseframe+1) / Math.floor(256 * speed_inc / 100)) - 1;
 		}
 		// DOUBLE_THROW / Jab with javelins
-		else if (((uchar == Character.CHAR_BAR) && (skill == Skill.SKILL_BAR_DOUBLE_THROW_NO)) || ((uchar == Character.CHAR_AMA) && (skill == Skill.SKILL_AMA_JAB_NO) && (type == Weapon.type_throw)))
+		else if (((uchar == Character.CHAR_BAR) && (skill == Skill.SKILL_BAR_DOUBLE_THROW_NO)) || ((uchar == Character.CHAR_AMA) && (skill == Skill.SKILL_AMA_JAB_NO) && (type == Weapon.type_javelin)))
 		{
 			effias = skill_ias + Math.floor(120*(item_ias+r_ias)/(120+item_ias+r_ias));
 			Double speed_inc = cap(70 + (r_base + l_base) / 2 + effias, 15, 175);
@@ -822,7 +828,7 @@ public class WeaponSpeed {
 		{
 			int fps1;
 			Double speed_inc = cap(100 + r_ias + r_base, 15, 175);
-			if ((type < Weapon.type_2H_thrust) || (type == Weapon.type_throw))
+			if ((type < Weapon.type_spear) || (type == Weapon.type_throw) || (type == Weapon.type_javelin))
 				fps1 = ww_cap(Math.floor(256 * 16 / Math.floor(256 * speed_inc /100)));
 			else
 				fps1 = ww_cap(Math.floor(256 * 19 / Math.floor(256 * speed_inc /100)));
@@ -831,7 +837,7 @@ public class WeaponSpeed {
 			if (l_weapon != null)
 			{
 				speed_inc = cap(100 + l_ias + l_base, 15, 175);
-				if ((l_type < Weapon.type_2H_thrust) || (l_type == Weapon.type_throw))
+				if ((l_type < Weapon.type_spear) || (type == Weapon.type_throw) || (type == Weapon.type_javelin))
 					fps2 = ww_cap(Math.floor(256 * 16 / Math.floor(256 * speed_inc /100)));
 				else
 					fps2 = ww_cap(Math.floor(256 * 19 / Math.floor(256 * speed_inc /100)));

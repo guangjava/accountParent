@@ -5,41 +5,77 @@ import java.util.List;
 
 public class Weapon {
 	/**
-	 * 单手近战型武器(1Hand slashing weapon)
+	 * 单手手杖(Wand)
 	 */
-	public static final int type_1H_slash = 1;
+	public static final int type_wand = 1;
 	/**
-	 * 单手刺入型武器(1Hand thrusting weapon)
+	 * 单手权杖(Scepter)
 	 */
-	public static final int type_1H_thrust = 2;
+	public static final int type_scepter = 2;
+	/**
+	 * 单手斧头(1Hand axe)
+	 */
+	public static final int type_1H_axe = 3;
+	/**
+	 * 单手法师天球(Orb)
+	 */
+	public static final int type_orb = 4;
+	/**
+	 * 单手钉头锤(1Hand mace)
+	 */
+	public static final int type_1H_mace = 5;
+	/**
+	 * 单手剑(1Hand sword)
+	 */
+	public static final int type_1H_sword = 6;
+	/**
+	 * 单手匕首(Dagger)
+	 */
+	public static final int type_dagger = 7;
 	/**
 	 * 双手剑(2Hand sword)
 	 */
-	public static final int type_2H_sword = 3;
+	public static final int type_2H_sword = 8;
 	/**
-	 * 双手刺入型武器(2Hand thrusting weapon)
+	 * 双手矛(Spear)
 	 */
-	public static final int type_2H_thrust = 4;
+	public static final int type_spear = 9;
 	/**
-	 * 普通双手武器(Normal 2Hand weapon)
+	 * 双手斧(2Hand axe)
 	 */
-	public static final int type_2H_else = 5;
+	public static final int type_2H_axe = 10;
+	/**
+	 * 双手法杖(Staff)
+	 */
+	public static final int type_staff = 11;
+	/**
+	 * 双手钉头锤(2Hand mace)
+	 */
+	public static final int type_2H_mace = 12;
+	/**
+	 * 双手长柄武器(Polearm)
+	 */
+	public static final int type_polearm = 13;
 	/**
 	 * 弓(Bow)
 	 */
-	public static final int type_bow = 6;
+	public static final int type_bow = 14;
 	/**
 	 * 十字弓(Crossbow)
 	 */
-	public static final int type_crossbow = 7;
+	public static final int type_crossbow = 15;
+	/**
+	 * 标枪(Javelin)
+	 */
+	public static final int type_javelin = 16;
 	/**
 	 * 投掷型武器(Throwing weapon)
 	 */
-	public static final int type_throw = 8;
+	public static final int type_throw = 17;
 	/**
 	 * 爪类武器(Claw)
 	 */
-	public static final int type_claw = 9;
+	public static final int type_claw = 18;
 	/**
 	 * 单手持
 	 */
