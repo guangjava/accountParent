@@ -436,6 +436,7 @@ public class WeaponSpeed {
 			form.getError().setText("正常");
 		} catch (Exception e) {
 			TRoneTD error = form.getError();
+			e.printStackTrace();
 			error.setText(e.getMessage());
 		}
 	}
@@ -454,7 +455,7 @@ public class WeaponSpeed {
 		}
 		if (jsonObject.has("右手武器")) {
 			JSONObject rightWeapon = (JSONObject) jsonObject.get("右手武器");
-			if (jsonSelect(rightWeapon, "名称", form.getWuqi()) == false) {
+			if (jsonSelect(rightWeapon, "名称", form.getWeapon()) == false) {
 				error.setText("\"右手武器名称\"错误");
 				return;
 			}
@@ -528,7 +529,7 @@ public class WeaponSpeed {
 		jsonObject.put("人物", character.toMap());
 		if (!r_weapon.getName_en().equals("-")) {
 			Map<String, String> rightWeapon = new HashMap<>();
-			rightWeapon.put("名称", r_weapon.getName_zh());
+			rightWeapon.put("名称", r_weapon.getName_en());
 			rightWeapon.put("无形", Boolean.toString(r_weapon.isEthereal()));
 			if (selectedH2h.getValue() > 0) {
 				rightWeapon.put("手持", selectedH2h.getLable());
