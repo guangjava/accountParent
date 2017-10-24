@@ -83,6 +83,11 @@ public class WeaponSpeed {
 			}
 			Option selectedUchar = form.getSelectedUchar();
 			int uchar = selectedUchar.getValue();
+			if (uchar > Character.CHAR_ASN) {
+				form.getSkillTree().setEnabled(false);
+			}else {
+				form.getSkillTree().setEnabled(true);
+			}
 			character = new Character(selectedUchar, form.getStrengthText(), form.getDexterityText());
 			JComboBox<Option> skill = form.getSkill();
 			if (skill.getItemCount() > 0) skill.removeAllItems();

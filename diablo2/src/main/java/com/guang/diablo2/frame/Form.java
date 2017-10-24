@@ -653,6 +653,12 @@ public class Form extends JFrame{
 		return (TextArea) input.getLeftComponent();
 	}
 	
+	public JButton getSkillTree() {
+		JPanel body = getBody();
+		TRone ucharTR = (TRone) body.getComponent(body_uchar_tr_index);
+		return (JButton) ucharTR.getComponent(skill_tree_index);
+	}
+	
 	public JButton getCalc() {
 		JPanel mainPanel = (JPanel) getRootPane().getContentPane().getComponent(_mainPanel_index);
 		return (JButton) ((JPanel) mainPanel.getComponent(mainPanel_input_index)).getComponent(input_calc_index);
