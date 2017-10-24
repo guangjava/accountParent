@@ -2,6 +2,8 @@ package com.guang.diablo2.frame;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
 import java.awt.GridBagLayout;
 import java.awt.HeadlessException;
 import java.awt.Image;
@@ -22,6 +24,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,20 +57,24 @@ public class Form extends JFrame{
 	private static final int body_leftWeapon_pane_index = 4;
 	private static final int body_ias_tr_index = 6;
 	private static final int body_non_weapon_ed_tr_index = 8;
-	private static final int body_damage_tr_index = 10;
-	private static final int body_double_damage_tr_index = 12;
-	private static final int body_elemental_damage_pane_index = 13;
-	private static final int body_skill_tr_index = 15;
-	private static final int body_fana_tr_index = 18;
-	private static final int body_frenzy_tr_index = 20;
-	private static final int body_ww_tr_index = 22;
-	private static final int body_burst_tr_index = 24;
-	private static final int body_fps1_index = 27;
-	private static final int body_fps2_index = 28;
-	private static final int body_sps1_index = 30;
+	private static final int body_skill_ed_tr_index = 10;
+	private static final int body_damage_tr_index = 12;
+	private static final int body_double_damage_tr_index = 14;
+	private static final int body_elemental_damage_pane_index = 15;
+	private static final int body_skill_tr_index = 17;
+	private static final int body_fana_tr_index = 20;
+	private static final int body_frenzy_tr_index = 22;
+	private static final int body_ww_tr_index = 24;
+	private static final int body_burst_tr_index = 26;
+	private static final int body_fps1_index = 29;
+	private static final int body_fps2_index = 30;
+	private static final int body_sps1_index = 32;
+	private static final int body_final_damage1_index = 34;
+	private static final int body_final_damage2_index = 35;
 	private static final int uchar_comboBox_index = 0;
 	private static final int strength_text_index = 2;
 	private static final int dexterity_text_index = 4;
+	private static final int skill_tree_index = 5;
 	private static final int rightWeapon_pane_wuqi_tr_index = 0;
 	private static final int rightWeapon_pane_weapon_tr_index = 1;
 	private static final int rightWeapon_pane_h2h_tr_index = 2;
@@ -89,6 +97,7 @@ public class Form extends JFrame{
 	private static final int weapontype2_var_index = 1;
 	private static final int ias_comboBox_index = 0;
 	private static final int non_weapon_ed_text_index = 0;
+	private static final int skill_ed_text_index = 0;
 	private static final int plus_min_damage_text_index = 1;
 	private static final int plus_max_damage_text_index = 3;
 	private static final int crit_strike_comboBox_index = 1;
@@ -133,6 +142,9 @@ public class Form extends JFrame{
 		}
 	}
 	private void initForm() throws IOException {
+		BaseDamageListener baseDamagelistener = new BaseDamageListener();
+		FinalDamageDocumentListener finalDamageDocListener = new FinalDamageDocumentListener();
+		FinalDamageItemListener finalDamageItemListener = new FinalDamageItemListener();
 		//主框架
 		JPanel mainPanel = new JPanel(new BorderLayout());
 		add(mainPanel,null,_mainPanel_index);
@@ -148,25 +160,31 @@ public class Form extends JFrame{
 		JMenuBar menuBar = new JMenuBar();
 		mainPanel.add(menuBar, "North",0);
 		/**************计算************************/
-		JPanel body = new JPanel(new GridBagLayout());
+		Image backGround = ImageIO.read(ClassLoader.getSystemResourceAsStream(properties.getProperty("backGround.path")));
+		JPanel body = new BackGroundPanel(backGround,new GridBagLayout());
 		JScrollPane scrollPane = new JScrollPane(body);
 		mainPanel.add(scrollPane, "Center",mainPanel_scroll_index);
 		body.setBackground(new Color(0x2e, 0x29, 0x27));
-		body.add(new THheader("主要资料(Main materials)"),new GBC(0, 0, 8, 1,GBC.CENTER),0);
+		body.add(new THheader("主要资料(Main materials)"),new GBC(0, 0, 12, 1,GBC.CENTER),0);
 		body.add(new TDheader("人物:(Character)"), new GBC(0, 1, 2, 1), 1);
 		TRone ucharTR = new TRone();
-		body.add(ucharTR, new GBC(2, 1,6,1),body_uchar_tr_index);
+		body.add(ucharTR, new GBC(2, 1,10,1),body_uchar_tr_index);
 		JComboBox<Option> uchar = new JComboBox<Option>(Option.getOptionsLable(properties.getProperty("form.uchar")));
 		uchar.addItemListener(new UcharListener());
 		ucharTR.add(uchar,uchar_comboBox_index);
 		ucharTR.add(new TRoneTD("力量(Strength)"), 1);
 		JTextField strength = new JTextField("15",4);
+		strength.getDocument().addDocumentListener(finalDamageDocListener);
 		ucharTR.add(strength, strength_text_index);
 		ucharTR.add(new TRoneTD("敏捷(Dexterity)"), 3);
 		JTextField dexterity = new JTextField("15",4);
 		ucharTR.add(dexterity, dexterity_text_index);
+		dexterity.getDocument().addDocumentListener(finalDamageDocListener);
+		JButton skillTree = new JButton("技能树");
+		skillTree.addMouseListener(new SkillTreeListener());
+		ucharTR.add(skillTree,skill_tree_index);
 		TRone rightWeaponTR = new TRone(7, 1);
-		body.add(new TRJsplitPane(TRJsplitPane.HORIZONTAL_SPLIT, new TDheader(rightWeaponLable), rightWeaponTR),new GBC(0, 2, 8, 7),body_rightWeapon_pane_index);
+		body.add(new TRJsplitPane(TRJsplitPane.HORIZONTAL_SPLIT, new TDheader(rightWeaponLable), rightWeaponTR),new GBC(0, 2, 12, 7),body_rightWeapon_pane_index);
 		TRone wuqiTR = new TRone(1,3);
 		rightWeaponTR.add(wuqiTR,rightWeapon_pane_wuqi_tr_index);
 		JComboBox<Option> wuqi = new JComboBox<Option>();
@@ -174,6 +192,7 @@ public class Form extends JFrame{
 		wuqiTR.add(new TRoneTD("[中文]"),1);
 		TRCheckBox ethereal = new TRCheckBox("无形(Ethereal)");
 		ethereal.setBackground(new Color(0x2e, 0x29, 0x27));
+		ethereal.addItemListener(new EthListenner());
 		wuqiTR.add(ethereal,ethereal_checkBox_index);
 		TRone weaponTR = new TRone(1,2);
 		rightWeaponTR.add(weaponTR,rightWeapon_pane_weapon_tr_index);
@@ -198,6 +217,7 @@ public class Form extends JFrame{
 		rightWeaponTR.add(weaponEdTR, rightWeapon_pane_weapon_ed_tr_index);
 		weaponEdTR.add(new TRoneTD("武器增加伤害(Weapon ED)"), 0);
 		JTextField weaponED = new JTextField();
+		weaponED.getDocument().addDocumentListener(baseDamagelistener);
 		weaponEdTR.add(weaponED, weapon_ed_text_index);
 		weaponEdTR.add(new TRoneTD("% [ON-WEAPON ONLY!]"));
 		TRone weapontype1TR = new TRone(1,2);
@@ -209,7 +229,7 @@ public class Form extends JFrame{
 		weaponBaseDamageTR.add(new TRoneTD("武器基础伤害(Base Damage)"), 0);
 		weaponBaseDamageTR.add(new TRoneTD(""), weapon_base_damage_var_index);
 		TRone leftWeaponTR = new TRone(3, 1);
-		body.add(new TRJsplitPane(TRJsplitPane.HORIZONTAL_SPLIT, new TDheader(leftWeaponLable), leftWeaponTR),new GBC(0, 9, 8, 3),body_leftWeapon_pane_index);
+		body.add(new TRJsplitPane(TRJsplitPane.HORIZONTAL_SPLIT, new TDheader(leftWeaponLable), leftWeaponTR),new GBC(0, 9, 12, 3),body_leftWeapon_pane_index);
 		JComboBox<Option> c2h = new JComboBox<Option>();
 		leftWeaponTR.add(c2h, c2h_comboBox_index);
 		c2h.addItem(new Option("-", 0));
@@ -237,104 +257,128 @@ public class Form extends JFrame{
 		TRone nonWeaponEDTR = new TRone();
 		body.add(nonWeaponEDTR, new GBC(6, 12, 2, 1), body_non_weapon_ed_tr_index);
 		JTextField nonWeaponED = new JTextField(4);
+		nonWeaponED.getDocument().addDocumentListener(finalDamageDocListener);
 		nonWeaponEDTR.add(nonWeaponED, non_weapon_ed_text_index);
 		nonWeaponEDTR.add(new TRoneTD("%"));
-		body.add(new TDheader("加成伤害:(Damage)"), new GBC(0, 13, 2, 1), 9);
+		body.add(new TDheader("技能增加的伤害:(ED)"), new GBC(8, 12, 2, 1), 9);
+		TRone skillEDTR = new TRone();
+		body.add(skillEDTR, new GBC(10, 12, 2, 1), body_skill_ed_tr_index);
+		JTextField skillED = new JTextField(4);
+		skillED.getDocument().addDocumentListener(finalDamageDocListener);
+		skillEDTR.add(skillED, skill_ed_text_index);
+		skillEDTR.add(new TRoneTD("%"));
+		body.add(new TDheader("加成伤害:(Damage)"), new GBC(0, 13, 2, 1), 11);
 		TRone damageTR = new TRone();
-		body.add(damageTR, new GBC(2, 13, 6, 1), body_damage_tr_index);
+		body.add(damageTR, new GBC(2, 13, 10, 1), body_damage_tr_index);
 		damageTR.add(new TRoneTD("最小伤害(Min)"), 0);
 		JTextField plus_min_damage = new JTextField(4);
+		plus_min_damage.getDocument().addDocumentListener(baseDamagelistener);
 		damageTR.add(plus_min_damage, plus_min_damage_text_index);
 		damageTR.add(new TRoneTD("最大伤害(Max)"), 2);
 		JTextField plus_max_damage = new JTextField(4);
+		plus_max_damage.getDocument().addDocumentListener(baseDamagelistener);
 		damageTR.add(plus_max_damage, plus_max_damage_text_index);
 		TRone elementalDamageTR = new TRone(2, 1);
-		body.add(new TDheader("双倍打击:(Double Damage)"), new GBC(0, 14, 2, 1), 11);
+		body.add(new TDheader("双倍打击:(Double Damage)"), new GBC(0, 14, 2, 1), 13);
 		TRone doubleDamageTR = new TRone();
-		body.add(doubleDamageTR, new GBC(2, 14, 6, 1), body_double_damage_tr_index);
+		body.add(doubleDamageTR, new GBC(2, 14, 10, 1), body_double_damage_tr_index);
 		doubleDamageTR.add(new TRoneTD("双倍打击(CS)"), 0);
 		JComboBox<Option> critStrike = new JComboBox<>();
 		doubleDamageTR.add(critStrike, crit_strike_comboBox_index);
+		critStrike.addItemListener(finalDamageItemListener);
 		doubleDamageTR.add(new TRoneTD("% "), 2);
 		doubleDamageTR.add(new TRoneTD("致命一击(DS)"), 3);
 		JComboBox<Option> deadlystrike = new JComboBox<>();
+		deadlystrike.addItemListener(finalDamageItemListener);
 		doubleDamageTR.add(deadlystrike, deadly_strike_comboBox_index);
 		doubleDamageTR.add(new TRoneTD("%"));
-		body.add(new TRJsplitPane(TRJsplitPane.HORIZONTAL_SPLIT, new TDheader("元素伤害:(Elemental Damage)"), elementalDamageTR),new GBC(0, 15, 8, 2),body_elemental_damage_pane_index);
+		body.add(new TRJsplitPane(TRJsplitPane.HORIZONTAL_SPLIT, new TDheader("元素伤害:(Elemental Damage)"), elementalDamageTR),new GBC(0, 15, 12, 2),body_elemental_damage_pane_index);
 		TRone fireLightingDamageTR = new TRone();
 		elementalDamageTR.add(fireLightingDamageTR, fire_lightning_damage_tr_index);
 		fireLightingDamageTR.add(new TRoneTD("火焰伤害(FD)",Color.RED), 0);
 		JTextField fireMinDamage = new JTextField(3);
+		fireMinDamage.getDocument().addDocumentListener(baseDamagelistener);
 		fireLightingDamageTR.add(fireMinDamage, fire_min_damage_index);
 		fireLightingDamageTR.add(new TRoneTD(" - "), 2);
 		JTextField fireMaxDamage = new JTextField(3);
+		fireMaxDamage.getDocument().addDocumentListener(baseDamagelistener);
 		fireLightingDamageTR.add(fireMaxDamage, fire_max_damage_index);
 		fireLightingDamageTR.add(new TRoneTD("闪电伤害(LD)", Color.YELLOW), 4);
 		JTextField lightningMinDamage = new JTextField(3);
+		lightningMinDamage.getDocument().addDocumentListener(baseDamagelistener);
 		fireLightingDamageTR.add(lightningMinDamage, lightning_min_damage_index);
 		fireLightingDamageTR.add(new TRoneTD("       -       "), 6);
 		JTextField lightningMaxDamage = new JTextField(3);
+		lightningMaxDamage.getDocument().addDocumentListener(baseDamagelistener);
 		fireLightingDamageTR.add(lightningMaxDamage, lightning_max_damage_index);
 		TRone coldPoisonDamageTR = new TRone();
 		elementalDamageTR.add(coldPoisonDamageTR, cold_poison_damage_tr_index);
 		coldPoisonDamageTR.add(new TRoneTD("冰冻伤害(CD)", Color.BLUE), 0);
 		JTextField coldMinDamage = new JTextField(3);
+		coldMinDamage.getDocument().addDocumentListener(baseDamagelistener);
 		coldPoisonDamageTR.add(coldMinDamage, cold_min_damage_index);
 		coldPoisonDamageTR.add(new TRoneTD(" - "), 2);
 		JTextField coldMaxDamage = new JTextField(3);
+		coldMaxDamage.getDocument().addDocumentListener(baseDamagelistener);
 		coldPoisonDamageTR.add(coldMaxDamage, cold_max_damage_index);
 		coldPoisonDamageTR.add(new TRoneTD("毒素伤害(PD)", Color.GREEN), 4);
 		JTextField poisonDamage = new JTextField(3);
+		poisonDamage.getDocument().addDocumentListener(baseDamagelistener);
 		coldPoisonDamageTR.add(poisonDamage, poison_damage_index);
 		coldPoisonDamageTR.add(new TRoneTD("持续时间"), 6);
 		JTextField poisonTime = new JTextField(3);
+		poisonTime.getDocument().addDocumentListener(baseDamagelistener);
 		coldPoisonDamageTR.add(poisonTime, poison_time_index);
-		body.add(new TDheader("使用技能:(Skill)"), new GBC(0, 17, 2, 1), 14);
+		body.add(new TDheader("使用技能:(Skill)"), new GBC(0, 17, 2, 1), 16);
 		TRone skillTR = new TRone();
-		body.add(skillTR, new GBC(2, 17, 6, 1), body_skill_tr_index);
+		body.add(skillTR, new GBC(2, 17, 10, 1), body_skill_tr_index);
 		JComboBox<Option> skill = new JComboBox<Option>();
 		skill.addItemListener(new SkillListener());
 		skillTR.add(skill, skill_comboBox_index);
 		TRCheckBox thrown = new TRCheckBox("投掷:(throw)"); 
+		thrown.addItemListener(new ThrownListenner());
 		skillTR.add(thrown, thrown_checkBox_index);
-		body.add(new THheader("其他持续性技能加成(Other constant Skill IAS)"),new GBC(0, 18, 8, 1,GBC.CENTER),16);
-		body.add(new TDheader("狂热灵气:(Fanaticism)"), new GBC(0, 19, 2, 1), 17);
+		body.add(new THheader("其他持续性技能加成(Other constant Skill IAS)"),new GBC(0, 18, 12, 1,GBC.CENTER),18);
+		body.add(new TDheader("狂热灵气:(Fanaticism)"), new GBC(0, 19, 2, 1), 19);
 		TRone fanaTR = new TRone();
-		body.add(fanaTR, new GBC(2, 19, 6, 1), body_fana_tr_index);
+		body.add(fanaTR, new GBC(2, 19, 10, 1), body_fana_tr_index);
 		fanaTR.add(new TRoneTD("等级(Level)"), 0);
 		JComboBox<Option> fana = new JComboBox<Option>();
 		fana.addItemListener(new IasListener());
 		fanaTR.add(fana, fana_comboBox_index);
-		body.add(new TDheader("狂乱:(Frenzy)"), new GBC(0, 20, 2, 1), 19);
+		body.add(new TDheader("狂乱:(Frenzy)"), new GBC(0, 20, 2, 1), 21);
 		TRone frenzyTR = new TRone();
-		body.add(frenzyTR, new GBC(2, 20, 6, 1), body_frenzy_tr_index);
+		body.add(frenzyTR, new GBC(2, 20, 10, 1), body_frenzy_tr_index);
 		frenzyTR.add(new TRoneTD("等级(Level)"), 0);
 		JComboBox<Option> frenzy = new JComboBox<Option>();
 		frenzy.addItemListener(new IasListener());
 		frenzyTR.add(frenzy, frenzy_comboBox_index);
 		frenzyTR.add(new TRoneTD("[barbarian only]"), 2);
-		body.add(new TDheader("变身狼人:(Werewolf)"), new GBC(0, 21, 2, 1), 21);
+		body.add(new TDheader("变身狼人:(Werewolf)"), new GBC(0, 21, 2, 1), 23);
 		TRone wwTR = new TRone();
-		body.add(wwTR, new GBC(2, 21, 6, 1), body_ww_tr_index);
+		body.add(wwTR, new GBC(2, 21, 10, 1), body_ww_tr_index);
 		wwTR.add(new TRoneTD("等级(Level)"), 0);
 		JComboBox<Option> ww = new JComboBox<Option>();
 		ww.addItemListener(new IasListener());
 		wwTR.add(ww, ww_comboBox_index);
 		wwTR.add(new TRoneTD("[druid only]"), 2);
-		body.add(new TDheader("速度爆发:(Burst of Speed)"), new GBC(0, 22, 2, 1), 23);
+		body.add(new TDheader("速度爆发:(Burst of Speed)"), new GBC(0, 22, 2, 1), 25);
 		TRone burstTR = new TRone();
-		body.add(burstTR, new GBC(2, 22, 6, 1), body_burst_tr_index);
+		body.add(burstTR, new GBC(2, 22, 10, 1), body_burst_tr_index);
 		burstTR.add(new TRoneTD("等级(Level)"), 0);
 		JComboBox<Option> burst = new JComboBox<Option>();
 		burst.addItemListener(new IasListener());
 		burstTR.add(burst, burst_comboBox_index);
 		burstTR.add(new TRoneTD("[assassin only]"));
-		body.add(new THheader("结果(Results)"),new GBC(0, 23, 8, 1,GBC.CENTER),25);
-		body.add(new TDheader("最终攻击速度: (Attack Speed)"), new GBC(0, 24, 2, 1), 26);
-		body.add(new TRoneTD(""), new GBC(2, 24, 6, 1), body_fps1_index);
-		body.add(new TRoneTD(""), new GBC(2, 25, 6, 1), body_fps2_index);
-		body.add(new TDheader("攻击频率: (Frequency)"), new GBC(0, 26, 2, 1), 29);
-		body.add(new TRoneTD(""), new GBC(2, 26, 6, 1), body_sps1_index);
+		body.add(new THheader("结果(Results)"),new GBC(0, 23, 12, 1,GBC.CENTER),27);
+		body.add(new TDheader("最终攻击速度: (Attack Speed)"), new GBC(0, 24, 2, 1), 28);
+		body.add(new TRoneTD(""), new GBC(2, 24, 10, 1), body_fps1_index);
+		body.add(new TRoneTD(""), new GBC(2, 25, 10, 1), body_fps2_index);
+		body.add(new TDheader("攻击频率: (Frequency)"), new GBC(0, 26, 2, 1), 31);
+		body.add(new TRoneTD(""), new GBC(2, 26, 10, 1), body_sps1_index);
+		body.add(new TDheader("最终伤害 (Final Damage)"), new GBC(0, 27, 2, 1), 33);
+		body.add(new TRoneTD(""), new GBC(2, 27, 10, 1), body_final_damage1_index);
+		body.add(new TRoneTD(""), new GBC(2, 28, 10, 1), body_final_damage2_index);
 		/**************输入框************************/
 		JPanel input = new JPanel();
 		mainPanel.add(input, "South",mainPanel_input_index);
@@ -349,6 +393,18 @@ public class Form extends JFrame{
 		
 		speedCalculator.setCharValues(this);
 		setVisible(true);
+	}
+	
+	public void setEnable(Container container,boolean enable) {
+		container.setEnabled(enable);
+		Component[] components = container.getComponents();
+		for (Component component : components) {
+			if (!(component instanceof Container)) {
+				component.setEnabled(enable);
+			}else {
+				setEnable((Container) component, enable);
+			}
+		}
 	}
 	
 	/**
@@ -547,6 +603,16 @@ public class Form extends JFrame{
 		return (TRoneTD) body.getComponent(body_sps1_index);
 	}
 	
+	public TRoneTD getFinalDamage1() {
+		JPanel body = getBody();
+		return (TRoneTD) body.getComponent(body_final_damage1_index);
+	}
+	
+	public TRoneTD getFinalDamage2() {
+		JPanel body = getBody();
+		return (TRoneTD) body.getComponent(body_final_damage2_index);
+	}
+	
 	public TRoneTD getWeaponType1() {
 		JPanel body = getBody();
 		TRone rightWeaponTR = (TRone) ((TRJsplitPane)body.getComponent(body_rightWeapon_pane_index)).getRightComponent();
@@ -587,11 +653,14 @@ public class Form extends JFrame{
 		return (TextArea) input.getLeftComponent();
 	}
 	
-	public int getStrength() throws Exception{
+	public JButton getCalc() {
+		JPanel mainPanel = (JPanel) getRootPane().getContentPane().getComponent(_mainPanel_index);
+		return (JButton) ((JPanel) mainPanel.getComponent(mainPanel_input_index)).getComponent(input_calc_index);
+	}
+	
+	public int getStrengthText() throws Exception{
 		try {
-			JPanel body = getBody();
-			TRone ucharTR = (TRone) body.getComponent(body_uchar_tr_index);
-			JTextField strength = (JTextField)ucharTR.getComponent(strength_text_index);
+			JTextField strength = getStrength();
 			String text = strength.getText();
 			if (text==null || text.trim().equals("")) {
 				return 0;
@@ -607,11 +676,9 @@ public class Form extends JFrame{
 		}
 	}
 	
-	public int getDexterity() throws Exception{
+	public int getDexterityText() throws Exception{
 		try {
-			JPanel body = getBody();
-			TRone ucharTR = (TRone) body.getComponent(body_uchar_tr_index);
-			JTextField dexterity = (JTextField)ucharTR.getComponent(dexterity_text_index);
+			JTextField dexterity = getDexterity();
 			String text = dexterity.getText();
 			if (text==null || text.trim().equals("")) {
 				return 0;
@@ -627,11 +694,9 @@ public class Form extends JFrame{
 		}
 	}
 	
-	public int getWeaponED() throws Exception{
+	public int getWeaponEDText() throws Exception{
 		try {
-			JPanel body = getBody();
-			TRone rightWeaponTR = (TRone) ((TRJsplitPane)body.getComponent(body_rightWeapon_pane_index)).getRightComponent();
-			JTextField weapon_ed = (JTextField) ((TRone)rightWeaponTR.getComponent(rightWeapon_pane_weapon_ed_tr_index)).getComponent(weapon_ed_text_index);
+			JTextField weapon_ed = getWeaponED();
 			String text = weapon_ed.getText();
 			if (text==null || text.trim().equals("")) {
 				return 0;
@@ -643,11 +708,9 @@ public class Form extends JFrame{
 		}
 	}
 	
-	public int getNonWeaponED() throws Exception{
+	public int getNonWeaponEDText() throws Exception{
 		try {
-			JPanel body = getBody();
-			TRone nonWeaponEDTR = (TRone) body.getComponent(body_non_weapon_ed_tr_index);
-			JTextField non_weapon_ed = (JTextField)nonWeaponEDTR.getComponent(non_weapon_ed_text_index);
+			JTextField non_weapon_ed = getNonWeaponED();
 			String text = non_weapon_ed.getText();
 			if (text==null || text.trim().equals("")) {
 				return 0;
@@ -659,11 +722,23 @@ public class Form extends JFrame{
 		}
 	}
 	
-	public int getPlusMinDamage() throws Exception{
+	public int getSkillEDText() throws Exception{
 		try {
-			JPanel body = getBody();
-			TRone damageTR = (TRone) body.getComponent(body_damage_tr_index);
-			JTextField plus_min_damage = (JTextField)damageTR.getComponent(plus_min_damage_text_index);
+			JTextField skill_ed = getSkillED();
+			String text = skill_ed.getText();
+			if (text==null || text.trim().equals("")) {
+				return 0;
+			}
+			return Integer.parseInt(text);
+		} catch (Exception e) {
+			LOGGER.error("\"技能增加伤害\"错误",e);
+			throw new Exception("\"技能增加伤害\"错误");
+		}
+	}
+	
+	public int getPlusMinDamageText() throws Exception{
+		try {
+			JTextField plus_min_damage = getPlusMinDamage();
 			String text = plus_min_damage.getText();
 			if (text==null || text.trim().equals("")) {
 				return 0;
@@ -675,11 +750,9 @@ public class Form extends JFrame{
 		}
 	}
 	
-	public int getPlusMaxDamage() throws Exception{
+	public int getPlusMaxDamageText() throws Exception{
 		try {
-			JPanel body = getBody();
-			TRone damageTR = (TRone) body.getComponent(body_damage_tr_index);
-			JTextField plus_max_damage = (JTextField)damageTR.getComponent(plus_max_damage_text_index);
+			JTextField plus_max_damage = getPlusMaxDamage();
 			String text = plus_max_damage.getText();
 			if (text==null || text.trim().equals("")) {
 				return 0;
@@ -691,11 +764,9 @@ public class Form extends JFrame{
 		}
 	}
 	
-	public int getFireMinDamage() throws Exception{
+	public int getFireMinDamageText() throws Exception{
 		try {
-			JPanel body = getBody();
-			TRone elementalDamageTR = (TRone) ((TRJsplitPane)body.getComponent(body_elemental_damage_pane_index)).getRightComponent();
-			JTextField fire_min_damage = (JTextField) ((TRone)elementalDamageTR.getComponent(fire_lightning_damage_tr_index)).getComponent(fire_min_damage_index);
+			JTextField fire_min_damage = getFireMinDamage();
 			String text = fire_min_damage.getText();
 			if (text==null || text.trim().equals("")) {
 				return 0;
@@ -707,11 +778,9 @@ public class Form extends JFrame{
 		}
 	}
 	
-	public int getFireMaxDamage() throws Exception{
+	public int getFireMaxDamageText() throws Exception{
 		try {
-			JPanel body = getBody();
-			TRone elementalDamageTR = (TRone) ((TRJsplitPane)body.getComponent(body_elemental_damage_pane_index)).getRightComponent();
-			JTextField fire_max_damage = (JTextField) ((TRone)elementalDamageTR.getComponent(fire_lightning_damage_tr_index)).getComponent(fire_max_damage_index);
+			JTextField fire_max_damage = getFireMaxDamage();
 			String text = fire_max_damage.getText();
 			if (text==null || text.trim().equals("")) {
 				return 0;
@@ -723,11 +792,9 @@ public class Form extends JFrame{
 		}
 	}
 	
-	public int getLightningMinDamage() throws Exception{
+	public int getLightningMinDamageText() throws Exception{
 		try {
-			JPanel body = getBody();
-			TRone elementalDamageTR = (TRone) ((TRJsplitPane)body.getComponent(body_elemental_damage_pane_index)).getRightComponent();
-			JTextField lightning_min_damage = (JTextField) ((TRone)elementalDamageTR.getComponent(fire_lightning_damage_tr_index)).getComponent(lightning_min_damage_index);
+			JTextField lightning_min_damage = getLightningMinDamage();
 			String text = lightning_min_damage.getText();
 			if (text==null || text.trim().equals("")) {
 				return 0;
@@ -739,11 +806,9 @@ public class Form extends JFrame{
 		}
 	}
 	
-	public int getLightningMaxDamage() throws Exception{
+	public int getLightningMaxDamageText() throws Exception{
 		try {
-			JPanel body = getBody();
-			TRone elementalDamageTR = (TRone) ((TRJsplitPane)body.getComponent(body_elemental_damage_pane_index)).getRightComponent();
-			JTextField lightning_max_damage = (JTextField) ((TRone)elementalDamageTR.getComponent(fire_lightning_damage_tr_index)).getComponent(lightning_max_damage_index);
+			JTextField lightning_max_damage = getLightningMaxDamage();
 			String text = lightning_max_damage.getText();
 			if (text==null || text.trim().equals("")) {
 				return 0;
@@ -755,11 +820,9 @@ public class Form extends JFrame{
 		}
 	}
 	
-	public int getColdMinDamage() throws Exception{
+	public int getColdMinDamageText() throws Exception{
 		try {
-			JPanel body = getBody();
-			TRone elementalDamageTR = (TRone) ((TRJsplitPane)body.getComponent(body_elemental_damage_pane_index)).getRightComponent();
-			JTextField cold_min_damage = (JTextField) ((TRone)elementalDamageTR.getComponent(cold_poison_damage_tr_index)).getComponent(cold_min_damage_index);
+			JTextField cold_min_damage = getColdMinDamage();
 			String text = cold_min_damage.getText();
 			if (text==null || text.trim().equals("")) {
 				return 0;
@@ -771,11 +834,9 @@ public class Form extends JFrame{
 		}
 	}
 	
-	public int getColdMaxDamage() throws Exception{
+	public int getColdMaxDamageText() throws Exception{
 		try {
-			JPanel body = getBody();
-			TRone elementalDamageTR = (TRone) ((TRJsplitPane)body.getComponent(body_elemental_damage_pane_index)).getRightComponent();
-			JTextField cold_max_damage = (JTextField) ((TRone)elementalDamageTR.getComponent(cold_poison_damage_tr_index)).getComponent(cold_max_damage_index);
+			JTextField cold_max_damage = getColdMaxDamage();
 			String text = cold_max_damage.getText();
 			if (text==null || text.trim().equals("")) {
 				return 0;
@@ -787,11 +848,9 @@ public class Form extends JFrame{
 		}
 	}
 	
-	public int getPoisonDamage() throws Exception{
+	public int getPoisonDamageText() throws Exception{
 		try {
-			JPanel body = getBody();
-			TRone elementalDamageTR = (TRone) ((TRJsplitPane)body.getComponent(body_elemental_damage_pane_index)).getRightComponent();
-			JTextField poison_damage = (JTextField) ((TRone)elementalDamageTR.getComponent(cold_poison_damage_tr_index)).getComponent(poison_damage_index);
+			JTextField poison_damage = getPoisonDamage();
 			String text = poison_damage.getText();
 			if (text==null || text.trim().equals("")) {
 				return 0;
@@ -803,11 +862,9 @@ public class Form extends JFrame{
 		}
 	}
 	
-	public int getPoisonTime() throws Exception{
+	public int getPoisonTimeText() throws Exception{
 		try {
-			JPanel body = getBody();
-			TRone elementalDamageTR = (TRone) ((TRJsplitPane)body.getComponent(body_elemental_damage_pane_index)).getRightComponent();
-			JTextField poison_time = (JTextField) ((TRone)elementalDamageTR.getComponent(cold_poison_damage_tr_index)).getComponent(poison_time_index);
+			JTextField poison_time = getPoisonTime();
 			String text = poison_time.getText();
 			if (text==null || text.trim().equals("")) {
 				return 0;
@@ -817,6 +874,111 @@ public class Form extends JFrame{
 			LOGGER.error("\"毒素持续时间\"错误",e);
 			throw new Exception("\"毒素持续时间\"错误");
 		}
+	}
+	
+	public JTextField getStrength() {
+		JPanel body = getBody();
+		TRone ucharTR = (TRone) body.getComponent(body_uchar_tr_index);
+		JTextField strength = (JTextField)ucharTR.getComponent(strength_text_index);
+		return strength;
+	}
+	
+	public JTextField getDexterity() {
+		JPanel body = getBody();
+		TRone ucharTR = (TRone) body.getComponent(body_uchar_tr_index);
+		JTextField dexterity = (JTextField)ucharTR.getComponent(dexterity_text_index);
+		return dexterity;
+	}
+	
+	public JTextField getWeaponED() {
+		JPanel body = getBody();
+		TRone rightWeaponTR = (TRone) ((TRJsplitPane)body.getComponent(body_rightWeapon_pane_index)).getRightComponent();
+		JTextField weapon_ed = (JTextField) ((TRone)rightWeaponTR.getComponent(rightWeapon_pane_weapon_ed_tr_index)).getComponent(weapon_ed_text_index);
+		return weapon_ed;
+	}
+	
+	public JTextField getNonWeaponED() {
+		JPanel body = getBody();
+		TRone nonWeaponEDTR = (TRone) body.getComponent(body_non_weapon_ed_tr_index);
+		JTextField non_weapon_ed = (JTextField)nonWeaponEDTR.getComponent(non_weapon_ed_text_index);
+		return non_weapon_ed;
+	}
+	
+	public JTextField getSkillED() {
+		JPanel body = getBody();
+		TRone skillEDTR = (TRone) body.getComponent(body_skill_ed_tr_index);
+		JTextField skill_ed = (JTextField)skillEDTR.getComponent(skill_ed_text_index);
+		return skill_ed;
+	}
+	
+	public JTextField getPlusMinDamage() {
+		JPanel body = getBody();
+		TRone damageTR = (TRone) body.getComponent(body_damage_tr_index);
+		JTextField plus_min_damage = (JTextField)damageTR.getComponent(plus_min_damage_text_index);
+		return plus_min_damage;
+	}
+	
+	public JTextField getPlusMaxDamage() {
+		JPanel body = getBody();
+		TRone damageTR = (TRone) body.getComponent(body_damage_tr_index);
+		JTextField plus_max_damage = (JTextField)damageTR.getComponent(plus_max_damage_text_index);
+		return plus_max_damage;
+	}
+	
+	public JTextField getFireMinDamage() {
+		JPanel body = getBody();
+		TRone elementalDamageTR = (TRone) ((TRJsplitPane)body.getComponent(body_elemental_damage_pane_index)).getRightComponent();
+		JTextField fire_min_damage = (JTextField) ((TRone)elementalDamageTR.getComponent(fire_lightning_damage_tr_index)).getComponent(fire_min_damage_index);
+		return fire_min_damage;
+	}
+	
+	public JTextField getFireMaxDamage() {
+		JPanel body = getBody();
+		TRone elementalDamageTR = (TRone) ((TRJsplitPane)body.getComponent(body_elemental_damage_pane_index)).getRightComponent();
+		JTextField fire_max_damage = (JTextField) ((TRone)elementalDamageTR.getComponent(fire_lightning_damage_tr_index)).getComponent(fire_max_damage_index);
+		return fire_max_damage;
+	}
+	
+	public JTextField getLightningMinDamage() {
+		JPanel body = getBody();
+		TRone elementalDamageTR = (TRone) ((TRJsplitPane)body.getComponent(body_elemental_damage_pane_index)).getRightComponent();
+		JTextField lightning_min_damage = (JTextField) ((TRone)elementalDamageTR.getComponent(fire_lightning_damage_tr_index)).getComponent(lightning_min_damage_index);
+		return lightning_min_damage;
+	}
+	
+	public JTextField getLightningMaxDamage() {
+		JPanel body = getBody();
+		TRone elementalDamageTR = (TRone) ((TRJsplitPane)body.getComponent(body_elemental_damage_pane_index)).getRightComponent();
+		JTextField lightning_max_damage = (JTextField) ((TRone)elementalDamageTR.getComponent(fire_lightning_damage_tr_index)).getComponent(lightning_max_damage_index);
+		return lightning_max_damage;
+	}
+	
+	public JTextField getColdMinDamage() {
+		JPanel body = getBody();
+		TRone elementalDamageTR = (TRone) ((TRJsplitPane)body.getComponent(body_elemental_damage_pane_index)).getRightComponent();
+		JTextField cold_min_damage = (JTextField) ((TRone)elementalDamageTR.getComponent(cold_poison_damage_tr_index)).getComponent(cold_min_damage_index);
+		return cold_min_damage;
+	}
+	
+	public JTextField getColdMaxDamage() {
+		JPanel body = getBody();
+		TRone elementalDamageTR = (TRone) ((TRJsplitPane)body.getComponent(body_elemental_damage_pane_index)).getRightComponent();
+		JTextField cold_max_damage = (JTextField) ((TRone)elementalDamageTR.getComponent(cold_poison_damage_tr_index)).getComponent(cold_max_damage_index);
+		return cold_max_damage;
+	}
+	
+	public JTextField getPoisonDamage() {
+		JPanel body = getBody();
+		TRone elementalDamageTR = (TRone) ((TRJsplitPane)body.getComponent(body_elemental_damage_pane_index)).getRightComponent();
+		JTextField poison_damage = (JTextField) ((TRone)elementalDamageTR.getComponent(cold_poison_damage_tr_index)).getComponent(poison_damage_index);
+		return poison_damage;
+	}
+	
+	public JTextField getPoisonTime() {
+		JPanel body = getBody();
+		TRone elementalDamageTR = (TRone) ((TRJsplitPane)body.getComponent(body_elemental_damage_pane_index)).getRightComponent();
+		JTextField poison_time = (JTextField) ((TRone)elementalDamageTR.getComponent(cold_poison_damage_tr_index)).getComponent(poison_time_index);
+		return poison_time;
 	}
 	
 	private TRJsplitPane getInput() {
@@ -829,7 +991,7 @@ public class Form extends JFrame{
 	 * @date 2017年9月30日下午10:14:13
 	 * @since 1.0.0
 	 */
-	private JPanel getBody() {
+	JPanel getBody() {
 		JPanel mainPanel = (JPanel) getRootPane().getContentPane().getComponent(_mainPanel_index);
 		JScrollPane scrollPane = (JScrollPane) mainPanel.getComponent(mainPanel_scroll_index);
 		return (JPanel) scrollPane.getViewport().getView();
@@ -863,6 +1025,28 @@ public class Form extends JFrame{
 		
 	}
 	
+	private static class SkillTreeListener extends MouseAdapter{
+
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			Form form = Form.getInstance();
+			form.setEnable(form.getBody(), false);
+			form.getCalc().setEnabled(false);
+			SkillTree.getInstance().init(form.getSelectedUchar());
+		}
+		
+	}
+	
+	private static class EthListenner implements ItemListener{
+
+		@Override
+		public void itemStateChanged(ItemEvent e) {
+			Form form = Form.getInstance();
+			form.speedCalculator.thrownCheck(form);
+		}
+		
+	}
+	
 	private static class H2hListener implements ItemListener{
 
 		@Override
@@ -870,6 +1054,7 @@ public class Form extends JFrame{
 			if (e.getStateChange() == ItemEvent.SELECTED) {//排除取消选项时干扰
 				Form form = Form.getInstance();
 				form.speedCalculator.changeH2h(form);
+				form.speedCalculator.thrownCheck(form);
 			}
 		}
 	}
@@ -896,6 +1081,61 @@ public class Form extends JFrame{
 		}
 	}
 	
+	private static class BaseDamageListener implements DocumentListener{
+
+		@Override
+		public void insertUpdate(DocumentEvent e) {
+			Form form = Form.getInstance();
+			form.speedCalculator.doBaseDamage(form);
+		}
+
+		@Override
+		public void removeUpdate(DocumentEvent e) {
+			Form form = Form.getInstance();
+			form.speedCalculator.doBaseDamage(form);
+		}
+
+		@Override
+		public void changedUpdate(DocumentEvent e) {
+			Form form = Form.getInstance();
+			form.speedCalculator.doBaseDamage(form);
+		}
+		
+	}
+	
+	private static class FinalDamageDocumentListener implements DocumentListener{
+
+		@Override
+		public void insertUpdate(DocumentEvent e) {
+			Form form = Form.getInstance();
+			form.speedCalculator.calc_final_damage(form);
+		}
+
+		@Override
+		public void removeUpdate(DocumentEvent e) {
+			Form form = Form.getInstance();
+			form.speedCalculator.calc_final_damage(form);
+		}
+
+		@Override
+		public void changedUpdate(DocumentEvent e) {
+			Form form = Form.getInstance();
+			form.speedCalculator.calc_final_damage(form);
+		}
+		
+	}
+	
+	private static class FinalDamageItemListener implements ItemListener{
+
+		@Override
+		public void itemStateChanged(ItemEvent e) {
+			if (initOk && e.getStateChange()==ItemEvent.SELECTED) {//防止死循环
+				Form form = Form.getInstance();
+				form.speedCalculator.calc_final_damage(form);
+			}
+		}
+	}
+	
 	private static class SkillListener implements ItemListener{
 
 		@Override
@@ -905,6 +1145,19 @@ public class Form extends JFrame{
 				form.speedCalculator.changeSkill(form, false);
 			}
 		}
+	}
+	
+	private static class ThrownListenner implements ItemListener{
+
+
+		@Override
+		public void itemStateChanged(ItemEvent e) {
+			if (initOk) {
+				Form form = Form.getInstance();
+				form.speedCalculator.doBaseDamage(form);
+			}
+		}
+		
 	}
 	
 	private static class CalcListener extends MouseAdapter{

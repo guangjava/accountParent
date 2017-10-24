@@ -12,6 +12,7 @@ public class WeaponListener implements ItemListener{
 		if (e.getStateChange() == ItemEvent.SELECTED) {
 			Form form = Form.getInstance();
 			form.getSpeedCalculator().changeEnWeapon(form);
+			form.getSpeedCalculator().thrownCheck(form);
 		}
 	}
 }

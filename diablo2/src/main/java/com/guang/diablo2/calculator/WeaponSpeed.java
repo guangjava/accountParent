@@ -7,8 +7,12 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.JComboBox;
+import javax.swing.JTextField;
 
+import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.guang.diablo2.entity.Character;
 import com.guang.diablo2.entity.Skill;
@@ -24,6 +28,7 @@ import com.guang.diablo2.frame.listener.WuqiListener;
 
 public class WeaponSpeed {
 	private static final String LANG = Form.properties.getProperty("LANG");
+	private static final Logger logger = LoggerFactory.getLogger(WeaponSpeed.class);
 	int capped    = 0;
 	int lastSkill = 0;
 	int lastType  = 0;
@@ -31,6 +36,10 @@ public class WeaponSpeed {
 	boolean firstCall = true;
 	private List<Weapon> weaponlist;
 	private Character character = null;
+	private Double min = 1d;
+	private Double max = 2d;
+	private DecimalFormat df = new DecimalFormat("#.00");
+	private Double fps;
 	/**
 	 * 
 	 */
@@ -74,7 +83,7 @@ public class WeaponSpeed {
 			}
 			Option selectedUchar = form.getSelectedUchar();
 			int uchar = selectedUchar.getValue();
-			character = new Character(selectedUchar, form.getStrength(), form.getDexterity());
+			character = new Character(selectedUchar, form.getStrengthText(), form.getDexterityText());
 			JComboBox<Option> skill = form.getSkill();
 			if (skill.getItemCount() > 0) skill.removeAllItems();
 			switch (uchar) {
@@ -139,14 +148,14 @@ public class WeaponSpeed {
 			}
 			changeSkill(form, true);
 			changeWeapon(form);
-			do_base_damage_change(form);
+			thrownCheck(form);
 		} catch (Exception e) {
 			TRoneTD error = form.getError();
 			error.setText(e.getMessage());
 		}
 	}
 
-	public void do_base_damage_change(Form form) {
+	public void thrownCheck(Form form) {
 		Weapon weapon = weaponlist.get(((Option) form.getWeapon().getSelectedItem()).getValue());
 		TRCheckBox thrown = form.getThrown();
 		if (weapon.getMinB()>0 && (weapon.getType()==Weapon.type_throw || weapon.getType()==Weapon.type_javelin)) {
@@ -154,11 +163,131 @@ public class WeaponSpeed {
 		}else {
 			thrown.setEnabled(false);
 		}
+		doBaseDamage(form);
+	}
+	
+	public void doBaseDamage(Form form) {
+		try {
+			Weapon weapon = weaponlist.get(((Option) form.getWeapon().getSelectedItem()).getValue());
+			TRCheckBox thrown = form.getThrown();
+			JComboBox<Option> h2h = form.getH2h();
+			int baseMin,baseMax;
+			if ((h2h.getItemCount()>1 && h2h.getSelectedIndex()==Weapon.h2h_two_handed) || (thrown.isEnabled() && thrown.isSelected())) {
+				baseMin = weapon.getMinB();
+				baseMax = weapon.getMaxB();
+			}else {
+				baseMin = weapon.getMin();
+				baseMax = weapon.getMax();
+			}
+			double eth = form.getEthereal().isSelected() ? 1.5 : 1;
+			double weapon_enhanced_damage = form.getWeaponEDText()/100d + 1;
+			//on-weapon ED
+			min = Math.floor(eth * baseMin * weapon_enhanced_damage);
+			max = Math.floor(eth * baseMax * weapon_enhanced_damage);
+			// +min/max damage
+			int plus_min = form.getPlusMinDamageText();
+			int plus_max = form.getPlusMaxDamageText();
+			min += plus_min;
+			max += plus_max;
+			max = min >= max ? min +1 : max;
+			form.getWeaponBaseDamage().setText(min.intValue()+" - "+max.intValue());
+			calc_final_damage(form);
+		} catch (Exception e) {
+			logger.error("",e);
+		}
+	}
+
+	public void calc_final_damage(Form form) {
+		try {
+			Weapon weapon = weaponlist.get(((Option) form.getWeapon().getSelectedItem()).getValue());
+			TRCheckBox thrown = form.getThrown();
+			int non_weapon_ed = form.getNonWeaponEDText();
+			int skill_ed = form.getSkillEDText();
+			double dex_mod,str_mod;
+			if (thrown.isEnabled() && thrown.isSelected()) {
+				dex_mod = weapon.getDexCoefB()/100d;
+				str_mod = weapon.getStrCoefB()/100d;
+			}else {
+				dex_mod = weapon.getDexCoef()/100d;
+				str_mod = weapon.getStrCoef()/100d;
+			}
+			int dex = form.getDexterityText();
+			int str = form.getStrengthText();
+			character.setDexterity(dex);
+			character.setStrength(str);
+			double dex_bonus = dex_mod * dex / 100;
+			double str_bonus = str_mod * str / 100;
+			Double total_min = min;
+			Double total_max = max;
+			total_min += Math.floor(min*skill_ed/100 + min*non_weapon_ed/100 + min*dex_bonus + min*str_bonus);
+			total_max += Math.floor(max*skill_ed/100 + max*non_weapon_ed/100 + max*dex_bonus + max*str_bonus);
+			double phys_average_damage = Math.ceil((total_max + total_min)/2);
+			int elem_min = form.getColdMinDamageText()+form.getLightningMinDamageText()+form.getFireMinDamageText();
+			int elem_max = form.getColdMaxDamageText()+form.getLightningMaxDamageText()+form.getFireMaxDamageText();
+			int poisonDamage = form.getPoisonDamageText();
+			int poisonTime = form.getPoisonTimeText();
+			double elem_average_damage = Math.ceil((elem_min + elem_max)/2);
+			total_min += elem_min;
+		    total_max += elem_max;
+		    if (total_min > total_max) {
+		      total_max = total_min + 1;
+		    }
+			int CS = form.getCS().getSelectedIndex();
+			int DS = form.getDS().getSelectedIndex();
+			double doublechance = CS + (DS/100d)*(100-CS);
+			doublechance = doublechance > 100 ? 100 : doublechance;
+			double final_damage = Math.ceil(phys_average_damage * (1 + (doublechance/100))) + elem_average_damage;
+			String damageString1 = df.format(final_damage) + Form.properties.getProperty("DAMAGE_SUFFIX_1")+total_min.intValue()+" - "+total_max.intValue();
+			double final_damage_per_sec = 25/fps*final_damage;
+			if (poisonDamage>0 && poisonTime>0) {
+				final_damage_per_sec += (double)poisonDamage/poisonTime;
+			}
+			String damageString2 = df.format(final_damage_per_sec) + Form.properties.getProperty("DAMAGE_SUFFIX_2");
+			form.getFinalDamage1().setText(damageString1);
+			form.getFinalDamage2().setText(damageString2);
+			
+			String json = form.geTextArea().getText();
+			JSONObject jsonObject = null;
+			if (json==null || "".equals(json)) {
+				jsonObject = new JSONObject();
+			}else {
+				jsonObject = new JSONObject(json);
+			}
+			boolean eth = form.getEthereal().isSelected();
+			boolean thrownBool = thrown.isEnabled() && thrown.isSelected();
+			int plus_min_damage = form.getPlusMinDamageText();
+			int plus_max_damage = form.getPlusMaxDamageText();
+			int weapon_ed = form.getWeaponEDText();
+			int fd_min = form.getFireMinDamageText();
+			int fd_max = form.getFireMaxDamageText();
+			int ld_min = form.getLightningMinDamageText();
+			int ld_max = form.getLightningMaxDamageText();
+			int cd_min = form.getColdMinDamageText();
+			int cd_max = form.getColdMaxDamageText();
+			int pd = poisonDamage;
+			int pd_time = poisonTime;
+			int cs = form.getCS().getSelectedIndex();
+			int ds = form.getDS().getSelectedIndex();
+			//转json
+			json = printDamageJson(jsonObject,eth,thrownBool, plus_min_damage, plus_max_damage,
+					 weapon_ed,non_weapon_ed,skill_ed,fd_min,fd_max,ld_min,ld_max,cd_min,cd_max,
+						pd,pd_time,cs,ds);
+			form.geTextArea().setText(json);
+			form.getError().setText("正常");
+		} catch (Exception e) {
+			logger.error("",e);
+		}
+		
 	}
 
 	public void changeWeapon(Form form) {
 		int uchar = form.getSelectedUchar().getValue();
 		Weapon weapon = weaponlist.get(((Option) form.getWeapon().getSelectedItem()).getValue());
+		if (weapon.getName_en().equals("-")) {
+			form.getEthereal().setEnabled(false);
+		}else {
+			form.getEthereal().setEnabled(true);
+		}
 		int type = weapon.getType();
 		JComboBox<Option> h2h = form.getH2h();
 		if (h2h.getItemCount()>1 && ((uchar != Character.CHAR_BAR) || (type != Weapon.type_2H_sword))) {
@@ -389,11 +518,10 @@ public class WeaponSpeed {
 			}
 			skill_ias = fana + frenzyval + ww + burst;
 			//------------ calculate fps -------------//
-			Double fps =   calculateFps(uchar.getValue(), skill.getValue(), r_weapon, l_weapon, item_ias, r_ias, l_ias, skill_ias, h2h);
+			fps =   calculateFps(uchar.getValue(), skill.getValue(), r_weapon, l_weapon, item_ias, r_ias, l_ias, skill_ias, h2h);
 			// print results
 			String weapontype = "";
 			String weapontype2 = "";
-			DecimalFormat df = new DecimalFormat("#.00");
 			String fpsString1 = df.format(fps) + Form.properties.getProperty("FPS_SUFFIX_1");
 			String fpsString2 = "";
 			String spsString  = df.format(25/fps) + Form.properties.getProperty("FPS_SUFFIX_2");
@@ -413,30 +541,16 @@ public class WeaponSpeed {
 			form.getFps1().setText(fpsString1);
 			form.getFps2().setText(fpsString2);
 			form.getSps1().setText(spsString);
-			int plus_min_damage = form.getPlusMinDamage();
-			int plus_max_damage = form.getPlusMaxDamage();
-			int weapon_ed = form.getWeaponED();
-			int non_weapon_ed = form.getNonWeaponED();
-			int fd_min = form.getFireMinDamage();
-			int fd_max = form.getFireMaxDamage();
-			int ld_min = form.getLightningMinDamage();
-			int ld_max = form.getLightningMaxDamage();
-			int cd_min = form.getColdMinDamage();
-			int cd_max = form.getColdMaxDamage();
-			int pd = form.getPoisonDamage();
-			int pd_time = form.getPoisonTime();
-			int cs = form.getCS().getSelectedIndex();
-			int ds = form.getDS().getSelectedIndex();
+			
 			//转json
-			String json = printJson(l_weapon, l_ias, skill, fanaOption, wwOption, burstOption,
-					frenzyOption, selectedH2h, r_weapon, r_ias, item_ias, plus_min_damage, plus_max_damage,
-					 weapon_ed,non_weapon_ed,fd_min,fd_max,ld_min,ld_max,cd_min,cd_max,
-						pd,pd_time,cs,ds);
+			String json = printSpeedJson(l_weapon, l_ias, skill, fanaOption, wwOption, burstOption,
+					frenzyOption, selectedH2h, r_weapon, r_ias, item_ias);
 			form.geTextArea().setText(json);
-			form.getError().setText("正常");
+			
+			calc_final_damage(form);
 		} catch (Exception e) {
 			TRoneTD error = form.getError();
-			e.printStackTrace();
+			logger.error("",e);
 			error.setText(e.getMessage());
 		}
 	}
@@ -453,10 +567,22 @@ public class WeaponSpeed {
 			error.setText("\"人物\"错误");
 			return;
 		}
+		if (jsonInput(uchar, "敏捷", form.getDexterity()) == false) {
+			error.setText("\"敏捷\"错误");
+			return;
+		}
+		if (jsonInput(uchar, "力量", form.getStrength()) == false) {
+			error.setText("\"力量\"错误");
+			return;
+		}
 		if (jsonObject.has("右手武器")) {
 			JSONObject rightWeapon = (JSONObject) jsonObject.get("右手武器");
 			if (jsonSelect(rightWeapon, "名称", form.getWeapon()) == false) {
 				error.setText("\"右手武器名称\"错误");
+				return;
+			}
+			if (jsonSelect(rightWeapon, "无形", form.getEthereal()) == false) {
+				error.setText("\"无形\"错误");
 				return;
 			}
 			if (jsonSelect(rightWeapon, "手持", form.getH2h()) == false) {
@@ -465,6 +591,10 @@ public class WeaponSpeed {
 			}
 			if (jsonSelect(rightWeapon, "武器提速", form.getWeaponIas()) == false) {
 				error.setText("\"右手武器提速\"错误");
+				return;
+			}
+			if (jsonInput(rightWeapon, "武器增加伤害", form.getWeaponED()) == false) {
+				error.setText("\"武器增加伤害\"错误");
 				return;
 			}
 		}
@@ -483,9 +613,81 @@ public class WeaponSpeed {
 			error.setText("\"装备提速\"错误");
 			return;
 		}
-		if (jsonSelect(jsonObject, "技能", form.getSkill()) == false) {
-			error.setText("\"技能\"错误");
+		if (jsonInput(jsonObject, "非武器增加伤害", form.getNonWeaponED()) == false) {
+			error.setText("\"非武器增加伤害\"错误");
 			return;
+		}
+		if (jsonInput(jsonObject, "技能增加伤害", form.getSkillED()) == false) {
+			error.setText("\"技能增加伤害\"错误");
+			return;
+		}
+		if (jsonInput(jsonObject, "最小加成伤害", form.getPlusMinDamage()) == false) {
+			error.setText("\"最小加成伤害\"错误");
+			return;
+		}
+		if (jsonInput(jsonObject, "最大加成伤害", form.getPlusMaxDamage()) == false) {
+			error.setText("\"最大加成伤害\"错误");
+			return;
+		}
+		if (jsonSelect(jsonObject, "双倍打击", form.getCS()) == false) {
+			error.setText("\"双倍打击\"错误");
+			return;
+		}
+		if (jsonSelect(jsonObject, "致命一击", form.getDS()) == false) {
+			error.setText("\"致命一击\"错误");
+			return;
+		}
+		if (jsonInput(jsonObject, "火焰最小伤害", form.getFireMinDamage()) == false) {
+			error.setText("\"火焰最小伤害\"错误");
+			return;
+		}
+		if (jsonInput(jsonObject, "火焰最大伤害", form.getFireMaxDamage()) == false) {
+			error.setText("\"火焰最大伤害\"错误");
+			return;
+		}
+		if (jsonInput(jsonObject, "闪电最小伤害", form.getLightningMinDamage()) == false) {
+			error.setText("\"闪电最小伤害\"错误");
+			return;
+		}
+		if (jsonInput(jsonObject, "闪电最大伤害", form.getLightningMaxDamage()) == false) {
+			error.setText("\"闪电最大伤害\"错误");
+			return;
+		}
+		if (jsonInput(jsonObject, "冰冻最小伤害", form.getColdMinDamage()) == false) {
+			error.setText("\"冰冻最小伤害\"错误");
+			return;
+		}
+		if (jsonInput(jsonObject, "冰冻最大伤害", form.getColdMaxDamage()) == false) {
+			error.setText("\"冰冻最大伤害\"错误");
+			return;
+		}
+		if (jsonInput(jsonObject, "毒素伤害", form.getPoisonDamage()) == false) {
+			error.setText("\"毒素伤害\"错误");
+			return;
+		}
+		if (jsonInput(jsonObject, "毒素持续时间", form.getPoisonTime()) == false) {
+			error.setText("\"毒素持续时间\"错误");
+			return;
+		}
+		if (jsonObject.has("技能")) {
+			String skill = jsonObject.getString("技能");
+			if (skill.equals("投掷")) {
+				form.getSkill().setSelectedIndex(Skill.SKILL_STANDARD_NO);
+				TRCheckBox thrown = form.getThrown();
+				if (!thrown.isEnabled()) {
+					error.setText("\"投掷\"错误");
+					return;
+				}else {
+					thrown.setSelected(true);
+				}
+			}else if (skill.equals(Skill.SKILL_STANDARD_STR)) {
+				form.getSkill().setSelectedIndex(Skill.SKILL_STANDARD_NO);
+				TRCheckBox thrown = form.getThrown();
+				thrown.setSelected(false);
+			}else if (jsonSelect(jsonObject, "技能", form.getSkill()) == false) {
+				error.setText("\"技能\"错误");
+				return;
+			}
 		}
 		if (jsonSelect(jsonObject, "狂热灵气", form.getFana()) == false) {
 			error.setText("\"狂热灵气\"错误");
@@ -520,10 +722,42 @@ public class WeaponSpeed {
 		return false;
 	}
 	
-	private String printJson(Weapon l_weapon, int l_ias, Option skill, Option fanaOption,
+	private boolean jsonSelect(JSONObject jsonObject, String key, TRCheckBox box) {
+		try {
+			if (jsonObject.has(key) == false) {
+				return true;
+			}
+			if (!box.isEnabled()) {
+				return false;
+			}
+			boolean name = jsonObject.getBoolean(key);
+			box.setSelected(name);
+			return true;
+		} catch (JSONException e) {
+			logger.error("",e);
+			return false;
+		}
+	}
+	
+	private boolean jsonInput(JSONObject jsonObject, String key, JTextField textField) {
+		try {
+			if (jsonObject.has(key) == false) {
+				return true;
+			}
+			String name = jsonObject.getString(key);
+			textField.setText(name);
+			return true;
+		} catch (JSONException e) {
+			logger.error("",e);
+			return false;
+		}
+	}
+	
+	@SuppressWarnings("unused")
+	private String printFullJson(Weapon l_weapon, int l_ias, Option skill, Option fanaOption,
 			Option wwOption, Option burstOption, Option frenzyOption,
 			Option selectedH2h, Weapon r_weapon, int r_ias, int item_ias,int plus_min_damage,int plus_max_damage,
-			int weapon_ed,int non_weapon_ed,int fd_min,int fd_max,int ld_min,int ld_max,int cd_min,int cd_max,
+			int weapon_ed,int non_weapon_ed,int skill_ed,int fd_min,int fd_max,int ld_min,int ld_max,int cd_min,int cd_max,
 			int pd,int pd_time,int cs,int ds) {
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("人物", character.toMap());
@@ -552,6 +786,7 @@ public class WeaponSpeed {
 		}
 		putJsonObject(jsonObject, "装备提速", item_ias);
 		putJsonObject(jsonObject, "非武器增加伤害", non_weapon_ed);
+		putJsonObject(jsonObject, "技能增加伤害", skill_ed);
 		putJsonObject(jsonObject, "最小加成伤害", plus_min_damage);
 		putJsonObject(jsonObject, "最大加成伤害", plus_max_damage);
 		putJsonObject(jsonObject, "双倍打击", cs);
@@ -580,18 +815,83 @@ public class WeaponSpeed {
 		return jsonObject.toString();
 	}
 	
+	private String printSpeedJson(Weapon l_weapon, int l_ias, Option skill, Option fanaOption, Option wwOption,
+			Option burstOption, Option frenzyOption, Option selectedH2h, Weapon r_weapon, int r_ias, int item_ias) {
+		JSONObject jsonObject = new JSONObject();
+		if (!r_weapon.getName_en().equals("-")) {
+			Map<String, String> rightWeapon = new HashMap<>();
+			rightWeapon.put("名称", r_weapon.getName_en());
+			rightWeapon.put("无形", Boolean.toString(r_weapon.isEthereal()));
+			if (selectedH2h.getValue() > 0) {
+				rightWeapon.put("手持", selectedH2h.getLable());
+			}
+			if (r_ias > 0) {
+				rightWeapon.put("武器提速", r_ias+"");
+			}
+			jsonObject.put("右手武器", rightWeapon);
+		}
+		if (l_weapon != null) {
+			Map<String, String> leftWeapon = new HashMap<>();
+			leftWeapon.put("名称", l_weapon.getName_zh());
+			if (l_ias > 0) {
+				leftWeapon.put("武器提速", l_ias+"");
+			}
+			jsonObject.put("左手武器", leftWeapon);
+		}
+		putJsonObject(jsonObject, "装备提速", item_ias);
+		jsonObject.put("技能", skill.getLable());
+		putJsonObject(jsonObject, "狂热灵气", fanaOption);
+		putJsonObject(jsonObject, "狂乱", frenzyOption);
+		putJsonObject(jsonObject, "狼人", wwOption);
+		putJsonObject(jsonObject, "速度爆发", burstOption);
+		return jsonObject.toString();
+	}
+	
+	private String printDamageJson(JSONObject jsonObject, boolean eth, boolean thrownBool, int plus_min_damage, int plus_max_damage, int weapon_ed,
+			int non_weapon_ed, int skill_ed, int fd_min, int fd_max, int ld_min, int ld_max, int cd_min, int cd_max,
+			int pd, int pd_time, int cs, int ds) {
+		jsonObject.put("人物", character.toMap());
+		if (jsonObject.has("右手武器")) {
+			JSONObject rightWeapon = (JSONObject) jsonObject.get("右手武器");
+			rightWeapon.put("无形", Boolean.toString(eth));
+			if (weapon_ed > 0) {
+				rightWeapon.put("武器增加伤害", weapon_ed+"");
+			}
+		}
+		putJsonObject(jsonObject, "非武器增加伤害", non_weapon_ed);
+		putJsonObject(jsonObject, "技能增加伤害", skill_ed);
+		putJsonObject(jsonObject, "最小加成伤害", plus_min_damage);
+		putJsonObject(jsonObject, "最大加成伤害", plus_max_damage);
+		putJsonObject(jsonObject, "双倍打击", cs);
+		putJsonObject(jsonObject, "致命一击", ds);
+		putJsonObject(jsonObject, "火焰最小伤害", fd_min);
+		putJsonObject(jsonObject, "火焰最大伤害", fd_max);
+		putJsonObject(jsonObject, "闪电最小伤害", ld_min);
+		putJsonObject(jsonObject, "闪电最大伤害", ld_max);
+		putJsonObject(jsonObject, "冰冻最小伤害", cd_min);
+		putJsonObject(jsonObject, "冰冻最大伤害", cd_max);
+		putJsonObject(jsonObject, "毒素伤害", pd);
+		putJsonObject(jsonObject, "毒素持续时间", pd_time);
+		if (thrownBool) {
+			jsonObject.put("技能", "投掷");
+		}
+		return jsonObject.toString();
+	}
+	
 	private void putJsonObject(JSONObject jsonObject,String key,int value) {
+		jsonObject.remove(key);
 		if (value > 0) {
 			jsonObject.put(key, value+"");
 		}
 	}
 	
 	private void putJsonObject(JSONObject jsonObject,String key,Option option) {
+		jsonObject.remove(key);
 		if (option.getValue() > 0) {
 			jsonObject.put(key, option.getLable());
 		}
 	}
-
+	
 	/**
 	 * @param r_weapon
 	 * @return

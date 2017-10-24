@@ -172,7 +172,7 @@ public class Skill {
 	/**
 	 * 普通攻击(Standard)
 	 */
-	public static final String SKILL_STANDARD_NO = "普通攻击(Standard)";
+	public static final int SKILL_STANDARD_NO = 0;
 	/**
 	 * 普通攻击(Standard)
 	 */

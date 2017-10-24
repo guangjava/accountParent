@@ -12,6 +12,7 @@ public class WuqiListener implements ItemListener{
 		if (e.getStateChange() == ItemEvent.SELECTED) {
 			Form form = Form.getInstance();
 			form.getSpeedCalculator().changeZhWeapon(form);
+			form.getSpeedCalculator().thrownCheck(form);
 		}
 	}
 
