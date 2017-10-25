@@ -1,9 +1,9 @@
-package com.guang.diablo2.entity;
+package com.guang.diablo2.entity.base;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import com.guang.diablo2.frame.Option;
+import com.guang.diablo2.frame.speed.Option;
 
 public class Character {
 	/**

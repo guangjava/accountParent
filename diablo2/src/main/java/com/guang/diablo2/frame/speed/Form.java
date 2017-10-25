@@ -1,4 +1,4 @@
-package com.guang.diablo2.frame;
+package com.guang.diablo2.frame.speed;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -29,8 +29,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.guang.diablo2.calculator.WeaponSpeed;
+import com.guang.diablo2.frame.base.BackGroundPanel;
 import com.guang.diablo2.frame.base.GBC;
 import com.guang.diablo2.frame.base.Util;
+import com.guang.diablo2.frame.skill.SkillTree;
 
 public class Form extends JFrame{
 
@@ -984,7 +986,7 @@ public class Form extends JFrame{
 	 * @date 2017年9月30日下午10:14:13
 	 * @since 1.0.0
 	 */
-	JPanel getBody() {
+	public JPanel getBody() {
 		JPanel mainPanel = (JPanel) getRootPane().getContentPane().getComponent(_mainPanel_index);
 		JScrollPane scrollPane = (JScrollPane) mainPanel.getComponent(mainPanel_scroll_index);
 		return (JPanel) scrollPane.getViewport().getView();

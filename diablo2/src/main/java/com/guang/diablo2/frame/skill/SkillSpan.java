@@ -1,4 +1,4 @@
-package com.guang.diablo2.frame;
+package com.guang.diablo2.frame.skill;
 
 import java.awt.Color;
 import java.awt.Font;

@@ -1,4 +1,4 @@
-package com.guang.diablo2.entity;
+package com.guang.diablo2.entity.speed;
 
 import java.util.Comparator;
 

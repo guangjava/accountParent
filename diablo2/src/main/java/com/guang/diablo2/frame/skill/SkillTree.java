@@ -1,4 +1,4 @@
-package com.guang.diablo2.frame;
+package com.guang.diablo2.frame.skill;
 
 import java.awt.FlowLayout;
 import java.awt.Image;
@@ -15,8 +15,12 @@ import javax.swing.JPanel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.guang.diablo2.entity.Character;
+import com.guang.diablo2.calculator.SkillCalculator;
+import com.guang.diablo2.entity.base.Character;
+import com.guang.diablo2.frame.base.BackGroundPanel;
 import com.guang.diablo2.frame.base.Util;
+import com.guang.diablo2.frame.speed.Form;
+import com.guang.diablo2.frame.speed.Option;
 
 public class SkillTree extends JFrame{
 
@@ -277,6 +281,7 @@ public class SkillTree extends JFrame{
 		treeDivMap.put(Character.CHAR_SOR, sorIntegers);
 	}
 
+	private SkillCalculator skillCalculator;
 	private SkillSpan dataSpan;
 	private TabDiv tab1;
 	private TabDiv tab2;
@@ -284,8 +289,10 @@ public class SkillTree extends JFrame{
 	private TabDiv tab4;
 	private ResetLable[] resetLables;
 	private TreeDiv[][] treeTable;
+	private int uchar;
 	private SkillTree()  {
 		try {
+			skillCalculator = new SkillCalculator();
 			//设置图标
 			Image icon = ImageIO.read(ClassLoader.getSystemResourceAsStream(Form.properties.getProperty("icon.path")));
 			setIconImage(icon);
@@ -297,21 +304,20 @@ public class SkillTree extends JFrame{
 			Image dataBackGround = ImageIO.read(ClassLoader.getSystemResourceAsStream(Form.properties.getProperty("skillTree.dataBackGround.path")));
 			BackGroundPanel dataPanel = new BackGroundPanel(dataBackGround, new FlowLayout());
 			mainPanel.add(dataPanel, data_panel_index);
-			String text = "<html> <span color=#ff4040 text-align=center> <h2 color=#00ff00>火焰箭<br></h2>在箭矢或弓弹上附带了魔法火焰，<br> 并在打击时增加了火焰的伤害<br> <br> <span color=#00ff00><span color=black>40: </span >火焰箭 由以下技能得到额外加成:<br></span><span color=black>63: </span>爆裂箭: +12% 火焰伤害每一技能等级<br></span></html>";
-			dataSpan = new SkillSpan(text); 
+			dataSpan = new SkillSpan(""); 
 			dataPanel.setSize(320, 432);
 			dataPanel.add(dataSpan,data_span_index);
 			BackGroundPanel skillTreePanel = new BackGroundPanel(null, null);
 			mainPanel.add(skillTreePanel, tree_panel_index);
 			skillTreePanel.setSize(320, 432);
 			skillTreePanel.setLocation(320, 0);
-			tab1 = new TabDiv(230,329,85,96);
+			tab1 = new TabDiv(0,230,329,85,96);
 			skillTreePanel.add(tab1, tab1_index);
-			tab2 = new TabDiv(230,221,85,96);
+			tab2 = new TabDiv(1,230,221,85,96);
 			skillTreePanel.add(tab2, tab2_index);
-			tab3 = new TabDiv(230,113,85,96);
+			tab3 = new TabDiv(2,230,113,85,96);
 			skillTreePanel.add(tab3, tab3_index);
-			tab4 = new TabDiv(237, 0, 79, 79);
+			tab4 = new TabDiv(3,237, 0, 79, 79);
 			skillTreePanel.add(tab4);
 			resetLables = new ResetLable[3];
 			resetLables[0] = new ResetLable(15, 385, 32, 32);
@@ -335,19 +341,24 @@ public class SkillTree extends JFrame{
 	
 	public void init(Option option) {
 		setTitle(option.getLable()+"技能树");
-		Image[] images = treeBackGroudMap.get(option.getValue());
-		if (images!=null && images.length==3) {
-			getTreePanel().setImage(images[0]);
-		}
-		String[] tabNames = tabNameMap.get(option.getValue());
+		uchar = option.getValue();
+		
+		String[] tabNames = tabNameMap.get(uchar);
 		if (tabNames!=null && tabNames.length==4) {
 			getTab1().setStr("<html>" + tabNames[0] + "<br>0</html>");
 			getTab2().setStr("<html>" + tabNames[1] + "<br>0</html>");
 			getTab3().setStr("<html>" + tabNames[2] + "<br>0</html>");
 			tab4.setStr("<html>" + tabNames[3] + "<br>0</html>");
 		}
-		
-		Integer close = tabCloseMap.get(option.getValue())[0];
+		showTab(0);
+	}
+	
+	public void showTab(int n) {
+		Image[] images = treeBackGroudMap.get(uchar);
+		if (images!=null && images.length==3) {
+			getTreePanel().setImage(images[n]);
+		}
+		Integer close = tabCloseMap.get(uchar)[n];
 		for(int i=1; i<=3; i++){
 			if (i == close) {
 				resetLables[i-1].setEnabled(true);
@@ -355,7 +366,7 @@ public class SkillTree extends JFrame{
 				resetLables[i-1].setEnabled(false);
 			}
 		}
-		Integer[] treeDiv = treeDivMap.get(option.getValue())[0];
+		Integer[] treeDiv = treeDivMap.get(uchar)[n];
 		for(int i=0; i<6; i++){
 			for(int j=0; j<3; j++){
 				if (treeDiv[i*3+j] > 0) {
@@ -368,8 +379,13 @@ public class SkillTree extends JFrame{
 				}
 			}
 		}
+		repaint();
 	}
 	
+	public SkillCalculator getSkillCalculator() {
+		return skillCalculator;
+	}
+
 	public SkillSpan getDataSpan() {
 		return dataSpan;
 	}

@@ -1,4 +1,4 @@
-package com.guang.diablo2.frame;
+package com.guang.diablo2.frame.base;
 
 import java.awt.Graphics;
 import java.awt.Image;

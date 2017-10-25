@@ -14,17 +14,17 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.guang.diablo2.entity.Character;
-import com.guang.diablo2.entity.Skill;
-import com.guang.diablo2.entity.Weapon;
-import com.guang.diablo2.entity.WeaponEnComparator;
-import com.guang.diablo2.entity.WeaponZhComparator;
-import com.guang.diablo2.frame.Form;
-import com.guang.diablo2.frame.Option;
-import com.guang.diablo2.frame.TRCheckBox;
-import com.guang.diablo2.frame.TRoneTD;
+import com.guang.diablo2.entity.base.Character;
+import com.guang.diablo2.entity.speed.Skill;
+import com.guang.diablo2.entity.speed.Weapon;
+import com.guang.diablo2.entity.speed.WeaponEnComparator;
+import com.guang.diablo2.entity.speed.WeaponZhComparator;
 import com.guang.diablo2.frame.listener.WeaponListener;
 import com.guang.diablo2.frame.listener.WuqiListener;
+import com.guang.diablo2.frame.speed.Form;
+import com.guang.diablo2.frame.speed.Option;
+import com.guang.diablo2.frame.speed.TRCheckBox;
+import com.guang.diablo2.frame.speed.TRoneTD;
 
 public class WeaponSpeed {
 	private static final String LANG = Form.properties.getProperty("LANG");

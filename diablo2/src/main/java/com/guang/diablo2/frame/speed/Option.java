@@ -1,4 +1,4 @@
-package com.guang.diablo2.frame;
+package com.guang.diablo2.frame.speed;
 
 public class Option {
 	private String lable;

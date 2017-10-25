@@ -1,5 +1,11 @@
-package com.guang.diablo2.entity;
+package com.guang.diablo2.entity.speed;
 
+/**
+ * @comment 用于速度计算中的使用技能
+ * @author guang
+ * @date 2017年10月25日下午8:16:02
+ * @version 1.0.0
+ */
 public class Skill {
 	/**
 	 * 普通攻击(Standard)

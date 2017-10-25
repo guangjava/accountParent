@@ -3,7 +3,7 @@ package com.guang.diablo2.frame.listener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
-import com.guang.diablo2.frame.Form;
+import com.guang.diablo2.frame.speed.Form;
 
 public class WeaponListener implements ItemListener{
 
