@@ -14,10 +14,9 @@ public class SkillSpan extends JLabel{
 	}
 	
 	public SkillSpan(String text,int size){
-		super(text);
+		super(text,null,CENTER);
 		setFont(new Font("Helvetica", Font.PLAIN, size));
 		setForeground(new Color(0xd0, 0xcc, 0xd0));
-		setHorizontalAlignment(CENTER);
 		setOpaque(false);
 	}
 

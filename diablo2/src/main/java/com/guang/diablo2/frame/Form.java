@@ -2,8 +2,6 @@ package com.guang.diablo2.frame;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.Container;
 import java.awt.GridBagLayout;
 import java.awt.HeadlessException;
 import java.awt.Image;
@@ -32,6 +30,7 @@ import org.slf4j.LoggerFactory;
 
 import com.guang.diablo2.calculator.WeaponSpeed;
 import com.guang.diablo2.frame.base.GBC;
+import com.guang.diablo2.frame.base.Util;
 
 public class Form extends JFrame{
 
@@ -393,18 +392,6 @@ public class Form extends JFrame{
 		
 		speedCalculator.setCharValues(this);
 		setVisible(true);
-	}
-	
-	public void setEnable(Container container,boolean enable) {
-		container.setEnabled(enable);
-		Component[] components = container.getComponents();
-		for (Component component : components) {
-			if (!(component instanceof Container)) {
-				component.setEnabled(enable);
-			}else {
-				setEnable((Container) component, enable);
-			}
-		}
 	}
 	
 	/**
@@ -1036,7 +1023,7 @@ public class Form extends JFrame{
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			Form form = Form.getInstance();
-			form.setEnable(form.getBody(), false);
+			Util.setEnable(form.getBody(), false);
 			form.getCalc().setEnabled(false);
 			SkillTree.getInstance().init(form.getSelectedUchar());
 		}

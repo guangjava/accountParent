@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.guang.diablo2.entity.Character;
+import com.guang.diablo2.frame.base.Util;
 
 public class SkillTree extends JFrame{
 
@@ -31,12 +32,14 @@ public class SkillTree extends JFrame{
 	private static Map<Integer, Image[]> treeBackGroudMap = null;
 	private static Map<Integer, String[]> tabNameMap = null;
 	private static Map<Integer, Integer[]> tabCloseMap = null;
+	private static Map<Integer, Integer[][]> treeDivMap = null;
 	public static SkillTree getInstance() {
 		try {
 			if (instance == null) {
 				initTreeBackGroundMap();
 				initTabNameMap();
 				initTabCloseMap();
+				initTreeDivMap();
 				instance = new SkillTree();
 			}
 			instance.setVisible(true);
@@ -185,6 +188,94 @@ public class SkillTree extends JFrame{
 		sorIntegers[2] = Integer.parseInt(sorList[2]);
 		tabCloseMap.put(Character.CHAR_SOR, sorIntegers);
 	}
+	
+	private static void initTreeDivMap() {
+		treeDivMap = new HashMap<Integer, Integer[][]>();
+		String[] amaList = new String[3];
+		Integer[][] amaIntegers = new Integer[3][18];
+		amaList[0] = Form.properties.getProperty("skillTree.ama.tab1.map");
+		amaList[1] = Form.properties.getProperty("skillTree.ama.tab2.map");
+		amaList[2] = Form.properties.getProperty("skillTree.ama.tab3.map");
+		for(int i=0; i<3; i++){
+			String[] skillPositionList = amaList[i].split(",");
+			for(int j=0; j<18; j++){
+				amaIntegers[i][j] = Integer.parseInt(skillPositionList[j].trim());
+			}
+		}
+		treeDivMap.put(Character.CHAR_AMA, amaIntegers);
+		String[] assList = new String[3];
+		Integer[][] assIntegers = new Integer[3][18];
+		assList[0] = Form.properties.getProperty("skillTree.ass.tab1.map");
+		assList[1] = Form.properties.getProperty("skillTree.ass.tab2.map");
+		assList[2] = Form.properties.getProperty("skillTree.ass.tab3.map");
+		for(int i=0; i<3; i++){
+			String[] skillPositionList = assList[i].split(",");
+			for(int j=0; j<18; j++){
+				assIntegers[i][j] = Integer.parseInt(skillPositionList[j].trim());
+			}
+		}
+		treeDivMap.put(Character.CHAR_ASN, assIntegers);
+		String[] barList = new String[3];
+		Integer[][] barIntegers = new Integer[3][18];
+		barList[0] = Form.properties.getProperty("skillTree.bar.tab1.map");
+		barList[1] = Form.properties.getProperty("skillTree.bar.tab2.map");
+		barList[2] = Form.properties.getProperty("skillTree.bar.tab3.map");
+		for(int i=0; i<3; i++){
+			String[] skillPositionList = barList[i].split(",");
+			for(int j=0; j<18; j++){
+				barIntegers[i][j] = Integer.parseInt(skillPositionList[j].trim());
+			}
+		}
+		treeDivMap.put(Character.CHAR_BAR, barIntegers);
+		String[] druList = new String[3];
+		Integer[][] druIntegers = new Integer[3][18];
+		druList[0] = Form.properties.getProperty("skillTree.dru.tab1.map");
+		druList[1] = Form.properties.getProperty("skillTree.dru.tab2.map");
+		druList[2] = Form.properties.getProperty("skillTree.dru.tab3.map");
+		for(int i=0; i<3; i++){
+			String[] skillPositionList = druList[i].split(",");
+			for(int j=0; j<18; j++){
+				druIntegers[i][j] = Integer.parseInt(skillPositionList[j].trim());
+			}
+		}
+		treeDivMap.put(Character.CHAR_DRU, druIntegers);
+		String[] necList = new String[3];
+		Integer[][] necIntegers = new Integer[3][18];
+		necList[0] = Form.properties.getProperty("skillTree.nec.tab1.map");
+		necList[1] = Form.properties.getProperty("skillTree.nec.tab2.map");
+		necList[2] = Form.properties.getProperty("skillTree.nec.tab3.map");
+		for(int i=0; i<3; i++){
+			String[] skillPositionList = necList[i].split(",");
+			for(int j=0; j<18; j++){
+				necIntegers[i][j] = Integer.parseInt(skillPositionList[j].trim());
+			}
+		}
+		treeDivMap.put(Character.CHAR_NEC, necIntegers);
+		String[] palList = new String[3];
+		Integer[][] palIntegers = new Integer[3][18];
+		palList[0] = Form.properties.getProperty("skillTree.pal.tab1.map");
+		palList[1] = Form.properties.getProperty("skillTree.pal.tab2.map");
+		palList[2] = Form.properties.getProperty("skillTree.pal.tab3.map");
+		for(int i=0; i<3; i++){
+			String[] skillPositionList = palList[i].split(",");
+			for(int j=0; j<18; j++){
+				palIntegers[i][j] = Integer.parseInt(skillPositionList[j].trim());
+			}
+		}
+		treeDivMap.put(Character.CHAR_PAL, palIntegers);
+		String[] sorList = new String[3];
+		Integer[][] sorIntegers = new Integer[3][18];
+		sorList[0] = Form.properties.getProperty("skillTree.sor.tab1.map");
+		sorList[1] = Form.properties.getProperty("skillTree.sor.tab2.map");
+		sorList[2] = Form.properties.getProperty("skillTree.sor.tab3.map");
+		for(int i=0; i<3; i++){
+			String[] skillPositionList = sorList[i].split(",");
+			for(int j=0; j<18; j++){
+				sorIntegers[i][j] = Integer.parseInt(skillPositionList[j].trim());
+			}
+		}
+		treeDivMap.put(Character.CHAR_SOR, sorIntegers);
+	}
 
 	private SkillSpan dataSpan;
 	private TabDiv tab1;
@@ -192,6 +283,7 @@ public class SkillTree extends JFrame{
 	private TabDiv tab3;
 	private TabDiv tab4;
 	private ResetLable[] resetLables;
+	private TreeDiv[][] treeTable;
 	private SkillTree()  {
 		try {
 			//设置图标
@@ -205,7 +297,7 @@ public class SkillTree extends JFrame{
 			Image dataBackGround = ImageIO.read(ClassLoader.getSystemResourceAsStream(Form.properties.getProperty("skillTree.dataBackGround.path")));
 			BackGroundPanel dataPanel = new BackGroundPanel(dataBackGround, new FlowLayout());
 			mainPanel.add(dataPanel, data_panel_index);
-			String text = "<html> <span color:#ff4040> <span color:#00ff00>火焰箭<br></span>在箭矢或弓弹上附带了魔法火焰，<br> 并在打击时增加了火焰的伤害<br> <br> <span color:#00ff00><span color:black>40: </span>火焰箭 由以下技能得到额外加成:<br></span><span color:black>63: </span>爆裂箭: +12% 火焰伤害每一技能等级<br></span></html>";
+			String text = "<html> <span color=#ff4040 text-align=center> <h2 color=#00ff00>火焰箭<br></h2>在箭矢或弓弹上附带了魔法火焰，<br> 并在打击时增加了火焰的伤害<br> <br> <span color=#00ff00><span color=black>40: </span >火焰箭 由以下技能得到额外加成:<br></span><span color=black>63: </span>爆裂箭: +12% 火焰伤害每一技能等级<br></span></html>";
 			dataSpan = new SkillSpan(text); 
 			dataPanel.setSize(320, 432);
 			dataPanel.add(dataSpan,data_span_index);
@@ -228,6 +320,13 @@ public class SkillTree extends JFrame{
 			skillTreePanel.add(resetLables[0]);
 			skillTreePanel.add(resetLables[1]);
 			skillTreePanel.add(resetLables[2]);
+			treeTable = new TreeDiv[6][3];
+			for(int i=0;i<6;i++){
+				for(int j=0;j<3;j++){
+					treeTable[i][j] = new TreeDiv(i,j);
+					skillTreePanel.add(treeTable[i][j]);
+				}
+			}
 			setVisible(true);
 		} catch (IOException e) {
 			logger.error("",e);
@@ -247,12 +346,26 @@ public class SkillTree extends JFrame{
 			getTab3().setStr("<html>" + tabNames[2] + "<br>0</html>");
 			tab4.setStr("<html>" + tabNames[3] + "<br>0</html>");
 		}
+		
 		Integer close = tabCloseMap.get(option.getValue())[0];
 		for(int i=1; i<=3; i++){
 			if (i == close) {
 				resetLables[i-1].setEnabled(true);
 			}else {
 				resetLables[i-1].setEnabled(false);
+			}
+		}
+		Integer[] treeDiv = treeDivMap.get(option.getValue())[0];
+		for(int i=0; i<6; i++){
+			for(int j=0; j<3; j++){
+				if (treeDiv[i*3+j] > 0) {
+					treeTable[i][j].setVisible(true);
+					Util.setEnable(treeTable[i][j], true);
+					treeTable[i][j].setSkillIndex(treeDiv[i*3+j]);
+				}else {
+					treeTable[i][j].setVisible(false);
+					Util.setEnable(treeTable[i][j], false);
+				}
 			}
 		}
 	}
@@ -282,7 +395,7 @@ public class SkillTree extends JFrame{
 		@Override
 		public void windowClosed(WindowEvent e) {
 			Form form = Form.getInstance();
-			form.setEnable(form.getBody(), true);
+			Util.setEnable(form.getBody(), true);
 			form.getCalc().setEnabled(true);
 			form.getSpeedCalculator().setCharValues(form);
 		}
