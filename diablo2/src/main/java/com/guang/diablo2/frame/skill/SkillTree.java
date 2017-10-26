@@ -34,12 +34,14 @@ public class SkillTree extends JFrame{
 	private static Map<Integer, Image[]> treeBackGroudMap = null;
 	private static Map<Integer, String[]> tabNameMap = null;
 	private static Map<Integer, Integer[]> tabCloseMap = null;
-	public static Map<Integer, Integer[][]> treeDivMap = null;
+	private static Map<Integer, Integer[][]> treeDivMap = null;
+	static{
+		initTabNameMap();
+	}
 	public static SkillTree getInstance() {
 		try {
 			if (instance == null) {
 				initTreeBackGroundMap();
-				initTabNameMap();
 				initTabCloseMap();
 				initTreeDivMap();
 				instance = new SkillTree();
@@ -50,6 +52,10 @@ public class SkillTree extends JFrame{
 			logger.error("",e);
 			return instance;
 		}
+	}
+	
+	public static String[] getTabNames(int uchar) {
+		return tabNameMap.get(uchar);
 	}
 
 	private static void initTreeBackGroundMap() throws IOException {
@@ -340,13 +346,15 @@ public class SkillTree extends JFrame{
 	public void init(Option option) {
 		setTitle(option.getLable()+"技能树");
 		uchar = option.getValue();
-		
+		Character character = Form.getInstance().getSpeedCalculator().getCharacter();
 		String[] tabNames = tabNameMap.get(uchar);
 		if (tabNames!=null && tabNames.length==4) {
 			for(int i=0; i<3; i++){
-				tab[i].setStr("<html>" + tabNames[i] + "<br>0</html>");
+				int tabSkillSum = character.getBasicSkillLevelTabSum(i);
+				tab[i].setTabName(tabNames[i]).setSkillSum(tabSkillSum);
 			}
-			tab4.setStr("<html>" + tabNames[3] + "<br>0</html>");
+			int basicSkillLevelSum = character.getBasicSkillLevelSum();
+			tab4.setTabName(tabNames[3]).setSkillSum(basicSkillLevelSum);
 		}
 		showTab(0);
 	}
@@ -365,13 +373,14 @@ public class SkillTree extends JFrame{
 				resetLables[i-1].setEnabled(false);
 			}
 		}
-		Integer[] treeDiv = treeDivMap.get(uchar)[n];
+		Integer[] treeDiv = getTabTreeDiv(n);
 		for(int i=0; i<6; i++){
 			for(int j=0; j<3; j++){
 				if (treeDiv[i*3+j] > 0) {
 					treeTable[i][j].setVisible(true);
 					Util.setEnable(treeTable[i][j], true);
 					treeTable[i][j].setSkillIndex(treeDiv[i*3+j]);
+					treeTable[i][j].refresh();
 				}else {
 					treeTable[i][j].setVisible(false);
 					Util.setEnable(treeTable[i][j], false);
@@ -407,12 +416,43 @@ public class SkillTree extends JFrame{
 		return tab[n];
 	}
 	
+	public TabDiv getTab4() {
+		return tab4;
+	}
+	
+	public Integer[] getTabTreeDiv(int n) {
+		return treeDivMap.get(uchar)[n];
+	}
+	
+	public Integer[] getTabTreeDiv() {
+		return getTabTreeDiv(tabIndex);
+	}
+	
 	public TreeDiv[][] getTreeTable() {
 		return treeTable;
 	}
 	
 	public int getTabIndex() {
 		return tabIndex;
+	}
+	
+	/**获取技能所在版块id
+	 * @param skillId
+	 * @return 失败返回-1
+	 * @author zhouchenguang
+	 * @date 2017年10月27日上午1:08:01
+	 * @since 1.0.2
+	 */
+	public int getSkillInTab(int skillId) {
+		Integer[][] skillMap = treeDivMap.get(uchar);
+		for(int i=0; i<3; i++){
+			for(int item : skillMap[i]){
+				if (item == skillId) {
+					return i;
+				}
+			}
+		}
+		return -1;
 	}
 
 	private static class CloseListener extends WindowAdapter{

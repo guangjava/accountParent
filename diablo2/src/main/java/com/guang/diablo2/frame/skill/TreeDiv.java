@@ -16,6 +16,7 @@ import javax.swing.text.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.guang.diablo2.calculator.SkillCalculator;
 import com.guang.diablo2.entity.base.Character;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 import com.guang.diablo2.frame.speed.Form;
@@ -81,6 +82,14 @@ public class TreeDiv extends JPanel{
 		ilvl.getDocument().addDocumentListener(ilvlListener);
 		add(blvl);
 		add(ilvl);
+	}
+	
+	public void refresh() {
+		Character character = Form.getInstance().getSpeedCalculator().getCharacter();
+		int basicSkillLevel = character.getBasicSkillLevel(skillIndex);
+		int plusSkillLevel = character.getPlusSkillLevel(skillIndex);
+		blvl.setText(basicSkillLevel+"");
+		ilvl.setText(plusSkillLevel+"");
 	}
 
 	public int getSkillIndex() {
@@ -154,9 +163,10 @@ public class TreeDiv extends JPanel{
 			TreeDiv parent = (TreeDiv) lable.getParent();
 			SkillTree skillTree = SkillTree.getInstance();
 			int skillId = parent.getSkillIndex();
-			AbstractSkill skill = skillTree.getSkillCalculator().getSkill(skillId);
+			AbstractSkill skill = SkillCalculator.getSkill(skillId);
 			Character character = Form.getInstance().getSpeedCalculator().getCharacter();
-			int level = character.getSkillLevel(skillId);
+			int tabId = skillTree.getSkillInTab(skillId);
+			int level = character.getSkillLevel(skillId, tabId);
 			String text = "<html>"+skillTree.display(skill, level)+"</html>";
 			skillTree.getDataSpan().setText(text);
 		}
@@ -173,7 +183,7 @@ public class TreeDiv extends JPanel{
 		
 		/**
 		 * @param id 0-blvl 1-ilvl
-		 * @param skillId 技能id
+		 * @param x 表格横坐标
 		 */
 		private InputListener(int id,int x,int y) {
 			this.id = id;
@@ -209,10 +219,8 @@ public class TreeDiv extends JPanel{
 					value = Integer.parseInt(text);
 				}
 				//更新数据
-				int uchar = character.getId();
 				SkillTree skillTree = SkillTree.getInstance();
-				int tabIndex = skillTree.getTabIndex();
-				Integer[] treeDivTable = SkillTree.treeDivMap.get(uchar)[tabIndex];
+				Integer[] treeDivTable = skillTree.getTabTreeDiv();
 				int skillId = treeDivTable[x*3+y]; 
 				if (id == blvl_id) {
 					character.setBasicSkillLevel(skillId, value);
@@ -220,16 +228,16 @@ public class TreeDiv extends JPanel{
 					character.setPlusSkillLevel(skillId, value);
 				}
 				//进行展示 
-				AbstractSkill skill = skillTree.getSkillCalculator().getSkill(skillId);
-				int level = character.getSkillLevel(skillId);
+				AbstractSkill skill = SkillCalculator.getSkill(skillId);
+				int tabIndex = skillTree.getTabIndex();
+				int level = character.getSkillLevel(skillId, tabIndex);
 				String data = "<html>"+skillTree.display(skill, level)+"</html>";
 				skillTree.getDataSpan().setText(data);
 				//数据求和
-				int tabSum = 0;
-				for (Integer treeDivSkill : treeDivTable) {
-					tabSum += character.getBasicSkillLevel(treeDivSkill);
-				}
-				
+				int tabSum = character.getBasicSkillLevelTabSum(tabIndex);
+				skillTree.getTab(tabIndex).setSkillSum(tabSum);
+				int basicSkillLevelSum = character.getBasicSkillLevelSum();
+				skillTree.getTab4().setSkillSum(basicSkillLevelSum);
 			} catch (Exception e1) {
 				logger.error("",e1);
 			}

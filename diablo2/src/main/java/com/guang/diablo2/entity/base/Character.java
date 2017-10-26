@@ -3,7 +3,10 @@ package com.guang.diablo2.entity.base;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
+import com.guang.diablo2.calculator.SkillCalculator;
+import com.guang.diablo2.frame.skill.SkillTree;
 import com.guang.diablo2.frame.speed.Option;
 
 public class Character {
@@ -58,6 +61,8 @@ public class Character {
 	private int strength;
 	private int dexterity;
 	private Map<Integer, Integer[]> skillLevelMap;
+	private int[] tabPlusSkillLevel = {0,0,0};
+	private int charPlusSKillLevel = 0;
 	
 	public Character(Option uchar,int strength,int dexterity){
 		id = uchar.getValue();
@@ -80,7 +85,6 @@ public class Character {
 	public int getDexterity() {
 		return dexterity;
 	}
-	
 
 	public void setDexterity(int dexterity) {
 		this.dexterity = dexterity;
@@ -90,7 +94,6 @@ public class Character {
 		return id;
 	}
 	
-
 	public String getName() {
 		return name;
 	}
@@ -100,12 +103,13 @@ public class Character {
 		name = uchar.getLable();
 	}
 	
-	public int getSkillLevel(int skillId) {
+	public int getSkillLevel(int skillId, int tabId) {
+		int sum = charPlusSKillLevel + tabPlusSkillLevel[tabId];
 		Integer[] level = skillLevelMap.get(skillId);
 		if (level != null) {
-			return level[0]+level[1];
+			return sum+level[0]+level[1];
 		}else {
-			return 0;
+			return sum;
 		}
 	}
 	
@@ -149,6 +153,22 @@ public class Character {
 		level[1] = value;
 	}
 	
+	public int getTabPlusSkillLevel(int n) {
+		return tabPlusSkillLevel[n];
+	}
+	
+	public void setTabPlusSkillLevel(int n,int value) {
+		tabPlusSkillLevel[n] = value;
+	}
+	
+	public int getCharPlusSKillLevel() {
+		return charPlusSKillLevel;
+	}
+
+	public void setCharPlusSKillLevel(int charPlusSKillLevel) {
+		this.charPlusSKillLevel = charPlusSKillLevel;
+	}
+
 	public int getBasicSkillLevelSum() {
 		int sum = 0;
 		Collection<Integer[]> values = skillLevelMap.values();
@@ -158,11 +178,51 @@ public class Character {
 		return sum;
 	}
 	
-	public Map<String, String> toMap() {
-		Map<String, String> charMap = new HashMap<>();
+	public int getBasicSkillLevelTabSum(int tabId) {
+		int sum = 0;
+		Integer[] tabSkills = SkillTree.getInstance().getTabTreeDiv(tabId);
+		for (Integer skill : tabSkills) {
+			if (skill > 0) {
+				Integer[] level = skillLevelMap.get(skill);
+				if (level != null) {
+					sum+=level[0];
+				}
+			}
+		}
+		return sum;
+	}
+	
+	public Map<String, Object> toMap() {
+		Map<String, Object> charMap = new HashMap<>();
 		charMap.put("名称", getName());
 		charMap.put("力量", getStrength()+"");
 		charMap.put("敏捷", getDexterity()+"");
+		if (charPlusSKillLevel > 0) {
+			charMap.put("角色技能增加", charPlusSKillLevel + "");
+		}
+		String[] tabNames = SkillTree.getTabNames(id);
+		for(int i=0; i<3; i++){
+			if (tabPlusSkillLevel[i] > 0) {
+				charMap.put(tabNames[i].replace("<br>", "")+"增加", tabPlusSkillLevel[i]+"");
+			}
+		}
+		Map<String, Map<String, String>> skillMap = new HashMap<String, Map<String,String>>();
+		for(Entry<Integer, Integer[]> entry : skillLevelMap.entrySet()){
+			Integer[] value = entry.getValue();
+			if (value!=null && (value[0]>0 || value[1]>0)) {
+				int skillId = entry.getKey();
+				String name_en = SkillCalculator.getSkill(skillId).getName_en();
+				Map<String, String> skill = new HashMap<String, String>();
+				if (value[0] > 0) {
+					skill.put("基本", value[0]+"");
+				}
+				if (value[1] > 0) {
+					skill.put("装备增加", value[1]+"");
+				}
+				skillMap.put(name_en, skill);
+			}
+		}
+		charMap.put("技能", skillMap);
 		return charMap;
 	}
 }

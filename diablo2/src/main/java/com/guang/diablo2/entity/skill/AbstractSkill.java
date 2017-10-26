@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.guang.diablo2.entity.base.Character;
+import com.guang.diablo2.frame.skill.SkillTree;
 import com.guang.diablo2.frame.speed.Form;
 
 /**
@@ -900,7 +901,12 @@ public abstract class AbstractSkill {
 	 */
 	protected int lvl(int skillId) {
 		Character character = Form.getInstance().getSpeedCalculator().getCharacter();
-		return character.getSkillLevel(skillId);
+		int tabId = SkillTree.getInstance().getSkillInTab(skillId);
+		if (tabId >= 0) {
+			return character.getSkillLevel(skillId, tabId);
+		}else {
+			return 0;
+		}
 	}
 	
 	/**只要参数中有一个字符串为空或数字为0则返回空字符串

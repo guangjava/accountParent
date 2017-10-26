@@ -6,14 +6,16 @@ import com.guang.diablo2.entity.skill.AbstractSkill;
 import com.guang.diablo2.frame.speed.Form;
 
 public class SkillCalculator {
-	private Map<Integer, AbstractSkill> skillMap;
-	
-	public SkillCalculator() {
-		super();
+	private static Map<Integer, AbstractSkill> skillMap;
+	static{
 		skillMap = AbstractSkill.getSkillMap(Form.properties.getProperty("skillList"));
 	}
+	public SkillCalculator() {
+		super();
+		
+	}
 
-	public AbstractSkill getSkill(int skillId) {
+	public static AbstractSkill getSkill(int skillId) {
 		return skillMap.get(skillId);
 	}
 }
