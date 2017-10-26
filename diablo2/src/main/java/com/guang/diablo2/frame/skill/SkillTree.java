@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 
 import com.guang.diablo2.calculator.SkillCalculator;
 import com.guang.diablo2.entity.base.Character;
+import com.guang.diablo2.entity.skill.AbstractSkill;
 import com.guang.diablo2.frame.base.BackGroundPanel;
 import com.guang.diablo2.frame.base.Util;
 import com.guang.diablo2.frame.speed.Form;
@@ -29,14 +30,11 @@ public class SkillTree extends JFrame{
 	private static final int data_panel_index = 0;
 	private static final int tree_panel_index = 1;
 	private static final int data_span_index = 0;
-	private static final int tab1_index = 0;
-	private static final int tab2_index = 1;
-	private static final int tab3_index = 2;
 	private static SkillTree instance;
 	private static Map<Integer, Image[]> treeBackGroudMap = null;
 	private static Map<Integer, String[]> tabNameMap = null;
 	private static Map<Integer, Integer[]> tabCloseMap = null;
-	private static Map<Integer, Integer[][]> treeDivMap = null;
+	public static Map<Integer, Integer[][]> treeDivMap = null;
 	public static SkillTree getInstance() {
 		try {
 			if (instance == null) {
@@ -283,13 +281,12 @@ public class SkillTree extends JFrame{
 
 	private SkillCalculator skillCalculator;
 	private SkillSpan dataSpan;
-	private TabDiv tab1;
-	private TabDiv tab2;
-	private TabDiv tab3;
+	private TabDiv[] tab;
 	private TabDiv tab4;
 	private ResetLable[] resetLables;
 	private TreeDiv[][] treeTable;
 	private int uchar;
+	private int tabIndex;
 	private SkillTree()  {
 		try {
 			skillCalculator = new SkillCalculator();
@@ -311,12 +308,13 @@ public class SkillTree extends JFrame{
 			mainPanel.add(skillTreePanel, tree_panel_index);
 			skillTreePanel.setSize(320, 432);
 			skillTreePanel.setLocation(320, 0);
-			tab1 = new TabDiv(0,230,329,85,96);
-			skillTreePanel.add(tab1, tab1_index);
-			tab2 = new TabDiv(1,230,221,85,96);
-			skillTreePanel.add(tab2, tab2_index);
-			tab3 = new TabDiv(2,230,113,85,96);
-			skillTreePanel.add(tab3, tab3_index);
+			tab = new TabDiv[3];
+			tab[0] = new TabDiv(0,230,329,85,96);
+			skillTreePanel.add(tab[0]);
+			tab[1] = new TabDiv(1,230,221,85,96);
+			skillTreePanel.add(tab[1]);
+			tab[2] = new TabDiv(2,230,113,85,96);
+			skillTreePanel.add(tab[2]);
 			tab4 = new TabDiv(3,237, 0, 79, 79);
 			skillTreePanel.add(tab4);
 			resetLables = new ResetLable[3];
@@ -345,15 +343,16 @@ public class SkillTree extends JFrame{
 		
 		String[] tabNames = tabNameMap.get(uchar);
 		if (tabNames!=null && tabNames.length==4) {
-			getTab1().setStr("<html>" + tabNames[0] + "<br>0</html>");
-			getTab2().setStr("<html>" + tabNames[1] + "<br>0</html>");
-			getTab3().setStr("<html>" + tabNames[2] + "<br>0</html>");
+			for(int i=0; i<3; i++){
+				tab[i].setStr("<html>" + tabNames[i] + "<br>0</html>");
+			}
 			tab4.setStr("<html>" + tabNames[3] + "<br>0</html>");
 		}
 		showTab(0);
 	}
 	
 	public void showTab(int n) {
+		tabIndex = n;
 		Image[] images = treeBackGroudMap.get(uchar);
 		if (images!=null && images.length==3) {
 			getTreePanel().setImage(images[n]);
@@ -382,6 +381,16 @@ public class SkillTree extends JFrame{
 		repaint();
 	}
 	
+	public String display(AbstractSkill skill,int level) {
+		return (level==0?"<span color=#ff4040>":"")
+				+"<h2 color=#00ff00>"+skill.getName_zh()+"("+skill.getName_en()+")"+"<br></h2>"
+				+skill.getDesc1()+"<br>"
+				+(level>0?skill.cc("<br>",skill.getDesc2())
+						+"<br>当前技能等级: "+level+"<br>"+skill.getDetail():"")
+						+skill.cc("<br>",skill.getPlus())
+						+(level==0?"</span>":"");
+	}
+	
 	public SkillCalculator getSkillCalculator() {
 		return skillCalculator;
 	}
@@ -394,18 +403,18 @@ public class SkillTree extends JFrame{
 		return (BackGroundPanel) getContentPane().getComponent(tree_panel_index);
 	}
 	
-	public TabDiv getTab1() {
-		return tab1;
+	public TabDiv getTab(int n) {
+		return tab[n];
 	}
 	
-	public TabDiv getTab2() {
-		return tab2;
+	public TreeDiv[][] getTreeTable() {
+		return treeTable;
 	}
 	
-	public TabDiv getTab3() {
-		return tab3;
+	public int getTabIndex() {
+		return tabIndex;
 	}
-	
+
 	private static class CloseListener extends WindowAdapter{
 
 		@Override

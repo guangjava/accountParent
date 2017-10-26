@@ -35,16 +35,18 @@ public class WeaponSpeed {
 	int lastC2H   = 0;
 	boolean firstCall = true;
 	private List<Weapon> weaponlist;
-	private Character character = null;
+	private Map<Integer, Character> charMap;
 	private Double min = 1d;
 	private Double max = 2d;
 	private DecimalFormat df = new DecimalFormat("#.00");
 	private Double fps;
+	private Character character;
 	/**
 	 * 
 	 */
 	public WeaponSpeed() {
 		initWeaponlist();
+		charMap = new HashMap<>();
 	}
 
 	private void initWeaponlist() {
@@ -88,7 +90,11 @@ public class WeaponSpeed {
 			}else {
 				form.getSkillTree().setEnabled(true);
 			}
-			character = new Character(selectedUchar, form.getStrengthText(), form.getDexterityText());
+			character = charMap.get(uchar);
+			if (character == null) {
+				character = new Character(selectedUchar, form.getStrengthText(), form.getDexterityText());
+				charMap.put(uchar, character);
+			}
 			JComboBox<Option> skill = form.getSkill();
 			if (skill.getItemCount() > 0) skill.removeAllItems();
 			switch (uchar) {
@@ -1462,12 +1468,8 @@ public class WeaponSpeed {
 		return weaponlist;
 	}
 
-	/**
-	 * 设置 #{bare_field_comment}
-	 * @param weaponlist the weaponlist to set
-	 */
-	public void setWeaponlist(List<Weapon> weaponlist) {
-		this.weaponlist = weaponlist;
+	public Character getCharacter() {
+		Form form = Form.getInstance();
+		return charMap.get(form.getSelectedUchar().getValue());
 	}
-
 }

@@ -19,7 +19,16 @@ public class ResetLable extends JLabel{
 		public void mouseClicked(MouseEvent e) {
 			ResetLable source = (ResetLable) e.getSource();
 			if (source.isEnabled()) {
-				System.out.println("a");
+				SkillTree skillTree = SkillTree.getInstance();
+				TreeDiv[][] treeTable = skillTree.getTreeTable();
+				for (TreeDiv[] treeDivs : treeTable) {
+					for (TreeDiv treeDiv : treeDivs) {
+						if (treeDiv.isEnabled()) {
+							treeDiv.setBlvlText("0");
+							treeDiv.setIlvlText("0");
+						}
+					}
+				}
 			}
 		}
 	}

@@ -1,5 +1,6 @@
 package com.guang.diablo2.entity.base;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -56,12 +57,14 @@ public class Character {
 	private String name;
 	private int strength;
 	private int dexterity;
+	private Map<Integer, Integer[]> skillLevelMap;
 	
 	public Character(Option uchar,int strength,int dexterity){
 		id = uchar.getValue();
 		name = uchar.getLable();
 		this.strength = strength;
 		this.dexterity = dexterity;
+		skillLevelMap = new HashMap<>();
 	}
 
 	public int getStrength() {
@@ -95,6 +98,64 @@ public class Character {
 	public void setUchar(Option uchar) {
 		id = uchar.getValue();
 		name = uchar.getLable();
+	}
+	
+	public int getSkillLevel(int skillId) {
+		Integer[] level = skillLevelMap.get(skillId);
+		if (level != null) {
+			return level[0]+level[1];
+		}else {
+			return 0;
+		}
+	}
+	
+	public int getBasicSkillLevel(int skillId) {
+		Integer[] level = skillLevelMap.get(skillId);
+		if (level != null) {
+			return level[0];
+		}else {
+			return 0;
+		}
+	}
+	
+	public void setBasicSkillLevel(int skillId,int value) {
+		Integer[] level = skillLevelMap.get(skillId);
+		if (level == null) {
+			level = new Integer[2];
+			level[0] = 0;
+			level[1] = 0;
+			skillLevelMap.put(skillId, level);
+		}
+		level[0] = value;
+	}
+	
+	public int getPlusSkillLevel(int skillId) {
+		Integer[] level = skillLevelMap.get(skillId);
+		if (level != null) {
+			return level[1];
+		}else {
+			return 0;
+		}
+	}
+	
+	public void setPlusSkillLevel(int skillId,int value) {
+		Integer[] level = skillLevelMap.get(skillId);
+		if (level == null) {
+			level = new Integer[2];
+			level[0] = 0;
+			level[1] = 0;
+			skillLevelMap.put(skillId, level);
+		}
+		level[1] = value;
+	}
+	
+	public int getBasicSkillLevelSum() {
+		int sum = 0;
+		Collection<Integer[]> values = skillLevelMap.values();
+		for (Integer[] level : values) {
+			sum += level[0];
+		}
+		return sum;
 	}
 	
 	public Map<String, String> toMap() {
