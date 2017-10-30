@@ -111,7 +111,7 @@ public abstract class AbstractSkill {
 	 */
 	public static final int DECOY_ID = 28;
 	/**
-	 * 逃避id
+	 * 回避id
 	 */
 	public static final int EVADE_ID = 29;
 	/**
