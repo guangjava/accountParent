@@ -1152,12 +1152,22 @@ public abstract class AbstractSkill {
 	}
 	
 	/**
-	 * @return 伤害: +增加数值
+	 * @return 最小伤害: +增加数值
 	 * @author zhouchenguang
 	 * @date 2017年10月27日下午2:39:08
 	 * @since 1.0.2
 	 */
-	public int getPlusDamage() {
+	public int getPlusMinDamage() {
+		return 0;
+	}
+	
+	/**
+	 * @return 最大伤害: +增加数值
+	 * @author zhouchenguang
+	 * @date 2017年10月27日下午2:39:08
+	 * @since 1.0.2
+	 */
+	public int getPlusMaxDamage() {
 		return 0;
 	}
 	

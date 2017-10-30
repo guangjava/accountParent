@@ -26,7 +26,7 @@ public class MagicArrow extends AbstractSkill{
 	public String getDetail() {
 		return ""+"<span color=black>66: </span>"+"转化 "+getConvertMagicDamage()+"% 物理伤害为魔法伤害<br>"
 				+"<span color=black>8: </span>"+cc("命中率: +",getAR(),"%<br>")
-				+"<span color=black>9: </span>"+cc("伤害: +",getPlusDamage(),"<br>")
+				+"<span color=black>9: </span>"+cc("伤害: +",getPlusMinDamage(),"<br>")
 				+"<span color=black>1: </span>"+cc("魔法消耗: ",getManaCost(),"<br>");
 	}
 
@@ -51,7 +51,7 @@ public class MagicArrow extends AbstractSkill{
 	}
 
 	@Override
-	public int getPlusDamage() {
+	public int getPlusMinDamage() {
 		return lvl(MAGIC_ARROW_ID);
 	}
 
