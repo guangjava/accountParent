@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 蔑视
+ * <b>蔑视</b>
  */
 public class Defiance extends AbstractSkill{
 

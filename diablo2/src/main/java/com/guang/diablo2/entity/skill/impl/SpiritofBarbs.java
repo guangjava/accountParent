@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 棘灵
+ * <b>棘灵</b>
  */
 public class SpiritofBarbs extends AbstractSkill{
 

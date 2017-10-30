@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 削弱
+ * <b>削弱</b>
  */
 public class Weaken extends AbstractSkill{
 

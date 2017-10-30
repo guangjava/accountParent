@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 连锁闪电
+ * <b>连锁闪电</b>
  */
 public class ChainLightning extends AbstractSkill{
 

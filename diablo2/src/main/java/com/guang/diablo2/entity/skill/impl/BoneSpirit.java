@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 骨魂
+ * <b>骨魂</b>
  */
 public class BoneSpirit extends AbstractSkill{
 

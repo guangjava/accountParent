@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 狂乱
+ * <b>狂乱</b>
  */
 public class Frenzy extends AbstractSkill{
 

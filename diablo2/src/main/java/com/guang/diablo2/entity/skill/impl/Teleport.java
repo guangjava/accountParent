@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 心灵传送
+ * <b>心灵传送</b>
  */
 public class Teleport extends AbstractSkill{
 

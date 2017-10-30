@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 寻找物品
+ * <b>寻找物品</b>
  */
 public class FindItem extends AbstractSkill{
 

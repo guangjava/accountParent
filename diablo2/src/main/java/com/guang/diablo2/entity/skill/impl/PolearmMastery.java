@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 长棍掌握
+ * <b>长棍掌握</b>
  */
 public class PolearmMastery extends AbstractSkill{
 

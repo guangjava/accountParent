@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 凤翼天翔
+ * <b>凤翼天翔</b>
  */
 public class PhoenixStrike extends AbstractSkill{
 

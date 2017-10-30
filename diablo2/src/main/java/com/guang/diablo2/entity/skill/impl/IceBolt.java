@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 冰弹
+ * <b>冰弹</b>
  */
 public class IceBolt extends AbstractSkill{
 

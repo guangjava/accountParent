@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 野性狂暴
+ * <b>野性狂暴</b>
  */
 public class FeralRage extends AbstractSkill{
 

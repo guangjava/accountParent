@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 战斗体制
+ * <b>战斗体制</b>
  */
 public class BattleOrders extends AbstractSkill{
 

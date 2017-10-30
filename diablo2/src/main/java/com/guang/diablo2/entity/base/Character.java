@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.guang.diablo2.calculator.SkillCalculator;
+import com.guang.diablo2.entity.skill.AbstractSkill;
 import com.guang.diablo2.frame.skill.SkillTree;
 import com.guang.diablo2.frame.speed.Option;
 
@@ -60,6 +61,9 @@ public class Character {
 	private String name;
 	private int strength;
 	private int dexterity;
+	private int vitality;
+	private int level;
+	private int baseLife;
 	private Map<Integer, Integer[]> skillLevelMap;
 	private int[] tabPlusSkillLevel = {0,0,0};
 	private int charPlusSKillLevel = 0;
@@ -88,6 +92,30 @@ public class Character {
 
 	public void setDexterity(int dexterity) {
 		this.dexterity = dexterity;
+	}
+
+	public int getVitality() {
+		return vitality;
+	}
+	
+	public void setVitality(int vitality) {
+		this.vitality = vitality;
+	}
+
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
+	}
+
+	public int getBaseLife() {
+		return baseLife;
+	}
+	
+	public void setBaseLife(int baseLife) {
+		this.baseLife = baseLife;
 	}
 
 	public int getId() {
@@ -122,8 +150,21 @@ public class Character {
 		}
 	}
 	
-	public void setBasicSkillLevel(int skillId,int value) {
+	public boolean setBasicSkillLevel(int skillId,int value) {
 		Integer[] level = skillLevelMap.get(skillId);
+		if (value > 0) {
+			//对需要技能进行验证
+			AbstractSkill skill = SkillCalculator.getSkill(skillId);
+			int[] requiredSkills = skill.getRequiredSkill();
+			for (int required : requiredSkills) {
+				if (required > 0) {
+					Integer[] prev = skillLevelMap.get(required);
+					if (prev == null || prev[0] == 0) {
+						return false;
+					}
+				}
+			} 
+		}
 		if (level == null) {
 			level = new Integer[2];
 			level[0] = 0;
@@ -131,6 +172,7 @@ public class Character {
 			skillLevelMap.put(skillId, level);
 		}
 		level[0] = value;
+		return true;
 	}
 	
 	public int getPlusSkillLevel(int skillId) {
@@ -224,5 +266,27 @@ public class Character {
 		}
 		charMap.put("技能", skillMap);
 		return charMap;
+	}
+	
+	@SuppressWarnings("unused")
+	private void refreshLife() {
+		//TODO 每个难度都有20点生命奖励，无法直接计算
+		switch (id) {
+		case CHAR_AMA:
+		case CHAR_ASN:
+			baseLife = 50 + 2*level + 3*vitality;
+			break;
+		case CHAR_NEC:
+			baseLife = (int)(14 + 1.5*level + 2*vitality);
+			break;
+		case CHAR_BAR:
+			baseLife = 55 + 2*level + 4*vitality;
+			break;
+		case CHAR_SOR:
+			baseLife = 40 + level + 2*vitality;
+			break;
+		default:
+			break;
+		}
 	}
 }

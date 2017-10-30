@@ -3,7 +3,8 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 逃避
+ * RENAME 回避
+ * <b>逃避</b>
  */
 public class Evade extends AbstractSkill{
 

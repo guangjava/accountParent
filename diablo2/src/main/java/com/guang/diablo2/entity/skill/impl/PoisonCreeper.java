@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 毒藤
+ * <b>毒藤</b>
  */
 public class PoisonCreeper extends AbstractSkill{
 

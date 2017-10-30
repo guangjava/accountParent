@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 尸体爆炸
+ * <b>尸体爆炸</b>
  */
 public class CorpseExplosion extends AbstractSkill{
 

@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 穿透
+ * <b>穿透</b>
  */
 public class Pierce extends AbstractSkill{
 

@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 毒牙
+ * <b>毒牙</b>
  */
 public class Venom extends AbstractSkill{
 

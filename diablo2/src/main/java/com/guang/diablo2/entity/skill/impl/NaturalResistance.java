@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 自然抵抗
+ * <b>自然抵抗</b>
  */
 public class NaturalResistance extends AbstractSkill{
 

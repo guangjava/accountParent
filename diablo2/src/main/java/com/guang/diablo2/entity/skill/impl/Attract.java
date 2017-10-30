@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 吸引
+ * <b>吸引</b>
  */
 public class Attract extends AbstractSkill{
 

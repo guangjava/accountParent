@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 温暖
+ * <b>温暖</b>
  */
 public class Warmth extends AbstractSkill{
 

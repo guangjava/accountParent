@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 剑系掌握
+ * <b>剑系掌握</b>
  */
 public class SwordMastery extends AbstractSkill{
 

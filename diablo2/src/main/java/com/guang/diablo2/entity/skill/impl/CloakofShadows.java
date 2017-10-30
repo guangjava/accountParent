@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 魔影斗篷
+ * <b>魔影斗篷</b>
  */
 public class CloakofShadows extends AbstractSkill{
 

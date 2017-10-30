@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 锤系掌握
+ * <b>锤系掌握</b>
  */
 public class MaceMastery extends AbstractSkill{
 

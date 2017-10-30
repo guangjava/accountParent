@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 熊人变化
+ * <b>熊人变化</b>
  */
 public class Werebear extends AbstractSkill{
 

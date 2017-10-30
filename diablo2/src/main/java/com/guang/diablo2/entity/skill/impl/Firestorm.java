@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 火风暴
+ * <b>火风暴</b>
  */
 public class Firestorm extends AbstractSkill{
 

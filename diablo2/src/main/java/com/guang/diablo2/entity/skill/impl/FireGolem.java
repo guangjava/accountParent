@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 火焰石魔
+ * <b>火焰石魔</b>
  */
 public class FireGolem extends AbstractSkill{
 

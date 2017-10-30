@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 焰拳
+ * <b>焰拳</b>
  */
 public class FistsofFire extends AbstractSkill{
 

@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 骨牢
+ * <b>骨牢</b>
  */
 public class BonePrison extends AbstractSkill{
 

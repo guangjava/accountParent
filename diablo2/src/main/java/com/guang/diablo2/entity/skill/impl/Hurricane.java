@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 暴风
+ * <b>暴风</b>
  */
 public class Hurricane extends AbstractSkill{
 

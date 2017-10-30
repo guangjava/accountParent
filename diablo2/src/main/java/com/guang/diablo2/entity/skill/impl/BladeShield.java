@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 刀刃之盾
+ * <b>刀刃之盾</b>
  */
 public class BladeShield extends AbstractSkill{
 

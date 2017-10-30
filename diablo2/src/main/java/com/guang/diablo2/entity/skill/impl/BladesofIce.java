@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 寒冰刃
+ * <b>寒冰刃</b>
  */
 public class BladesofIce extends AbstractSkill{
 

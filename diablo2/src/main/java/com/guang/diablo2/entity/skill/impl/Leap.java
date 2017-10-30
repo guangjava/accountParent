@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 跳跃
+ * <b>跳跃</b>
  */
 public class Leap extends AbstractSkill{
 

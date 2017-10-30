@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 衰老
+ * <b>衰老</b>
  */
 public class Decrepify extends AbstractSkill{
 

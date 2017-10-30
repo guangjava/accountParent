@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 投掷掌握
+ * <b>投掷掌握</b>
  */
 public class ThrowingMastery extends AbstractSkill{
 

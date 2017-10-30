@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 地狱火
+ * <b>地狱火</b>
  */
 public class Inferno extends AbstractSkill{
 

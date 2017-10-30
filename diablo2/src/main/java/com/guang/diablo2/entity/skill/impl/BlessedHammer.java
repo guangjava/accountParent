@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 祝福之槌
+ * <b>祝福之槌</b>
  */
 public class BlessedHammer extends AbstractSkill{
 

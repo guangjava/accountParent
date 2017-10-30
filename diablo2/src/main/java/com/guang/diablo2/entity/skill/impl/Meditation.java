@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 冥想
+ * <b>冥想</b>
  */
 public class Meditation extends AbstractSkill{
 

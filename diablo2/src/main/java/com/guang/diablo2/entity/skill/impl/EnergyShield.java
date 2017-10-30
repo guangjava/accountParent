@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 能量护盾
+ * <b>能量护盾</b>
  */
 public class EnergyShield extends AbstractSkill{
 

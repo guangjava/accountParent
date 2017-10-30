@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 影子大师
+ * <b>影子大师</b>
  */
 public class ShadowMaster extends AbstractSkill{
 

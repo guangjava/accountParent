@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 冻结之箭
+ * <b>冻结之箭</b>
  */
 public class FreezingArrow extends AbstractSkill{
 

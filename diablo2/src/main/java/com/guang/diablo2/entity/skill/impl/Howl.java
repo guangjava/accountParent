@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 狂嗥
+ * <b>狂嗥</b>
  */
 public class Howl extends AbstractSkill{
 

@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 饥饿
+ * <b>饥饿</b>
  */
 public class Hunger extends AbstractSkill{
 

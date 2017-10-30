@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 牺牲
+ * <b>牺牲</b>
  */
 public class Sacrifice extends AbstractSkill{
 

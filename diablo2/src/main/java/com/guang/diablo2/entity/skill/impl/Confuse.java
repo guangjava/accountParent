@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 迷乱
+ * <b>迷乱</b>
  */
 public class Confuse extends AbstractSkill{
 

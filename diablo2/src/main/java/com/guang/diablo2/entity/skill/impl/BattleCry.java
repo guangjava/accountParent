@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 战嗥
+ * <b>战嗥</b>
  */
 public class BattleCry extends AbstractSkill{
 

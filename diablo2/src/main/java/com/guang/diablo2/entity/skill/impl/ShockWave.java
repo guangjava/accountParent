@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 震波
+ * <b>震波</b>
  */
 public class ShockWave extends AbstractSkill{
 

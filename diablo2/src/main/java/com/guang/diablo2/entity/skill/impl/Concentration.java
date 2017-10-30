@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 专注
+ * <b>专注</b>
  */
 public class Concentration extends AbstractSkill{
 

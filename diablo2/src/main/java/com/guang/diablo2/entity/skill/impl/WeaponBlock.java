@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 武器格挡
+ * <b>武器格挡</b>
  */
 public class WeaponBlock extends AbstractSkill{
 

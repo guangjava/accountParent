@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 救赎
+ * <b>救赎</b>
  */
 public class Redemption extends AbstractSkill{
 

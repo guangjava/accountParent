@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 骷髅法师
+ * <b>骷髅法师</b>
  */
 public class RaiseSkeletalMage extends AbstractSkill{
 

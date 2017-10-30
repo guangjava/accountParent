@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 龙卷风
+ * <b>龙卷风</b>
  */
 public class Tornado extends AbstractSkill{
 

@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 雷暴
+ * <b>雷暴</b>
  */
 public class ThunderStorm extends AbstractSkill{
 

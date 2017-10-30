@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 雷光守卫
+ * <b>雷光守卫</b>
  */
 public class LightningSentry extends AbstractSkill{
 

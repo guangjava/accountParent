@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 增加耐力
+ * <b>增加耐力</b>
  */
 public class IncreasedStamina extends AbstractSkill{
 

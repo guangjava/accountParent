@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 大叫
+ * <b>大叫</b>
  */
 public class Shout extends AbstractSkill{
 

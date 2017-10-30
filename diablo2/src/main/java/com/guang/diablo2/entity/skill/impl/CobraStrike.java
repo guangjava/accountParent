@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 眼镜蛇攻击
+ * <b>眼镜蛇攻击</b>
  */
 public class CobraStrike extends AbstractSkill{
 

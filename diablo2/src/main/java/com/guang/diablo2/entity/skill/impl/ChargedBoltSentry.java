@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 电能守护
+ * <b>电能守护</b>
  */
 public class ChargedBoltSentry extends AbstractSkill{
 

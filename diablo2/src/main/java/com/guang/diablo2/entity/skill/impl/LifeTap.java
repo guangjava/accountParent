@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 生命偷取
+ * <b>生命偷取</b>
  */
 public class LifeTap extends AbstractSkill{
 

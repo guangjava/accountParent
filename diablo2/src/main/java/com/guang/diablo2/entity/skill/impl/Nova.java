@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 新星
+ * <b>新星</b>
  */
 public class Nova extends AbstractSkill{
 

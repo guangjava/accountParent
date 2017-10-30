@@ -140,6 +140,8 @@ public class TreeDiv extends JPanel{
 			if ((e.getModifiers() & InputEvent.BUTTON1_MASK) != 0) {
 				if (e.isAltDown()) {
 					parent.getIlvl().setText(plusSkillLevel+1+"");
+				}else if (e.isShiftDown()) {
+					parent.getBlvl().setText(basicSkillLevel+5+"");
 				}else {
 					parent.getBlvl().setText(basicSkillLevel+1+"");
 				}
@@ -148,11 +150,14 @@ public class TreeDiv extends JPanel{
 			if ((e.getModifiers() & InputEvent.BUTTON3_MASK) != 0) {
 				
 				if (basicSkillLevel > 0) {
-					if (e.isAltDown()) {
-						parent.getIlvl().setText(plusSkillLevel-1+"");
+					 if (e.isShiftDown()) {
+						parent.getBlvl().setText(basicSkillLevel - 5 + "");
 					}else {
 						parent.getBlvl().setText(basicSkillLevel - 1 + "");
 					}
+				}
+				if (plusSkillLevel>0 && e.isAltDown()) {
+					parent.getIlvl().setText(plusSkillLevel-1+"");
 				}
 			}
 		}
@@ -163,12 +168,7 @@ public class TreeDiv extends JPanel{
 			TreeDiv parent = (TreeDiv) lable.getParent();
 			SkillTree skillTree = SkillTree.getInstance();
 			int skillId = parent.getSkillIndex();
-			AbstractSkill skill = SkillCalculator.getSkill(skillId);
-			Character character = Form.getInstance().getSpeedCalculator().getCharacter();
-			int tabId = skillTree.getSkillInTab(skillId);
-			int level = character.getSkillLevel(skillId, tabId);
-			String text = "<html>"+skillTree.display(skill, level)+"</html>";
-			skillTree.getDataSpan().setText(text);
+			skillTree.showData(skillId);
 		}
 		
 	}
@@ -219,21 +219,22 @@ public class TreeDiv extends JPanel{
 					value = Integer.parseInt(text);
 				}
 				//更新数据
-				SkillTree skillTree = SkillTree.getInstance();
+				final SkillTree skillTree = SkillTree.getInstance();
 				Integer[] treeDivTable = skillTree.getTabTreeDiv();
 				int skillId = treeDivTable[x*3+y]; 
 				if (id == blvl_id) {
-					character.setBasicSkillLevel(skillId, value);
+					boolean result = character.setBasicSkillLevel(skillId, value);
+					if (!result) {
+						showError( skillId);
+						return;
+					}
 				}else if (id == ilvl_id) {
 					character.setPlusSkillLevel(skillId, value);
 				}
 				//进行展示 
-				AbstractSkill skill = SkillCalculator.getSkill(skillId);
-				int tabIndex = skillTree.getTabIndex();
-				int level = character.getSkillLevel(skillId, tabIndex);
-				String data = "<html>"+skillTree.display(skill, level)+"</html>";
-				skillTree.getDataSpan().setText(data);
+				skillTree.showData(skillId);
 				//数据求和
+				int tabIndex = skillTree.getTabIndex();
 				int tabSum = character.getBasicSkillLevelTabSum(tabIndex);
 				skillTree.getTab(tabIndex).setSkillSum(tabSum);
 				int basicSkillLevelSum = character.getBasicSkillLevelSum();
@@ -241,6 +242,25 @@ public class TreeDiv extends JPanel{
 			} catch (Exception e1) {
 				logger.error("",e1);
 			}
+		}
+
+		private void showError( int skillId) {
+			SkillTree skillTree = SkillTree.getInstance();
+			StringBuilder sb = new StringBuilder();
+			AbstractSkill skill = SkillCalculator.getSkill(skillId);
+			sb.append("<html><span>").append(skill.getName_zh()).append("(")
+			.append(skill.getName_en()).append(")升级失败<br>")
+			.append("需要先学习以下技能:<br>");
+			int[] requiredSkills = skill.getRequiredSkill();
+			for (int required : requiredSkills) {
+				if (required > 0) {
+					AbstractSkill requiredskill = SkillCalculator.getSkill(required);
+					sb.append("<li>").append(requiredskill.getName_zh()).append("(")
+					.append(requiredskill.getName_en()).append(")</li>");
+				}
+			}
+			sb.append("</span></html>");
+			new ErrorDialog(skillTree, "技能升级失败",sb.toString(), true);
 		}
 
 	}

@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 净化
+ * <b>净化</b>
  */
 public class Cleansing extends AbstractSkill{
 

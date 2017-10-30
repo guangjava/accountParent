@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 极地风暴
+ * <b>极地风暴</b>
  */
 public class ArcticBlast extends AbstractSkill{
 

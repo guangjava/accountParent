@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 嘲弄
+ * <b>嘲弄</b>
  */
 public class Taunt extends AbstractSkill{
 

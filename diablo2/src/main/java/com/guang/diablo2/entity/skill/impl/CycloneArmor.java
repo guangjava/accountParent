@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 飓风装甲
+ * <b>飓风装甲</b>
  */
 public class CycloneArmor extends AbstractSkill{
 

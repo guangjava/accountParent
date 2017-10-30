@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 拯救
+ * <b>拯救</b>
  */
 public class Salvation extends AbstractSkill{
 

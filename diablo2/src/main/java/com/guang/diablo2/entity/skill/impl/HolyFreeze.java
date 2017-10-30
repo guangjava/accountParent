@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 圣洁寒冰
+ * <b>圣洁寒冰</b>
  */
 public class HolyFreeze extends AbstractSkill{
 

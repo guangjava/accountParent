@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 复仇
+ * <b>复仇</b>
  */
 public class Vengeance extends AbstractSkill{
 

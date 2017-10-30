@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 影子战士
+ * <b>影子战士</b>
  */
 public class ShadowWarrior extends AbstractSkill{
 

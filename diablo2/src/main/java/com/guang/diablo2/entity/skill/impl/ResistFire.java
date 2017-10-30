@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 火焰抵抗
+ * <b>火焰抵抗</b>
  */
 public class ResistFire extends AbstractSkill{
 

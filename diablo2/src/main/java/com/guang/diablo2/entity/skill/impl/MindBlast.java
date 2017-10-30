@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 心灵爆震
+ * <b>心灵爆震</b>
  */
 public class MindBlast extends AbstractSkill{
 

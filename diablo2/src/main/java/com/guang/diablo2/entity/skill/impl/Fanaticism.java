@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 狂热
+ * <b>狂热</b>
  */
 public class Fanaticism extends AbstractSkill{
 

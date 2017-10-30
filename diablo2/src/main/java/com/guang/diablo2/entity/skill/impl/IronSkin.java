@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 铁布衫
+ * <b>铁布衫</b>
  */
 public class IronSkin extends AbstractSkill{
 

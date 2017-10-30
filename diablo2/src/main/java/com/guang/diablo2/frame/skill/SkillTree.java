@@ -5,11 +5,14 @@ import java.awt.Image;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import org.slf4j.Logger;
@@ -27,9 +30,6 @@ public class SkillTree extends JFrame{
 
 	private static final long serialVersionUID = 2988132438910113286L;
 	private static Logger logger = LoggerFactory.getLogger(SkillTree.class);
-	private static final int data_panel_index = 0;
-	private static final int tree_panel_index = 1;
-	private static final int data_span_index = 0;
 	private static SkillTree instance;
 	private static Map<Integer, Image[]> treeBackGroudMap = null;
 	private static Map<Integer, String[]> tabNameMap = null;
@@ -38,7 +38,18 @@ public class SkillTree extends JFrame{
 	static{
 		initTabNameMap();
 	}
-	public static SkillTree getInstance() {
+	
+	public static SkillTree getInstance(){
+		return getInstance(true);
+	}
+	/**
+	 * @param model 是否在前台显示
+	 * @return
+	 * @author zhouchenguang
+	 * @date 2017年10月29日上午2:32:22
+	 * @since 1.0.2
+	 */
+	public static SkillTree getInstance(boolean model) {
 		try {
 			if (instance == null) {
 				initTreeBackGroundMap();
@@ -46,7 +57,9 @@ public class SkillTree extends JFrame{
 				initTreeDivMap();
 				instance = new SkillTree();
 			}
-			instance.setVisible(true);
+			if (model) {
+				instance.setVisible(true);
+			}
 			return instance;
 		} catch (IOException e) {
 			logger.error("",e);
@@ -287,12 +300,21 @@ public class SkillTree extends JFrame{
 
 	private SkillCalculator skillCalculator;
 	private SkillSpan dataSpan;
+	private JLabel skillImg;
+	private BackGroundPanel skillTreePanel;
 	private TabDiv[] tab;
 	private TabDiv tab4;
 	private ResetLable[] resetLables;
 	private TreeDiv[][] treeTable;
 	private int uchar;
 	private int tabIndex;
+	/**
+	 * 基本技能等级显示是否正确，这个字段为了解决基本等级未通过后台校验，前端显示并未刷新问题，
+	 * 通过定时器定时取本字段进行刷新，
+	 * 对jtextfield修改必须在前一个documentListener执行完之后，否则会报错
+	 */
+	private boolean baseSkillLevelVerify = true;
+	
 	private SkillTree()  {
 		try {
 			skillCalculator = new SkillCalculator();
@@ -300,18 +322,21 @@ public class SkillTree extends JFrame{
 			Image icon = ImageIO.read(ClassLoader.getSystemResourceAsStream(Form.properties.getProperty("icon.path")));
 			setIconImage(icon);
 			setSize(655, 472);
+			setLocation(200, 200);
 			setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 			addWindowListener(new CloseListener());
 			JPanel mainPanel = new JPanel(null);
 			setContentPane(mainPanel);
 			Image dataBackGround = ImageIO.read(ClassLoader.getSystemResourceAsStream(Form.properties.getProperty("skillTree.dataBackGround.path")));
 			BackGroundPanel dataPanel = new BackGroundPanel(dataBackGround, new FlowLayout());
-			mainPanel.add(dataPanel, data_panel_index);
+			mainPanel.add(dataPanel);
 			dataSpan = new SkillSpan(""); 
 			dataPanel.setSize(320, 432);
-			dataPanel.add(dataSpan,data_span_index);
-			BackGroundPanel skillTreePanel = new BackGroundPanel(null, null);
-			mainPanel.add(skillTreePanel, tree_panel_index);
+			skillImg = new JLabel();
+			dataPanel.add(dataSpan);
+			dataPanel.add(skillImg);
+			skillTreePanel = new BackGroundPanel(null, null);
+			mainPanel.add(skillTreePanel);
 			skillTreePanel.setSize(320, 432);
 			skillTreePanel.setLocation(320, 0);
 			tab = new TabDiv[3];
@@ -373,6 +398,20 @@ public class SkillTree extends JFrame{
 				resetLables[i-1].setEnabled(false);
 			}
 		}
+		refresh(n);
+		repaint();
+	}
+
+	/**页面刷新
+	 * @param n 技能面板序号 -1代表当前面板
+	 * @author zhouchenguang
+	 * @date 2017年10月29日上午1:52:27
+	 * @since 1.0.2
+	 */
+	public void refresh(int n) {
+		if (n == -1) {
+			n = tabIndex;
+		}
 		Integer[] treeDiv = getTabTreeDiv(n);
 		for(int i=0; i<6; i++){
 			for(int j=0; j<3; j++){
@@ -387,17 +426,35 @@ public class SkillTree extends JFrame{
 				}
 			}
 		}
-		repaint();
+	}
+	
+	public void showData(int skillId) {
+		AbstractSkill skill = SkillCalculator.getSkill(skillId);
+		Character character = Form.getInstance().getSpeedCalculator().getCharacter();
+		int tabIndex = getTabIndex();
+		int level = character.getSkillLevel(skillId, tabIndex);
+		String data = "<html>"+display(skill, level)+"</html>";
+		dataSpan.setText(data);
+		String name = skill.getName_en();
+		String path = "img/skill/detail/"+name.replace(" ", "").toLowerCase()+".gif";
+		URL src = ClassLoader.getSystemResource(path);
+		if (src != null) {
+			ImageIcon image = new ImageIcon(src, name);
+			skillImg.setIcon(image);
+		}else {
+			skillImg.setIcon(null);
+		}
 	}
 	
 	public String display(AbstractSkill skill,int level) {
-		return (level==0?"<span color=#ff4040>":"")
-				+"<h2 color=#00ff00>"+skill.getName_zh()+"("+skill.getName_en()+")"+"<br></h2>"
+		String string = (level==0?"<span color=#ff4040>":"")
+				+"<h2 color=#00ff00>"+skill.getName_zh()+"("+skill.getName_en()+")"+"</h2>"
 				+skill.getDesc1()+"<br>"
-				+(level>0?skill.cc("<br>",skill.getDesc2())
-						+"<br>当前技能等级: "+level+"<br>"+skill.getDetail():"")
+				+(level>0?skill.cc(skill.getDesc2())
+						+"当前技能等级: "+level+"<br>"+skill.getDetail():"")
 						+skill.cc("<br>",skill.getPlus())
 						+(level==0?"</span>":"");
+		return string;
 	}
 	
 	public SkillCalculator getSkillCalculator() {
@@ -408,8 +465,12 @@ public class SkillTree extends JFrame{
 		return dataSpan;
 	}
 	
+	public JLabel getSkillImg() {
+		return skillImg;
+	}
+
 	public BackGroundPanel getTreePanel() {
-		return (BackGroundPanel) getContentPane().getComponent(tree_panel_index);
+		return skillTreePanel;
 	}
 	
 	public TabDiv getTab(int n) {
@@ -455,6 +516,16 @@ public class SkillTree extends JFrame{
 		return -1;
 	}
 
+	public boolean isBaseSkillLevelVerify() {
+		return baseSkillLevelVerify;
+	}
+	
+
+	public void setBaseSkillLevelVerify(boolean baseSkillLevelVerify) {
+		this.baseSkillLevelVerify = baseSkillLevelVerify;
+	}
+	
+
 	private static class CloseListener extends WindowAdapter{
 
 		@Override
@@ -463,8 +534,8 @@ public class SkillTree extends JFrame{
 			Util.setEnable(form.getBody(), true);
 			form.getCalc().setEnabled(true);
 			form.getSpeedCalculator().setCharValues(form);
+			form.getSkilltimer().stop();
 		}
-		
-		
 	}
+	
 }

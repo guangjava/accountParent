@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 骨矛
+ * <b>骨矛</b>
  */
 public class BoneSpear extends AbstractSkill{
 

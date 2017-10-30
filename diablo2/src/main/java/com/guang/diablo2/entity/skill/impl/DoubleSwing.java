@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 双手挥击
+ * <b>双手挥击</b>
  */
 public class DoubleSwing extends AbstractSkill{
 

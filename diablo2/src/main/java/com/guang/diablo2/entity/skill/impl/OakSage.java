@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 橡木智者
+ * <b>橡木智者</b>
  */
 public class OakSage extends AbstractSkill{
 

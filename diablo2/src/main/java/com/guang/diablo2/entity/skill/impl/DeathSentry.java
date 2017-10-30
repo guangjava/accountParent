@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 亡者守卫
+ * <b>亡者守卫</b>
  */
 public class DeathSentry extends AbstractSkill{
 

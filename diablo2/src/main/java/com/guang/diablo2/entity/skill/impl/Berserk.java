@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 狂暴
+ * <b>狂暴</b>
  */
 public class Berserk extends AbstractSkill{
 

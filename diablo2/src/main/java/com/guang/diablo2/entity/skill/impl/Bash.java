@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 重击
+ * <b>重击</b>
  */
 public class Bash extends AbstractSkill{
 

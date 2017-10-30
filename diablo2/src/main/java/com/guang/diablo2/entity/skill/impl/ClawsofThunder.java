@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 闪电爪
+ * <b>闪电爪</b>
  */
 public class ClawsofThunder extends AbstractSkill{
 

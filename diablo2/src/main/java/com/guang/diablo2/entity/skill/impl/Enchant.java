@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 火焰强化
+ * <b>火焰强化</b>
  */
 public class Enchant extends AbstractSkill{
 

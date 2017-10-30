@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 加速
+ * <b>加速</b>
  */
 public class IncreasedSpeed extends AbstractSkill{
 

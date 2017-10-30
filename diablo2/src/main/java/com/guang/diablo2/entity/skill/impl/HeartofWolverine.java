@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 狼獾之心
+ * <b>狼獾之心</b>
  */
 public class HeartofWolverine extends AbstractSkill{
 

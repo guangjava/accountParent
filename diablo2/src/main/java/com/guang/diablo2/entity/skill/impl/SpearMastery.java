@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 矛系掌握
+ * <b>矛系掌握</b>
  */
 public class SpearMastery extends AbstractSkill{
 

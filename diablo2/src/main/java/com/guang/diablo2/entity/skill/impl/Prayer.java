@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 祈祷
+ * <b>祈祷</b>
  */
 public class Prayer extends AbstractSkill{
 

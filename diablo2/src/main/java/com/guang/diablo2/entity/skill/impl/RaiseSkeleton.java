@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 骷髅复生
+ * <b>骷髅复生</b>
  */
 public class RaiseSkeleton extends AbstractSkill{
 

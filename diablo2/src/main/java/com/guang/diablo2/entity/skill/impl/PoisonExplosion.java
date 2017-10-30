@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 毒爆
+ * <b>毒爆</b>
  */
 public class PoisonExplosion extends AbstractSkill{
 

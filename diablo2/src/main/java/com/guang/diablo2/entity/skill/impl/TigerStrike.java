@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 虎击
+ * <b>虎击</b>
  */
 public class TigerStrike extends AbstractSkill{
 

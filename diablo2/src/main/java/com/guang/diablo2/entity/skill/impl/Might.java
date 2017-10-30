@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 力量
+ * <b>力量</b>
  */
 public class Might extends AbstractSkill{
 

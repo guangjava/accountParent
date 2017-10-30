@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 圣火
+ * <b>圣火</b>
  */
 public class HolyFire extends AbstractSkill{
 

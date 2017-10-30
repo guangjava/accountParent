@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 冲锋
+ * <b>冲锋</b>
  */
 public class Charge extends AbstractSkill{
 

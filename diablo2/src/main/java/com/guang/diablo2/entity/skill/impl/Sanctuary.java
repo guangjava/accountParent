@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 庇护所
+ * <b>庇护所</b>
  */
 public class Sanctuary extends AbstractSkill{
 

@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 女武神
+ * <b>女武神</b>
  */
 public class Valkyrie extends AbstractSkill{
 

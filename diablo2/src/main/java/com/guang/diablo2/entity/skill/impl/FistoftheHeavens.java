@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 天堂之拳
+ * <b>天堂之拳</b>
  */
 public class FistoftheHeavens extends AbstractSkill{
 

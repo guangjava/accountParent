@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 利爪掌握
+ * <b>利爪掌握</b>
  */
 public class ClawMastery extends AbstractSkill{
 

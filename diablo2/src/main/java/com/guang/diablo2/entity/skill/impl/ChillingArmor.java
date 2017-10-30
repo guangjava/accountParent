@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 寒冰装甲
+ * <b>寒冰装甲</b>
  */
 public class ChillingArmor extends AbstractSkill{
 

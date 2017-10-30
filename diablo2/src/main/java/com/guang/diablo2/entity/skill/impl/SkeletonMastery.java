@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 骷髅掌握
+ * <b>骷髅掌握</b>
  */
 public class SkeletonMastery extends AbstractSkill{
 

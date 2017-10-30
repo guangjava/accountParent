@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 冰封球
+ * <b>冰封球</b>
  */
 public class FrozenOrb extends AbstractSkill{
 

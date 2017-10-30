@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 攻击反噬
+ * <b>攻击反噬</b>
  */
 public class IronMaiden extends AbstractSkill{
 

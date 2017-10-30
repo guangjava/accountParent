@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 降低抵抗
+ * <b>降低抵抗</b>
  */
 public class LowerResist extends AbstractSkill{
 

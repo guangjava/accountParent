@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 淬毒匕首
+ * <b>淬毒匕首</b>
  */
 public class PoisonDagger extends AbstractSkill{
 

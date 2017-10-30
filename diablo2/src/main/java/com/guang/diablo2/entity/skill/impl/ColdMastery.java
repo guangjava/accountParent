@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 冰冷掌握
+ * <b>冰冷掌握</b>
  */
 public class ColdMastery extends AbstractSkill{
 

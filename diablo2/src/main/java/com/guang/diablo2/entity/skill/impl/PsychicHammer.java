@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 心灵战锤
+ * <b>心灵战锤</b>
  */
 public class PsychicHammer extends AbstractSkill{
 

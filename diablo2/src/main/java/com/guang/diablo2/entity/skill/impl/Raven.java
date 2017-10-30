@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 乌鸦
+ * <b>乌鸦</b>
  */
 public class Raven extends AbstractSkill{
 

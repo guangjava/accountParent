@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 石魔掌握
+ * <b>石魔掌握</b>
  */
 public class GolemMastery extends AbstractSkill{
 

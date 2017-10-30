@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 九头海蛇
+ * <b>九头海蛇</b>
  */
 public class Hydra extends AbstractSkill{
 

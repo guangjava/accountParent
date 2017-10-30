@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 冰矛
+ * <b>冰矛</b>
  */
 public class GlacialSpike extends AbstractSkill{
 

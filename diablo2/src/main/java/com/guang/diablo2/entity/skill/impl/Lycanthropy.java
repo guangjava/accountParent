@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 变形术
+ * <b>变形术</b>
  */
 public class Lycanthropy extends AbstractSkill{
 

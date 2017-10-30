@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 刃之怒
+ * <b>刃之怒</b>
  */
 public class BladeFury extends AbstractSkill{
 

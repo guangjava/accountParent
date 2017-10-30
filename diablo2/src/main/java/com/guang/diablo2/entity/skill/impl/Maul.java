@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 大槌
+ * <b>大槌</b>
  */
 public class Maul extends AbstractSkill{
 

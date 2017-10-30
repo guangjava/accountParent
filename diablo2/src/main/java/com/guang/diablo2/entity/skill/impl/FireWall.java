@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 火墙
+ * <b>火墙</b>
  */
 public class FireWall extends AbstractSkill{
 

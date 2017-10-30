@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 神龙摆尾
+ * <b>神龙摆尾</b>
  */
 public class DragonTail extends AbstractSkill{
 

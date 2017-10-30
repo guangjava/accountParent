@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 闪电弹
+ * <b>闪电弹</b>
  */
 public class ChargedBolt extends AbstractSkill{
 

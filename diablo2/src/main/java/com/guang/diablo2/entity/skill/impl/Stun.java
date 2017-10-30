@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 击晕
+ * <b>击晕</b>
  */
 public class Stun extends AbstractSkill{
 

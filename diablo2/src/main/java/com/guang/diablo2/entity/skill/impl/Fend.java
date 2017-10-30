@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 击退
+ * <b>击退</b>
  */
 public class Fend extends AbstractSkill{
 

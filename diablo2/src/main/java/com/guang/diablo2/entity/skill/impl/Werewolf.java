@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 狼人变化
+ * <b>狼人变化</b>
  */
 public class Werewolf extends AbstractSkill{
 

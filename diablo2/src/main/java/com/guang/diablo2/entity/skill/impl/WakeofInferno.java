@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 复生狱火
+ * <b>复生狱火</b>
  */
 public class WakeofInferno extends AbstractSkill{
 

@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 焰爪
+ * <b>焰爪</b>
  */
 public class FireClaws extends AbstractSkill{
 

@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 召唤灰熊
+ * <b>召唤灰熊</b>
  */
 public class SummonGrizzly extends AbstractSkill{
 

@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 暴风雪
+ * <b>暴风雪</b>
  */
 public class Blizzard extends AbstractSkill{
 

@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 骨盾
+ * <b>骨盾</b>
  */
 public class BoneArmor extends AbstractSkill{
 

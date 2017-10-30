@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 闪电之怒
+ * <b>闪电之怒</b>
  */
 public class LightningFury extends AbstractSkill{
 

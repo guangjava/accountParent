@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 火山爆
+ * <b>火山爆</b>
  */
 public class Fissure extends AbstractSkill{
 

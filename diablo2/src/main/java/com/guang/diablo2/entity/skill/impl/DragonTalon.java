@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 龙爪
+ * <b>龙爪</b>
  */
 public class DragonTalon extends AbstractSkill{
 

@@ -31,7 +31,7 @@ public abstract class AbstractSkill {
 	 */
 	public static final int INNER_SIGHT_ID = 8;
 	/**
-	 * 致命打击id
+	 * 双倍打击id
 	 */
 	public static final int CRITICAL_STRIKE_ID = 9;
 	/**
@@ -83,7 +83,7 @@ public abstract class AbstractSkill {
 	 */
 	public static final int ICE_ARROW_ID = 21;
 	/**
-	 * 向导箭id
+	 * 导引箭id
 	 */
 	public static final int GUIDED_ARROW_ID = 22;
 	/**
@@ -858,11 +858,32 @@ public abstract class AbstractSkill {
 	 * 凤翼天翔id
 	 */
 	public static final int PHOENIX_STRIKE_ID = 280;
+	/**
+	 * 主动技能 物理
+	 */
+	public static final int INITIATIVE_ATTACK = 0;
+	/**
+	 * 主动技能 法术
+	 */
+	public static final int INITIATIVE_CAST = 1;
+	/**
+	 * 主动技能 诅咒
+	 */
+	public static final int INITIATIVE_CURSE = 2;
+	/**
+	 * 主动技能 召唤
+	 */
+	public static final int INITIATIVE_SUMMON = 3;
+	/**
+	 * 被动技能
+	 */
+	public static final int PASSIVE = 4;
 	private static final Logger logger = LoggerFactory.getLogger(AbstractSkill.class);
 	protected int id;
 	protected String name_en;
 	protected String name_zh;
 	protected String describe;
+	protected int type = INITIATIVE_CAST;
 	
 	protected AbstractSkill(int id, String name_en, String name_zh, String describe) {
 		super();
@@ -888,9 +909,416 @@ public abstract class AbstractSkill {
 		return skillMap;
 	}
 	
+	/**
+	 * @return 技能内容
+	 * @author zhouchenguang
+	 * @date 2017年10月27日下午2:24:10
+	 * @since 1.0.2
+	 */
 	public abstract String getDetail();
+	/**
+	 * @return 技能介绍2
+	 * @author zhouchenguang
+	 * @date 2017年10月27日下午2:24:21
+	 * @since 1.0.2
+	 */
 	public abstract String getDesc2();
+	/**
+	 * @return 其他技能对本技能加成效果
+	 * @author zhouchenguang
+	 * @date 2017年10月27日下午2:24:33
+	 * @since 1.0.2
+	 */
 	public abstract String getPlus();
+	
+	/**
+	 * @return 需要技能id
+	 * @author zhouchenguang
+	 * @date 2017年10月28日上午7:32:47
+	 * @since 1.0.2
+	 */
+	public int[] getRequiredSkill() {
+		return new int[]{0};
+	}
+	
+	/**
+	 * @return 需要技能等级
+	 * @author zhouchenguang
+	 * @date 2017年10月28日上午7:32:47
+	 * @since 1.0.2
+	 */
+	public int getRequiredLevel() {
+		return 1;
+	}
+	
+	/**
+	 * @return 需要武器
+	 * @author zhouchenguang
+	 * @date 2017年10月29日下午9:03:32
+	 * @since 1.0.2
+	 */
+	public int[] getRequiredWeapon() {
+		return new int[]{0};
+	}
+	
+	/**
+	 * @return 攻击方式 0-攻击 1-投掷
+	 * @author zhouchenguang
+	 * @date 2017年10月29日下午9:09:55
+	 * @since 1.0.2
+	 */
+	public int getAttackType() {
+		return 0;
+	}
+	
+	/**
+	 * @return 火焰最小伤害:
+	 * @author zhouchenguang
+	 * @date 2017年10月27日下午3:30:54
+	 * @since 1.0.2
+	 */
+	public int getFireMinDamage() {
+		return 0;
+	}
+	
+	/**
+	 * @return 火焰最大伤害:
+	 * @author zhouchenguang
+	 * @date 2017年10月27日下午3:30:54
+	 * @since 1.0.2
+	 */
+	public int getFireMaxDamage() {
+		return 0;
+	}
+	
+	/**
+	 * @return 冰冻最小伤害:
+	 * @author zhouchenguang
+	 * @date 2017年10月27日下午3:30:54
+	 * @since 1.0.2
+	 */
+	public int getColdMinDamage() {
+		return 0;
+	}
+	
+	/**
+	 * @return 冰冻最大伤害:
+	 * @author zhouchenguang
+	 * @date 2017年10月27日下午3:30:54
+	 * @since 1.0.2
+	 */
+	public int getColdMaxDamage() {
+		return 0;
+	}
+	
+	/**
+	 * @return 毒素最小伤害
+	 * @author zhouchenguang
+	 * @date 2017年10月29日上午10:48:42
+	 * @since 1.0.2
+	 */
+	public int getPoisonMinDamage() {
+		return 0;
+	}
+	
+	/**
+	 * @return 毒素最大伤害
+	 * @author zhouchenguang
+	 * @date 2017年10月29日上午10:48:42
+	 * @since 1.0.2
+	 */
+	public int getPoisonMaxDamage() {
+		return 0;
+	}
+	
+	/**
+	 * @return 闪电最小伤害:
+	 * @author zhouchenguang
+	 * @date 2017年10月27日下午3:30:54
+	 * @since 1.0.2
+	 */
+	public int getLightningMinDamage() {
+		return 0;
+	}
+	
+	/**
+	 * @return 闪电最大伤害:
+	 * @author zhouchenguang
+	 * @date 2017年10月27日下午3:30:54
+	 * @since 1.0.2
+	 */
+	public int getLightningMaxDamage() {
+		return 0;
+	}
+	
+	/**
+	 * @return 爆炸最小伤害:
+	 * @author zhouchenguang
+	 * @date 2017年10月30日上午11:14:13
+	 * @since 1.0.2
+	 */
+	public int getExplodeMinDamage() {
+		return 0;
+	}
+	
+	/**
+	 * @return 爆炸最大伤害:
+	 * @author zhouchenguang
+	 * @date 2017年10月30日上午11:14:13
+	 * @since 1.0.2
+	 */
+	public int getExplodeMaxDamage() {
+		return 0;
+	}
+	
+	/**
+	 * @return 火焰持续最小伤害:/秒
+	 * @author zhouchenguang
+	 * @date 2017年10月27日下午3:30:54
+	 * @since 1.0.2
+	 */
+	public int getFireDurationMinDamage() {
+		return 0;
+	}
+	
+	/**
+	 * @return 火焰持续最大伤害:/秒
+	 * @author zhouchenguang
+	 * @date 2017年10月27日下午3:30:54
+	 * @since 1.0.2
+	 */
+	public int getFireDurationMaxDamage() {
+		return 0;
+	}
+	
+	/**
+	 * @return 转化 % 物理伤害为魔法伤害
+	 * @author zhouchenguang
+	 * @date 2017年10月27日下午2:24:52
+	 * @since 1.0.2
+	 */
+	public int getConvertMagicDamage() {
+		return 0;
+	}
+	
+	/**
+	 * @return 转化 % 物理伤害为火焰伤害
+	 * @author zhouchenguang
+	 * @date 2017年10月27日下午3:25:05
+	 * @since 1.0.2
+	 */
+	public int getConvertFireDamage() {
+		return 0;
+	}
+	
+	/**
+	 * @return 转化 % 物理伤害为冰冻伤害
+	 * @author zhouchenguang
+	 * @date 2017年10月27日下午3:25:05
+	 * @since 1.0.2
+	 */
+	public int getConvertColdDamage() {
+		return 0;
+	}
+	
+	/**
+	 * @return 转化 % 物理伤害为闪电伤害
+	 * @author zhouchenguang
+	 * @date 2017年10月27日下午3:25:05
+	 * @since 1.0.2
+	 */
+	public int getConvertLightningDamage() {
+		return 0;
+	}
+	
+	/**
+	 * @return 命中率: + %
+	 * @author zhouchenguang
+	 * @date 2017年10月27日下午2:33:26
+	 * @since 1.0.2
+	 */
+	public int getAR() {
+		return 0;
+	}
+	
+	/**
+	 * @return 近战命中率: + %
+	 * @author zhouchenguang
+	 * @date 2017年10月29日下午10:28:12
+	 * @since 1.0.2
+	 */
+	public int getMelleAR() {
+		return getAR();
+	}
+	
+	/**
+	 * @return 伤害: +增加数值
+	 * @author zhouchenguang
+	 * @date 2017年10月27日下午2:39:08
+	 * @since 1.0.2
+	 */
+	public int getPlusDamage() {
+		return 0;
+	}
+	
+	/**
+	 * @return 伤害: %增加比例
+	 * @author zhouchenguang
+	 * @date 2017年10月28日上午12:31:46
+	 * @since 1.0.2
+	 */
+	public int getSkillED() {
+		return 0;
+	}
+	
+	/**
+	 * @return 双倍打击 % 概率
+	 * @author zhouchenguang
+	 * @date 2017年10月28日上午12:14:18
+	 * @since 1.0.2
+	 */
+	public int getCS() {
+		return 0;
+	}
+	
+	/**
+	 * @return 技能惩罚 %
+	 * @author zhouchenguang
+	 * @date 2017年10月28日上午1:29:36
+	 * @since 1.0.2
+	 */
+	public int getPunish() {
+		return 100;
+	}
+	
+	/**
+	 * @return 降低敌人防御:
+	 * @author zhouchenguang
+	 * @date 2017年10月27日下午4:25:38
+	 * @since 1.0.2
+	 */
+	public int getReduceMonsterDefence() {
+		return 0;
+	}
+	
+	/**
+	 * @return 减缓敌人远距离速度 %
+	 * @author zhouchenguang
+	 * @date 2017年10月29日下午8:05:26
+	 * @since 1.0.2
+	 */
+	public int getSlowMonsterCast() {
+		return 0;
+	}
+	
+	/**
+	 * @return 近战闪避概率
+	 * @author zhouchenguang
+	 * @date 2017年10月28日上午9:39:01
+	 * @since 1.0.2
+	 */
+	public int getDodge() {
+		return 0;
+	}
+	
+	/**
+	 * @return 闪避远程攻击概率
+	 * @author zhouchenguang
+	 * @date 2017年10月29日下午8:22:52
+	 * @since 1.0.2
+	 */
+	public int getDodgeCast() {
+		return 0;
+	}
+	
+	/**
+	 * @return 召唤生物生命
+	 * @author zhouchenguang
+	 * @date 2017年10月30日下午3:28:42
+	 * @since 1.0.2
+	 */
+	public int getSummonHitPoint() {
+		return 0;
+	}
+	
+	/**
+	 * @return 召唤生物生命 + %
+	 * @author zhouchenguang
+	 * @date 2017年10月30日下午3:40:28
+	 * @since 1.0.2
+	 */
+	public int getSummonHPPercent() {
+		return 0;
+	}
+	
+	/**
+	 * @return 召唤生物生命 +
+	 * @author zhouchenguang
+	 * @date 2017年10月30日下午3:41:10
+	 * @since 1.0.2
+	 */
+	public int getSummonPlusHP() {
+		return 0;
+	}
+	/**
+	 * @return 魔法消耗: 
+	 * @author zhouchenguang
+	 * @date 2017年10月27日下午2:42:32
+	 * @since 1.0.2
+	 */
+	public double getManaCost() {
+		return 0d;
+	}
+	
+	/**
+	 * @return 持续时间:  秒
+	 * @author zhouchenguang
+	 * @date 2017年10月27日下午4:07:56
+	 * @since 1.0.2
+	 */
+	public double getDuration() {
+		return 0d;
+	}
+	
+	/**
+	 * @return 半径:  码
+	 * @author zhouchenguang
+	 * @date 2017年10月27日下午4:34:24
+	 * @since 1.0.2
+	 */
+	public double getRadius() {
+		return 0d;
+	}
+	
+	/**
+	 * @return 数量
+	 * @author zhouchenguang
+	 * @date 2017年10月28日上午1:33:35
+	 * @since 1.0.2
+	 */
+	public int getCount() {
+		return 0;
+	}
+	
+	/**
+	 * @return 施放延迟
+	 * @author zhouchenguang
+	 * @date 2017年10月29日上午10:31:14
+	 * @since 1.0.2
+	 */
+	public double getCastingDelay() {
+		return 0d;
+	}
+	
+	/**
+	 * @return 损失武器耐久度概率 %
+	 * @author zhouchenguang
+	 * @date 2017年10月29日下午8:46:43
+	 * @since 1.0.2
+	 */
+	public int getLostDurability() {
+		return 0;
+	}
 
 	/**获取技能等级
 	 * @param skillId
@@ -907,6 +1335,18 @@ public abstract class AbstractSkill {
 		}else {
 			return 0;
 		}
+	}
+	
+	/**获取本身技能等级
+	 * @param skillId
+	 * @return
+	 * @author zhouchenguang
+	 * @date 2017年10月26日下午1:49:29
+	 * @since 1.0.2
+	 */
+	protected int blvl(int skillId) {
+		Character character = Form.getInstance().getSpeedCalculator().getCharacter();
+		return character.getBasicSkillLevel(skillId);
 	}
 	
 	/**只要参数中有一个字符串为空或数字为0则返回空字符串
@@ -929,6 +1369,12 @@ public abstract class AbstractSkill {
 				}
 			}else if (object instanceof Integer) {
 				if ((int)object == 0) {
+					return "";
+				}else {
+					sb.append(object.toString());
+				}
+			}else if (object instanceof Double) {
+				if ((double)object == 0) {
 					return "";
 				}else {
 					sb.append(object.toString());
@@ -963,18 +1409,60 @@ public abstract class AbstractSkill {
 									-a);
 	}
 	
+	/**计算技能数据
+	 * @param l 技能等级
+	 * @param a 1级数据
+	 * @param b 2-8级每级增加数据
+	 * @param c 9-16级每级增加数据
+	 * @param d 17-22级每级增加数据
+	 * @param e 23级以上每级增加数据
+	 * @return
+	 * @author zhouchenguang
+	 * @date 2017年10月27日下午2:25:50
+	 * @since 1.0.2
+	 */
 	protected int ln(int l,int a,int b,int c,int d,int e){
 		return ln(l, a, b, c, d, e, e);
 	}
 	
+	/**计算技能数据
+	 * @param l 技能等级
+	 * @param a 1级数据
+	 * @param b 2-8级每级增加数据
+	 * @param c 9-16级每级增加数据
+	 * @param d 17级以上每级增加数据
+	 * @return
+	 * @author zhouchenguang
+	 * @date 2017年10月27日下午2:26:35
+	 * @since 1.0.2
+	 */
 	protected int ln(int l,int a,int b,int c,int d){
 		return ln(l, a, b, c, d, d, d);
 	}
 	
+	/**计算技能数据
+	 * @param l 技能等级
+	 * @param a 1级数据
+	 * @param b 2-8级每级增加数据
+	 * @param c 9级以上每级增加数据
+	 * @return
+	 * @author zhouchenguang
+	 * @date 2017年10月27日下午2:27:04
+	 * @since 1.0.2
+	 */
 	protected int ln(int l,int a,int b,int c){
 		return ln(l, a, b, c, c, c, c);
 	}
 	
+	/**计算技能数据
+	 * @param l 技能等级
+	 * @param a 1级数据
+	 * @param b 2级以上每级增加数据
+	 * @return
+	 * @author zhouchenguang
+	 * @date 2017年10月27日下午2:27:32
+	 * @since 1.0.0
+	 */
 	protected int ln(int l,int a,int b){
 		return ln(l, a, b, b, b, b, b);
 	}
@@ -995,6 +1483,23 @@ public abstract class AbstractSkill {
 	protected int max(int a,int b) {
 		return Math.max(a, b);
 	}
+	
+	protected int min(int a,int b) {
+		return Math.min(a, b);
+	}
+	
+	/**用来计算概率
+	 * @param l 技能等级
+	 * @param a
+	 * @param b
+	 * @return
+	 * @author zhouchenguang
+	 * @date 2017年10月28日上午9:58:22
+	 * @since 1.0.2
+	 */
+	protected int dm(int l,int a,int b){
+		return a+((b-a)*(110*l/(l+6))/100);
+	}
 	public int getId() {
 		return id;
 	}
@@ -1007,10 +1512,30 @@ public abstract class AbstractSkill {
 		return name_zh;
 	}
 
+	/**
+	 * @return 技能描述1
+	 * @author zhouchenguang
+	 * @date 2017年10月27日下午2:28:00
+	 * @since 1.0.2
+	 */
 	public String getDesc1() {
 		return describe;
 	}
 	
+	/**
+	 * @return 技能类型 <br>
+	 * 			主动物理 - {@link #INITIATIVE_ATTACK}<br>
+	 * 			主动法术 - {@link #INITIATIVE_CAST}<br>
+	 * 			主动诅咒 - {@link #INITIATIVE_CURSE}<br>
+	 * 			被动 - {@link #PASSIVE}
+	 * @author zhouchenguang
+	 * @date 2017年10月27日下午2:28:09
+	 * @since 1.0.0
+	 */
+	public int getType() {
+		return type;
+	}
+
 	private static AbstractSkill getSkillImpl(int id, String name_en, String name_zh, String describe) {
 		try {
 			@SuppressWarnings("unchecked")

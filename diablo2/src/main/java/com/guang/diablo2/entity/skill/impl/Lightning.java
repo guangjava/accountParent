@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 闪电
+ * <b>闪电</b>
  */
 public class Lightning extends AbstractSkill{
 

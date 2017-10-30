@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 圣光弹
+ * <b>圣光弹</b>
  */
 public class HolyBolt extends AbstractSkill{
 

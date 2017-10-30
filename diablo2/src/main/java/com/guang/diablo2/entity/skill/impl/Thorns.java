@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 荆棘
+ * <b>荆棘</b>
  */
 public class Thorns extends AbstractSkill{
 

@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 烈焰之径
+ * <b>烈焰之径</b>
  */
 public class Blaze extends AbstractSkill{
 

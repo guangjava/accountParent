@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 粘土石魔
+ * <b>粘土石魔</b>
  */
 public class ClayGolem extends AbstractSkill{
 

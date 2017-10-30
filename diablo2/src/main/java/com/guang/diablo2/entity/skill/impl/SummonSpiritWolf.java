@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 召唤灵狼
+ * <b>召唤灵狼</b>
  */
 public class SummonSpiritWolf extends AbstractSkill{
 

@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 剧毒新星
+ * <b>剧毒新星</b>
  */
 public class PoisonNova extends AbstractSkill{
 

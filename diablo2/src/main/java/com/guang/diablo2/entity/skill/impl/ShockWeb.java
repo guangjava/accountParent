@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 闪电网
+ * <b>闪电网</b>
  */
 public class ShockWeb extends AbstractSkill{
 

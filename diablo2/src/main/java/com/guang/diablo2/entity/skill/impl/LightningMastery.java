@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 电系掌握
+ * <b>电系掌握</b>
  */
 public class LightningMastery extends AbstractSkill{
 

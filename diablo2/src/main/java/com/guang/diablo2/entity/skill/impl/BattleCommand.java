@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 战斗指挥
+ * <b>战斗指挥</b>
  */
 public class BattleCommand extends AbstractSkill{
 

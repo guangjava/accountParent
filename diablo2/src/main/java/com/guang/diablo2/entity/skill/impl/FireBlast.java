@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 火焰爆震
+ * <b>火焰爆震</b>
  */
 public class FireBlast extends AbstractSkill{
 

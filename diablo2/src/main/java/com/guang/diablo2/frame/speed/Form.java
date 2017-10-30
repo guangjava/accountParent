@@ -6,10 +6,14 @@ import java.awt.GridBagLayout;
 import java.awt.HeadlessException;
 import java.awt.Image;
 import java.awt.TextArea;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Properties;
@@ -22,6 +26,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.Timer;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -125,6 +130,7 @@ public class Form extends JFrame{
 	private static final String leftWeaponLable  = "左手武器:(Left weapon)           ";
 	private WeaponSpeed speedCalculator;
 	private static boolean initOk = false;
+	private Timer skilltimer;
 	public static Form getInstance() {
 		if (instance == null) instance = new Form();
 		initOk = true;
@@ -146,6 +152,7 @@ public class Form extends JFrame{
 		BaseDamageListener baseDamagelistener = new BaseDamageListener();
 		FinalDamageDocumentListener finalDamageDocListener = new FinalDamageDocumentListener();
 		FinalDamageItemListener finalDamageItemListener = new FinalDamageItemListener();
+		addWindowListener(new CloseListener());
 		//主框架
 		JPanel mainPanel = new JPanel(new BorderLayout());
 		add(mainPanel,null,_mainPanel_index);
@@ -992,6 +999,13 @@ public class Form extends JFrame{
 		return (JPanel) scrollPane.getViewport().getView();
 	}
 
+	public Timer getSkilltimer() {
+		if (skilltimer == null) {
+			skilltimer = new Timer(300, new TimerListener());
+		}
+		return skilltimer;
+	}
+	
 	/**
 	 * 返回 #{bare_field_comment}
 	 * @return the speedCalculator
@@ -1008,6 +1022,15 @@ public class Form extends JFrame{
 		return initOk;
 	}
 	
+	private static class CloseListener extends WindowAdapter{
+
+		@Override
+		public void windowClosing(WindowEvent e) {
+			SkillTree skillTree = SkillTree.getInstance(false);
+			skillTree.dispose();
+		}
+		
+	}
 	private static class UcharListener implements ItemListener{
 
 		@Override
@@ -1028,6 +1051,21 @@ public class Form extends JFrame{
 			Util.setEnable(form.getBody(), false);
 			form.getCalc().setEnabled(false);
 			SkillTree.getInstance().init(form.getSelectedUchar());
+			form.getSkilltimer().start();
+		}
+		
+	}
+	
+	private static class TimerListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			SkillTree skillTree = SkillTree.getInstance(false);
+			if (!skillTree.isBaseSkillLevelVerify()) {
+				skillTree.refresh(-1);
+				skillTree.setBaseSkillLevelVerify(true);
+			}
+			
 		}
 		
 	}

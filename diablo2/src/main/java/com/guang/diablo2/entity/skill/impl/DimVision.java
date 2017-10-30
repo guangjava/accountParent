@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 微弱暗视
+ * <b>微弱暗视</b>
  */
 public class DimVision extends AbstractSkill{
 

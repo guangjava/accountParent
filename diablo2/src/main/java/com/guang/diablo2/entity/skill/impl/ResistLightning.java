@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 闪电抵抗
+ * <b>闪电抵抗</b>
  */
 public class ResistLightning extends AbstractSkill{
 

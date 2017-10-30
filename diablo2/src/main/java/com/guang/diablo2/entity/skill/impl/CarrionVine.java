@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 食腐藤
+ * <b>食腐藤</b>
  */
 public class CarrionVine extends AbstractSkill{
 

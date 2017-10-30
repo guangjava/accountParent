@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 末日战场
+ * <b>末日战场</b>
  */
 public class Armageddon extends AbstractSkill{
 

@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 火球
+ * <b>火球</b>
  */
 public class Fireball extends AbstractSkill{
 

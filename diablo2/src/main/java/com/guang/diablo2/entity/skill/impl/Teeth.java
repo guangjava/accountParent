@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 牙
+ * <b>牙</b>
  */
 public class Teeth extends AbstractSkill{
 

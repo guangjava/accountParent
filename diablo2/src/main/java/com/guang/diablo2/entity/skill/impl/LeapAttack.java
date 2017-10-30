@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 跳跃攻击
+ * <b>跳跃攻击</b>
  */
 public class LeapAttack extends AbstractSkill{
 

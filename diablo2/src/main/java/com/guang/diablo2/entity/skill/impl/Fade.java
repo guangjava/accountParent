@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 消退
+ * <b>消退</b>
  */
 public class Fade extends AbstractSkill{
 

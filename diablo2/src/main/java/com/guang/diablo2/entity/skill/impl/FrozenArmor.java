@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 冰封装甲
+ * <b>冰封装甲</b>
  */
 public class FrozenArmor extends AbstractSkill{
 

@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 旋风
+ * <b>旋风</b>
  */
 public class Whirlwind extends AbstractSkill{
 

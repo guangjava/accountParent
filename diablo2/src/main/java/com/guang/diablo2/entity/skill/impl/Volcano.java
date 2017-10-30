@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 火山
+ * <b>火山</b>
  */
 public class Volcano extends AbstractSkill{
 

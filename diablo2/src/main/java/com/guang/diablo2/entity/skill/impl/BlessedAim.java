@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 祝福瞄准
+ * <b>祝福瞄准</b>
  */
 public class BlessedAim extends AbstractSkill{
 

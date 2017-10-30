@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 飞龙在天
+ * <b>飞龙在天</b>
  */
 public class DragonFlight extends AbstractSkill{
 

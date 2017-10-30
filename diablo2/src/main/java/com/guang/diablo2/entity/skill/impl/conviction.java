@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 审判
+ * <b>审判</b>
  */
 public class conviction extends AbstractSkill{
 

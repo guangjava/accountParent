@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 残酷吓阻
+ * <b>残酷吓阻</b>
  */
 public class GrimWard extends AbstractSkill{
 

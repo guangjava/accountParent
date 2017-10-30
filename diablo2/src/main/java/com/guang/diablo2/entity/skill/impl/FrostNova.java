@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 霜之新星
+ * <b>霜之新星</b>
  */
 public class FrostNova extends AbstractSkill{
 

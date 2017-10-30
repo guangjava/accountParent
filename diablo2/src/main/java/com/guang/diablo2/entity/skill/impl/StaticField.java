@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 静电力场
+ * <b>静电力场</b>
  */
 public class StaticField extends AbstractSkill{
 

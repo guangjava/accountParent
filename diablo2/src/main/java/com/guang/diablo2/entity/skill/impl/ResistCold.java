@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 冰冷抵抗
+ * <b>冰冷抵抗</b>
  */
 public class ResistCold extends AbstractSkill{
 

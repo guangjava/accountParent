@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 重生
+ * <b>重生</b>
  */
 public class Revive extends AbstractSkill{
 

@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 活力
+ * <b>活力</b>
  */
 public class Vigor extends AbstractSkill{
 

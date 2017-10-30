@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 神圣冲击
+ * <b>神圣冲击</b>
  */
 public class HolyShock extends AbstractSkill{
 

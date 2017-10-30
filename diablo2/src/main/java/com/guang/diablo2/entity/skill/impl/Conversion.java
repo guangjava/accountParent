@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * 转化
+ * <b>转化</b>
  */
 public class Conversion extends AbstractSkill{
 
