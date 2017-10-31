@@ -1222,6 +1222,16 @@ public abstract class AbstractSkill {
 	}
 	
 	/**
+	 * @return 穿透
+	 * @author zhouchenguang
+	 * @date 2017年10月31日下午2:07:54
+	 * @since 1.0.2
+	 */
+	public int getPierce() {
+		return 0;
+	}
+	
+	/**
 	 * @return 近战闪避概率
 	 * @author zhouchenguang
 	 * @date 2017年10月28日上午9:39:01
@@ -1238,6 +1248,16 @@ public abstract class AbstractSkill {
 	 * @since 1.0.2
 	 */
 	public int getDodgeCast() {
+		return 0;
+	}
+	
+	/**
+	 * @return 提升法力回复速度+%
+	 * @author zhouchenguang
+	 * @date 2017年10月31日下午4:10:02
+	 * @since 1.0.2
+	 */
+	public int getManaRegeneratePercent() {
 		return 0;
 	}
 	
@@ -1268,6 +1288,146 @@ public abstract class AbstractSkill {
 	 * @since 1.0.2
 	 */
 	public int getSummonPlusHP() {
+		return 0;
+	}
+	
+	/**
+	 * @return 召唤生物敏捷
+	 * @author zhouchenguang
+	 * @date 2017年10月31日上午9:46:53
+	 * @since 1.0.2
+	 */
+	public int getSummonDexterity() {
+		return 0;
+	}
+	
+	/**
+	 * @return 召唤生物防御
+	 * @author zhouchenguang
+	 * @date 2017年10月31日上午9:48:05
+	 * @since 1.0.2
+	 */
+	public int getSummonDefence() {
+		return 0;
+	}
+	
+	/**
+	 * @return 召唤生物命中率
+	 * @author zhouchenguang
+	 * @date 2017年10月31日上午9:53:09
+	 * @since 1.0.2
+	 */
+	public int getSummonHitRate() {
+		return 0;
+	}
+	
+	/**
+	 * @return 召唤生物伤害
+	 * @author zhouchenguang
+	 * @date 2017年10月31日上午9:55:10
+	 * @since 1.0.2
+	 */
+	public int getSummonDamage() {
+		return 0;
+	}
+	
+	/**
+	 * @return 召唤生物防御 +%
+	 * @author zhouchenguang
+	 * @date 2017年10月31日上午9:56:06
+	 * @since 1.0.2
+	 */
+	public int getSummonDefencePercent() {
+		return 0;
+	}
+	
+	/**
+	 * @return 召唤生物命中率 +%
+	 * @author zhouchenguang
+	 * @date 2017年10月31日上午9:56:54
+	 * @since 1.0.2
+	 */
+	public int getSummonAR() {
+		return 0;
+	}
+	
+	/**
+	 * @return 召唤生物伤害 +%
+	 * @author zhouchenguang
+	 * @date 2017年10月31日上午9:57:43
+	 * @since 1.0.2
+	 */
+	public int getSummonSkillED() {
+		return 0;
+	}
+	
+	/**
+	 * @return 召唤生物双倍打击 %
+	 * @author zhouchenguang
+	 * @date 2017年10月31日上午9:58:58
+	 * @since 1.0.2
+	 */
+	public int getSummonCS() {
+		return 0;
+	}
+	
+	/**
+	 * @return 召唤生物近战闪避概率
+	 * @author zhouchenguang
+	 * @date 2017年10月31日上午10:04:41
+	 * @since 1.0.2
+	 */
+	public int getSummonDodge() {
+		return 0;
+	}
+	
+	/**
+	 * @return 召唤生物闪避远程攻击概率
+	 * @author zhouchenguang
+	 * @date 2017年10月31日上午10:05:24
+	 * @since 1.0.2
+	 */
+	public int getSummonDodgeCast() {
+		return 0;
+	}
+	
+	/**
+	 * @return 召唤生物火抗
+	 * @author zhouchenguang
+	 * @date 2017年10月31日上午10:07:05
+	 * @since 1.0.2
+	 */
+	public int getSummonResistFire() {
+		return 0;
+	}
+	
+	/**
+	 * @return 召唤生物冰抗
+	 * @author zhouchenguang
+	 * @date 2017年10月31日上午10:07:42
+	 * @since 1.0.2
+	 */
+	public int getSummonResistCold() {
+		return 0;
+	}
+	
+	/**
+	 * @return 召唤生物毒抗
+	 * @author zhouchenguang
+	 * @date 2017年10月31日上午10:08:22
+	 * @since 1.0.2
+	 */
+	public int getSummonResistPoison() {
+		return 0;
+	}
+	
+	/**
+	 * @return 召唤生物电抗
+	 * @author zhouchenguang
+	 * @date 2017年10月31日上午10:08:52
+	 * @since 1.0.2
+	 */
+	public int getSummonResistLightning() {
 		return 0;
 	}
 	/**
@@ -1307,7 +1467,7 @@ public abstract class AbstractSkill {
 	 * @since 1.0.2
 	 */
 	public int getCount() {
-		return 0;
+		return 1;
 	}
 	
 	/**

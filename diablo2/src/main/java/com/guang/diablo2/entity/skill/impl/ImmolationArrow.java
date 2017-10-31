@@ -25,7 +25,7 @@ public class ImmolationArrow extends AbstractSkill{
 
 	@Override
 	public String getDetail() {
-		return ""+"<span color=black>2: </span>"+cc("命中率: ",getAR(),"%<br>")
+		return ""+"<span color=black>2: </span>"+cc("命中率: ",getAR())
 		+"<span color=black>24: </span>"+"爆炸伤害: "+getExplodeMinDamage()+"-"+getExplodeMaxDamage()+"<br>"
 		+"<span color=black>23: </span>"+cc("火焰持续时间: ",getDuration()," 秒 <br>")
 		+"<span color=black>22: </span>"+"平均火焰伤害: "+getFireDurationMinDamage()+"-"+getFireDurationMaxDamage()+" 每秒 <br>"

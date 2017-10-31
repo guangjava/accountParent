@@ -14,6 +14,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -333,6 +334,7 @@ public class SkillTree extends JFrame{
 			dataSpan = new SkillSpan(""); 
 			dataPanel.setSize(320, 432);
 			skillImg = new JLabel();
+			skillImg.setBorder(new EmptyBorder(0, 0, 0, 0));
 			dataPanel.add(dataSpan);
 			dataPanel.add(skillImg);
 			skillTreePanel = new BackGroundPanel(null, null);

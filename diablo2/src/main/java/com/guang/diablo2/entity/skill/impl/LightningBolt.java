@@ -19,7 +19,7 @@ public class LightningBolt extends AbstractSkill{
 
 	@Override
 	public String getDetail() {
-		return ""+"<span color=black>10: </span>"+"闪电伤害: "+getLightningMinDamage()+"-"+getLightningMaxDamage()+"<br>"
+		return ""+"<span color=black>10: </span>"+"闪电伤害: "+getLightningMinDamage()+"-"+getLightningMaxDamage()
 				+"<span color=black>1: </span>"+cc("魔法消耗: ",getManaCost());
 	}
 

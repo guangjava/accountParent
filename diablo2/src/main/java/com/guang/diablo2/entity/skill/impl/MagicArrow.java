@@ -56,6 +56,11 @@ public class MagicArrow extends AbstractSkill{
 	}
 
 	@Override
+	public int getPlusMaxDamage() {
+		return getPlusMinDamage();
+	}
+
+	@Override
 	public double getManaCost() {
 		return dec(max(ln(lvl(MAGIC_ARROW_ID),12,-1)<<5,0)/256d,1);
 	}
