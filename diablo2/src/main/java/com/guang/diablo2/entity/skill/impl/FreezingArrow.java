@@ -31,7 +31,7 @@ public class FreezingArrow extends AbstractSkill{
 	public String getDetail() {
 		return ""+"<span color=black>2: </span>"+cc("命中率: ",getAR())
 				+"<span color=black>10: </span>"+"冰冷伤害: "+getPlusMinDamage()+"-"+getPlusMaxDamage()+"<br>"
-				+"<span color=black>12: </span>"+cc("冰冻时间 ",getDuration()," 秒 <br>")
+				+"<span color=black>12: </span>"+cc("冰冻时间 ",getFreezeTime()," 秒 <br>")
 				+"<span color=black>1: </span>"+cc("魔法消耗: ",getManaCost());
 	}
 
@@ -83,7 +83,7 @@ public class FreezingArrow extends AbstractSkill{
 	}
 
 	@Override
-	public double getDuration() {
+	public double getFreezeTime() {
 		return dec((50*(100+(blvl(ICE_ARROW_ID)*5))/100)/25d,1);
 	}
 

@@ -17,14 +17,15 @@ public class FrozenArmor extends AbstractSkill{
 
 	public FrozenArmor(int id, String name_en, String name_zh, String describe) {
 		super(id, name_en, name_zh, describe);
+		type = INITIATIVE_CAST;
 	}
 
 	@Override
 	public String getDetail() {
-		return ""+"<span color=black>3: </span>"+"防御加成: "+dec(ln(lvl(40),30,5),0)+"%<br>"
-				+"<span color=black>12: </span>"+cc("持续时间: ",dec((ln(lvl(40),3000,300)+(blvl(50)+blvl(60))*250)/25,1)," 秒 <br>")
-				+"<span color=black>12: </span>"+cc("冰冻时间 ",dec((ln(lvl(40),30,3)*(100+((blvl(50)+blvl(60))*5))/100)/25,1)," 秒 <br>")
-				+"<span color=black>1: </span>"+cc("魔法消耗: ",dec(max(ln(lvl(40),7,0)<<8,1<<8)/256,1),"<br>");
+		return ""+"<span color=black>3: </span>"+"防御加成: "+getDenfencePercent()+"%"
+				+"<span color=black>12: </span>"+cc("持续时间: ",getDuration()," 秒 <br>")
+				+"<span color=black>12: </span>"+cc("冰冻时间 ",getFreezeTime()," 秒 <br>")
+				+"<span color=black>1: </span>"+cc("魔法消耗: ",getManaCost());
 	}
 
 	@Override
@@ -34,11 +35,31 @@ public class FrozenArmor extends AbstractSkill{
 
 	@Override
 	public String getPlus() {
-		return ""+"<span color=#00ff00>"+"<span color=black>40: </span>"+"冰封装甲 由以下技能得到额外加成:<br>"
-				+"</span>"+"<span color=black>67: </span>"+"碎冰甲: +"+dec((250+12)/25,0)+" 秒 每一技能等级<br>"
+		return ""+"<span color=#00ff00>"+"<span color=black>50: </span>"+"冰封装甲 由以下技能得到额外加成:<br>"
+				+"</span>"+"<span color=black>67: </span>"+"碎冰甲: +"+10+" 秒 每一技能等级<br>"
 				+"<span color=black>63: </span>"+"碎冰甲: +5% 冰冻时间每一技能等级<br>"
-				+"<span color=black>67: </span>"+"寒冰装甲: +"+dec((250+12)/25,0)+" 秒 每一技能等级<br>"
+				+"<span color=black>67: </span>"+"寒冰装甲: +"+10+" 秒 每一技能等级<br>"
 				+"<span color=black>63: </span>"+"寒冰装甲: +5% 冰冻时间每一技能等级<br>";
+	}
+
+	@Override
+	public double getFreezeTime() {
+		return dec((ln(lvl(FROZEN_ARMOR_ID),30,3)*(100+((blvl(SHIVER_ARMOR_ID)+blvl(CHILLING_ARMOR_ID))*5))/100)/25d,1);
+	}
+
+	@Override
+	public double getManaCost() {
+		return 7d;
+	}
+
+	@Override
+	public double getDuration() {
+		return dec((ln(lvl(FROZEN_ARMOR_ID),3000,300)+(blvl(SHIVER_ARMOR_ID)+blvl(CHILLING_ARMOR_ID))*250)/25d,1);
+	}
+
+	@Override
+	public int getDenfencePercent() {
+		return ln(lvl(FROZEN_ARMOR_ID),30,5);
 	}
 
 }

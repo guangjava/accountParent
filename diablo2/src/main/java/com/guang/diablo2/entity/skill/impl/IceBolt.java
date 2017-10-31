@@ -22,7 +22,7 @@ public class IceBolt extends AbstractSkill{
 	@Override
 	public String getDetail() {
 		return ""+"<span color=black>10: </span>"+"冰冷伤害: "+getColdMinDamage()+"-"+getColdMaxDamage()
-				+"<span color=black>11: </span>"+cc("冰冻时间: ",getDuration()," 秒 <br>")
+				+"<span color=black>11: </span>"+cc("冰冻时间: ",getFreezeTime()," 秒 <br>")
 				+"<span color=black>1: </span>"+cc("魔法消耗: ",getManaCost());
 	}
 
@@ -57,7 +57,7 @@ public class IceBolt extends AbstractSkill{
 	}
 
 	@Override
-	public double getDuration() {
+	public double getFreezeTime() {
 		return dec(ln(lvl(ICE_BOLT_ID),150,35)/25d,1);
 	}
 

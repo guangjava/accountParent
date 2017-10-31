@@ -143,11 +143,11 @@ public abstract class AbstractSkill {
 	 */
 	public static final int FIRE_BOLT_ID = 36;
 	/**
-	 * 温暖id
+	 * 热情id
 	 */
 	public static final int WARMTH_ID = 37;
 	/**
-	 * 闪电弹id
+	 * 充能弹id
 	 */
 	public static final int CHARGED_BOLT_ID = 38;
 	/**
@@ -159,7 +159,7 @@ public abstract class AbstractSkill {
 	 */
 	public static final int FROZEN_ARMOR_ID = 40;
 	/**
-	 * 地狱火id
+	 * 地狱之火id
 	 */
 	public static final int INFERNO_ID = 41;
 	/**
@@ -1132,6 +1132,16 @@ public abstract class AbstractSkill {
 	}
 	
 	/**
+	 * @return 冰冻时间 秒
+	 * @author zhouchenguang
+	 * @date 2017年11月1日上午12:11:03
+	 * @since 1.0.2
+	 */
+	public double getFreezeTime() {
+		return 0d;
+	}
+	
+	/**
 	 * @return 命中率: + %
 	 * @author zhouchenguang
 	 * @date 2017年10月27日下午2:33:26
@@ -1248,6 +1258,16 @@ public abstract class AbstractSkill {
 	 * @since 1.0.2
 	 */
 	public int getDodgeCast() {
+		return 0;
+	}
+	
+	/**
+	 * @return 防御加成 %
+	 * @author zhouchenguang
+	 * @date 2017年11月1日上午12:18:42
+	 * @since 1.0.2
+	 */
+	public int getDenfencePercent() {
 		return 0;
 	}
 	

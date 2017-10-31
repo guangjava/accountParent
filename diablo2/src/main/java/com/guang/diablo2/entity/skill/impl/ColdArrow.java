@@ -26,7 +26,7 @@ public class ColdArrow extends AbstractSkill{
 		return ""+"<span color=black>66: </span>"+"转化 "+getConvertColdDamage()+"% 物理伤害为元素伤害<br>"
 				+"<span color=black>8: </span>"+cc("命中率: +",getAR(),"%<br>")
 				+"<span color=black>10: </span>"+"冰冷伤害: "+getColdMinDamage()+"-"+getColdMaxDamage()+"<br>"
-				+"<span color=black>11: </span>"+cc("冰冻时间: ",getDuration()," 秒 <br>")
+				+"<span color=black>11: </span>"+cc("冰冻时间: ",getFreezeTime()," 秒 <br>")
 				+"<span color=black>1: </span>"+cc("魔法消耗: ",getManaCost());
 	}
 
@@ -62,7 +62,7 @@ public class ColdArrow extends AbstractSkill{
 	}
 
 	@Override
-	public double getDuration() {
+	public double getFreezeTime() {
 		return dec(ln(lvl(COLD_ARROW_ID),100,30)/25d,1);
 	}
 

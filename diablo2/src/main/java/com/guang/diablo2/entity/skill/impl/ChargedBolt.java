@@ -2,8 +2,8 @@ package com.guang.diablo2.entity.skill.impl;
 
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
-/**RENAME 充能弹
- * <b>闪电弹</b><BR>
+/**
+ * <b>充能弹</b><BR>
    <strong>须要等级:</strong> 1<BR>
    <strong>须要技能</strong> 无
    <p>　　通过给周围的空气离子注入法力, 法师会放出爆裂性的闪电力量. 这些弹头四处乱窜, 追击并打击敌人. 
@@ -30,7 +30,7 @@ public class ChargedBolt extends AbstractSkill{
 
 	@Override
 	public String getPlus() {
-		return ""+"<span color=#00ff00>"+"<span color=black>40: </span>"+"闪电弹 由以下技能得到额外加成:<br>"
+		return ""+"<span color=#00ff00>"+"<span color=black>40: </span>"+"充能弹 由以下技能得到额外加成:<br>"
 				+"</span>"+"<span color=black>63: </span>"+"闪电: +6% 闪电伤害每一技能等级<br>";
 	}
 
