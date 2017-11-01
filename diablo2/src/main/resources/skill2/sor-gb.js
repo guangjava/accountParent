@@ -42,7 +42,7 @@ function(){return ""},
 function(){return ""+"<span color=#00ff00>"+"<span color=black>40: </span>"+"±ùµ¯ ÓÉÒÔÏÂ¼¼ÄÜµÃµ½¶îÍâ¼Ó³É:<br>"
 +"</span>"+"<span color=black>63: </span>"+"ËªÖ®ĞÂĞÇ: +15% ±ùÀäÉËº¦Ã¿Ò»¼¼ÄÜµÈ¼¶<br>"
 +"<span color=black>63: </span>"+"±ù·ç±©: +15% ±ùÀäÉËº¦Ã¿Ò»¼¼ÄÜµÈ¼¶<br>"
-+"<span color=black>63: </span>"+"±ùÃ¬: +15% ±ùÀäÉËº¦Ã¿Ò»¼¼ÄÜµÈ¼¶<br>"
++"<span color=black>63: </span>"+"±ù¼âÖù: +15% ±ùÀäÉËº¦Ã¿Ò»¼¼ÄÜµÈ¼¶<br>"
 +"<span color=black>63: </span>"+"±©·çÑ©: +15% ±ùÀäÉËº¦Ã¿Ò»¼¼ÄÜµÈ¼¶<br>"
 +"<span color=black>63: </span>"+"±ù·âÇò: +15% ±ùÀäÉËº¦Ã¿Ò»¼¼ÄÜµÈ¼¶<br>"
 },1,2
@@ -79,7 +79,7 @@ function(){return ""+"<span color=black>19: </span>"+"°ë¾¶: "+dec(dec(ln(lvl(42)
 function(){return ""+"<span color=black>3: </span>"+"Ï÷ÈõµĞÈËÉúÃü "+dec(25,0)+"%<br>"
 },
 function(){return ""+"<span color=#00ff00>"+"</span>"},2,1
-desc43="ĞÄÁéÒ£¸Ğ",
+desc43="ĞÄÁé´«¶¯",
 "Ê¹ÓÃ¾«ÉñÁ¦Á¿Ê°È¡ÎïÆ·,<br> ´¥·¢»ú¹Ø,»ò´ò»÷µĞÈË",
 function(){return ""+"<span color=black>10: </span>"+"ÉÁµçÉËº¦: "+(dec(dec(dec((lvl(43)<<8),0)*(100+ln(lvl(63),50,12))/100,0)/256,0))+"-"+(dec(dec(dec((ln(lvl(43),2,1)<<8),0)*(100+ln(lvl(63),50,12))/100,0)/256,0))+"<br>"
 +"<span color=black>1: </span>"+cc("Ä§·¨ÏûºÄ: ",dec(max(ln(lvl(43),7,0)<<8,1<<8)/256,1),"<br>")
@@ -106,7 +106,7 @@ function(){return ""+"<span color=black>10: </span>"+"±ùÀäÉËº¦: "+(dec(dec((ln(l
 function(){return ""},
 function(){return ""+"<span color=#00ff00>"+"<span color=black>40: </span>"+"±ù·ç±© ÓÉÒÔÏÂ¼¼ÄÜµÃµ½¶îÍâ¼Ó³É:<br>"
 +"</span>"+"<span color=black>63: </span>"+"±ùµ¯: +8% ±ùÀäÉËº¦Ã¿Ò»¼¼ÄÜµÈ¼¶<br>"
-+"<span color=black>63: </span>"+"±ùÃ¬: +10% ±ù¶³Ê±¼äÃ¿Ò»¼¼ÄÜµÈ¼¶<br>"
++"<span color=black>63: </span>"+"±ù¼âÖù: +10% ±ù¶³Ê±¼äÃ¿Ò»¼¼ÄÜµÈ¼¶<br>"
 +"<span color=black>63: </span>"+"±©·çÑ©: +8% ±ùÀäÉËº¦Ã¿Ò»¼¼ÄÜµÈ¼¶<br>"
 +"<span color=black>63: </span>"+"±ù·âÇò: +8% ±ùÀäÉËº¦Ã¿Ò»¼¼ÄÜµÈ¼¶<br>"
 },2,2
@@ -194,13 +194,13 @@ function(){return ""+"<span color=#00ff00>"+"<span color=black>40: </span>"+"Á¬Ë
 +"<span color=black>63: </span>"+"ĞÂĞÇ: +4% ÉÁµçÉËº¦Ã¿Ò»¼¼ÄÜµÈ¼¶<br>"
 +"<span color=black>63: </span>"+"ÉÁµç: +4% ÉÁµçÉËº¦Ã¿Ò»¼¼ÄÜµÈ¼¶<br>"
 },4,2
-desc54="ĞÄÁé´«ËÍ",
+desc54="´«ËÍ",
 "Ë²¼äÒÆ¶¯µ½ÊÓÁ¦Ëù¼°µÄÄ¿µÄµØ",
 function(){return ""+"<span color=black>1: </span>"+cc("Ä§·¨ÏûºÄ: ",dec(max(ln(lvl(54),24,-1)<<8,1<<8)/256,1),"<br>")
 },
 function(){return ""},
 function(){return ""+"<span color=#00ff00>"+"</span>"},4,3
-desc55="±ùÃ¬",
+desc55="±ù¼âÖù",
 "·¢ÉäÒ»¸ö¼á±ùåçĞÇ¶³½á»òÉ±ËÀ¸½½üµÄµĞÈË",
 function(){return ""+"<span color=black>10: </span>"+"±ùÀäÉËº¦: "+(dec(dec((ln(lvl(55),32,14,26,28,30,32)<<7)*(100+((blvl(39)+blvl(45)+blvl(64))*5))/100,0)/256,0))+"-"+(dec(dec((ln(lvl(55),48,15,27,29,31,33)<<7)*(100+((blvl(39)+blvl(45)+blvl(64))*5))/100,0)/256,0))+"<br>"
 +"<span color=black>12: </span>"+cc("±ù¶³Ê±¼ä ",dec((ln(lvl(55),50,3)*(100+blvl(59)*3)/100)/25,1)," Ãë <br>")
@@ -208,7 +208,7 @@ function(){return ""+"<span color=black>10: </span>"+"±ùÀäÉËº¦: "+(dec(dec((ln(l
 },
 function(){return ""+"<span color=black>19: </span>"+"°ë¾¶: "+dec(dec(ln(lvl(55),4,0),0)*2/3,1)+" Âë<br>"
 },
-function(){return ""+"<span color=#00ff00>"+"<span color=black>40: </span>"+"±ùÃ¬ ÓÉÒÔÏÂ¼¼ÄÜµÃµ½¶îÍâ¼Ó³É:<br>"
+function(){return ""+"<span color=#00ff00>"+"<span color=black>40: </span>"+"±ù¼âÖù ÓÉÒÔÏÂ¼¼ÄÜµÃµ½¶îÍâ¼Ó³É:<br>"
 +"</span>"+"<span color=black>63: </span>"+"±ùµ¯: +5% ±ùÀäÉËº¦Ã¿Ò»¼¼ÄÜµÈ¼¶<br>"
 +"<span color=black>63: </span>"+"±ù·ç±©: +5% ±ùÀäÉËº¦Ã¿Ò»¼¼ÄÜµÈ¼¶<br>"
 +"<span color=black>63: </span>"+"±©·çÑ©: +3% ±ù¶³Ê±¼äÃ¿Ò»¼¼ÄÜµÈ¼¶<br>"
@@ -227,8 +227,8 @@ function(){return ""+"<span color=#00ff00>"+"<span color=black>40: </span>"+"ÔÉÊ
 +"<span color=black>63: </span>"+"»ğÇò: +5% »ğÑæÉËº¦Ã¿Ò»¼¼ÄÜµÈ¼¶<br>"
 +"<span color=black>63: </span>"+"µØÓü»ğ: +3% Æ½¾ù»ğÑæÉËº¦ Ã¿Ãë Ã¿Ò»¼¼ÄÜµÈ¼¶<br>"
 },5,2
-desc57="À×±©",
-"ÕÙ»½Ò»¸öÖÂÃüµÄÀ×±©´ò»÷µĞÈË",
+desc57="À×ÔÆ·ç±©",
+"ÕÙ»½Ò»¸öÖÂÃüµÄÀ×ÔÆ·ç±©´ò»÷µĞÈË",
 function(){return ""+"<span color=black>12: </span>"+cc("³ÖĞøÊ±¼ä: ",dec((ln(lvl(57),800,200))/25,1)," Ãë <br>")
 +"<span color=black>10: </span>"+"ÉÁµçÉËº¦: "+(dec(dec(dec((ln(lvl(57),1,10,10,11)<<8),0)*(100+ln(lvl(63),50,12))/100,0)/256,0))+"-"+(dec(dec(dec((ln(lvl(57),100,10,10,11)<<8),0)*(100+ln(lvl(63),50,12))/100,0)/256,0))+"<br>"
 +"<span color=black>1: </span>"+cc("Ä§·¨ÏûºÄ: ",dec(max(ln(lvl(57),19,0)<<8,1<<8)/256,1),"<br>")
@@ -243,7 +243,7 @@ function(){return ""+"<span color=black>12: </span>"+cc("³ÖĞøÊ±¼ä: ",dec((ln(lvl
 },
 function(){return ""},
 function(){return ""+"<span color=#00ff00>"+"<span color=black>40: </span>"+"ÄÜÁ¿»¤¶Ü ÓÉÒÔÏÂ¼¼ÄÜµÃµ½¶îÍâ¼Ó³É:<br>"
-+"</span>"+"<span color=black>18: </span>"+"ĞÄÁéÒ£¸Ğ<br>"
++"</span>"+"<span color=black>18: </span>"+"ĞÄÁé´«¶¯<br>"
 },5,3
 desc59="±©·çÑ©",
 "ÕÙ»½´óÁ¿ºñÖØµÄ±ù¿é»ÙÃğµĞÈË",
@@ -255,7 +255,7 @@ function(){return ""},
 function(){return ""+"<span color=#00ff00>"+"<span color=black>40: </span>"+"±©·çÑ© ÓÉÒÔÏÂ¼¼ÄÜµÃµ½¶îÍâ¼Ó³É:<br>"
 +"</span>"+"<span color=black>63: </span>"+"±ùµ¯: +5% ±ùÀäÉËº¦Ã¿Ò»¼¼ÄÜµÈ¼¶<br>"
 +"<span color=black>63: </span>"+"±ù·ç±©: +5% ±ùÀäÉËº¦Ã¿Ò»¼¼ÄÜµÈ¼¶<br>"
-+"<span color=black>63: </span>"+"±ùÃ¬: +5% ±ùÀäÉËº¦Ã¿Ò»¼¼ÄÜµÈ¼¶<br>"
++"<span color=black>63: </span>"+"±ù¼âÖù: +5% ±ùÀäÉËº¦Ã¿Ò»¼¼ÄÜµÈ¼¶<br>"
 },5,1
 desc60="º®±ù×°¼×",
 "ÌáÉı·ÀÓùµÈ¼¶<br>²¢ÏòÔ¶³Ì¹¥»÷Õß·¢Éä±ùµ¯±¨¸´",

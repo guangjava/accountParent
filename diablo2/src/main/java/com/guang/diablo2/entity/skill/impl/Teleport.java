@@ -2,8 +2,8 @@ package com.guang.diablo2.entity.skill.impl;
 
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
-/**RENAME 传送
- * <b>心灵传送</b><BR>
+/**
+ * <b>传送</b><BR>
    <strong>须要等级:</strong> 18<BR>
    <strong>须要技能</strong>: {@link Telekinesis}心灵传动
    <p>　　法师们训练这项不可思议的魔法, 使自己可以在空间中随心所欲地移动, 瞬间到达其他地方. 

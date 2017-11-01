@@ -2,7 +2,7 @@ package com.guang.diablo2.entity.skill.impl;
 
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
-/**RENAME 强化
+/**
  * <b>火焰强化</b><BR>
    <strong>须要等级:</strong> 18<BR>
    <strong>须要技能</strong>: {@link FireBolt}火弹, {@link Warmth}热情, 
@@ -76,7 +76,7 @@ public class Enchant extends AbstractSkill{
 	}
 
 	@Override
-	public int getAR() {//RENAME ED/AR?
+	public int getAR() {
 		return ln(lvl(ENCHANT_ID),20,9);
 	}
 

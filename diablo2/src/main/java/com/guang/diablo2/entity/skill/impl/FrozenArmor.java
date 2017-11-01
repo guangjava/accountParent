@@ -17,7 +17,7 @@ public class FrozenArmor extends AbstractSkill{
 
 	public FrozenArmor(int id, String name_en, String name_zh, String describe) {
 		super(id, name_en, name_zh, describe);
-		type = INITIATIVE_CAST;
+		type = INITIATIVE_DEFENCE;
 	}
 
 	@Override

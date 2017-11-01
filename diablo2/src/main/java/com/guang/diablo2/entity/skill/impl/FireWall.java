@@ -67,7 +67,7 @@ public class FireWall extends AbstractSkill{
 	}
 
 	@Override
-	public double getRadius() {//RENAME 1级范围
+	public double getRadius() {
 		return dec(ln(lvl(FIRE_WALL_ID),7,2)*2/3d,1);
 	}
 

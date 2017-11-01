@@ -2,8 +2,8 @@ package com.guang.diablo2.entity.skill.impl;
 
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
-/**RENAME 冰尖柱
- * <b>冰矛</b>><BR>
+/**
+ * <b>冰尖柱</b>><BR>
    <strong>须要等级:</strong> 18<BR>
    <strong>须要技能</strong>: {@link IceBolt}冰弹, {@link IceBlast}
    <p>　　比冰风暴更加强大, 这项进攻性技能是一个追求迅速杀敌的高段位法师的选择. 
@@ -32,7 +32,7 @@ public class GlacialSpike extends AbstractSkill{
 
 	@Override
 	public String getPlus() {
-		return ""+"<span color=#00ff00>"+"<span color=black>40: </span>"+"冰矛 由以下技能得到额外加成:<br>"
+		return ""+"<span color=#00ff00>"+"<span color=black>40: </span>"+"冰尖柱 由以下技能得到额外加成:<br>"
 				+"</span>"+"<span color=black>63: </span>"+"冰弹: +5% 冰冷伤害每一技能等级<br>"
 				+"<span color=black>63: </span>"+"冰风暴: +5% 冰冷伤害每一技能等级<br>"
 				+"<span color=black>63: </span>"+"暴风雪: +3% 冰冻时间每一技能等级<br>"
@@ -50,12 +50,12 @@ public class GlacialSpike extends AbstractSkill{
 	}
 
 	@Override
-	public int getColdMinDamage() {//RENAME 1级数据
+	public int getColdMinDamage() {
 		return ((ln(lvl(GLACIAL_SPIKE_ID),32,14,26,28,30,32)<<7)*(100+((blvl(ICE_BOLT_ID)+blvl(ICE_BLAST_ID)+blvl(FROZEN_ORB_ID))*5))/100)/256;
 	}
 
 	@Override
-	public int getColdMaxDamage() {//RENAME 1级数据
+	public int getColdMaxDamage() {
 		return ((ln(lvl(GLACIAL_SPIKE_ID),48,15,27,29,31,33)<<7)*(100+((blvl(ICE_BOLT_ID)+blvl(ICE_BLAST_ID)+blvl(FROZEN_ORB_ID))*5))/100)/256;
 	}
 

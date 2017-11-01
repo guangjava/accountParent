@@ -211,11 +211,11 @@ public abstract class AbstractSkill {
 	 */
 	public static final int CHAIN_LIGHTNING_ID = 53;
 	/**
-	 * 心灵传送id
+	 * 传送id
 	 */
 	public static final int TELEPORT_ID = 54;
 	/**
-	 * 冰矛id
+	 * 冰尖柱id
 	 */
 	public static final int GLACIAL_SPIKE_ID = 55;
 	/**
@@ -223,7 +223,7 @@ public abstract class AbstractSkill {
 	 */
 	public static final int METEOR_ID = 56;
 	/**
-	 * 雷暴id
+	 * 雷云风暴id
 	 */
 	public static final int THUNDER_STORM_ID = 57;
 	/**
@@ -879,9 +879,13 @@ public abstract class AbstractSkill {
 	 */
 	public static final int INITIATIVE_SUPPORT = 4;
 	/**
+	 * 主动技能 防御
+	 */
+	public static final int INITIATIVE_DEFENCE = 5;
+	/**
 	 * 被动技能
 	 */
-	public static final int PASSIVE = 5;
+	public static final int PASSIVE = 6;
 	private static final Logger logger = LoggerFactory.getLogger(AbstractSkill.class);
 	protected int id;
 	protected String name_en;
@@ -1096,6 +1100,26 @@ public abstract class AbstractSkill {
 	}
 	
 	/**
+	 * @return 闪电持续最小伤害:/秒
+	 * @author zhouchenguang
+	 * @date 2017年10月27日下午3:30:54
+	 * @since 1.0.2
+	 */
+	public int getLightningDurationMinDamage() {
+		return 0;
+	}
+	
+	/**
+	 * @return 闪电持续最大伤害:/秒
+	 * @author zhouchenguang
+	 * @date 2017年10月27日下午3:30:54
+	 * @since 1.0.2
+	 */
+	public int getLightningDurationMaxDamage() {
+		return 0;
+	}
+	
+	/**
 	 * @return 转化 % 物理伤害为魔法伤害
 	 * @author zhouchenguang
 	 * @date 2017年10月27日下午2:24:52
@@ -1282,6 +1306,26 @@ public abstract class AbstractSkill {
 	 * @since 1.0.2
 	 */
 	public int getDenfencePercent() {
+		return 0;
+	}
+	
+	/**
+	 * @return 吸收 比例% 伤害转化为法力损失
+	 * @author zhouchenguang
+	 * @date 2017年11月1日下午11:59:12
+	 * @since 1.0.2
+	 */
+	public int getAbsorbPercent() {
+		return 0;
+	}
+	
+	/**
+	 * @return 能量护盾伤害转化法力损失效率比例% 1点伤害转化成 比例% 法力损失
+	 * @author zhouchenguang
+	 * @date 2017年11月2日上午12:00:24
+	 * @since 1.0.2
+	 */
+	public double getRedirectPercent() {
 		return 0;
 	}
 	

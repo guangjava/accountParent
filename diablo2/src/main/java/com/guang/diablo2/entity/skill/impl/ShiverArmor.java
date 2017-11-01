@@ -14,7 +14,7 @@ public class ShiverArmor extends AbstractSkill{
 
 	public ShiverArmor(int id, String name_en, String name_zh, String describe) {
 		super(id, name_en, name_zh, describe);
-		type = INITIATIVE_CAST;
+		type = INITIATIVE_DEFENCE;
 	}
 
 	@Override
@@ -76,7 +76,7 @@ public class ShiverArmor extends AbstractSkill{
 	}
 
 	@Override
-	public double getDuration() {//RENAME 1级时间
+	public double getDuration() {
 		return dec((ln(lvl(SHIVER_ARMOR_ID),3000,300)+(blvl(FROZEN_ARMOR_ID)+blvl(CHILLING_ARMOR_ID))*250)/25d,1);
 	}
 
