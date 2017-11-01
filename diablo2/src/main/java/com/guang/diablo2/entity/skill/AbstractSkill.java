@@ -163,11 +163,11 @@ public abstract class AbstractSkill {
 	 */
 	public static final int INFERNO_ID = 41;
 	/**
-	 * 静电力场id
+	 * 静态力场id
 	 */
 	public static final int STATIC_FIELD_ID = 42;
 	/**
-	 * 心灵遥感id
+	 * 心灵传动id
 	 */
 	public static final int TELEKINESIS_ID = 43;
 	/**
@@ -179,7 +179,7 @@ public abstract class AbstractSkill {
 	 */
 	public static final int ICE_BLAST_ID = 45;
 	/**
-	 * 烈焰之径id
+	 * 炽烈之径id
 	 */
 	public static final int BLAZE_ID = 46;
 	/**
@@ -875,9 +875,13 @@ public abstract class AbstractSkill {
 	 */
 	public static final int INITIATIVE_SUMMON = 3;
 	/**
+	 * 主动技能 辅助
+	 */
+	public static final int INITIATIVE_SUPPORT = 4;
+	/**
 	 * 被动技能
 	 */
-	public static final int PASSIVE = 4;
+	public static final int PASSIVE = 5;
 	private static final Logger logger = LoggerFactory.getLogger(AbstractSkill.class);
 	protected int id;
 	protected String name_en;
@@ -1198,6 +1202,16 @@ public abstract class AbstractSkill {
 	 * @since 1.0.2
 	 */
 	public int getCS() {
+		return 0;
+	}
+	
+	/**
+	 * @return 静态力场降低怪物生命值%
+	 * @author zhouchenguang
+	 * @date 2017年11月1日上午10:00:03
+	 * @since 1.0.2
+	 */
+	public int getStaticFieldPercent() {
 		return 0;
 	}
 	

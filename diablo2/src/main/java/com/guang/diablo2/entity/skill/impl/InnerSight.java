@@ -22,7 +22,7 @@ public class InnerSight extends AbstractSkill{
 
 	public InnerSight(int id, String name_en, String name_zh, String describe) {
 		super(id, name_en, name_zh, describe);
-		type = INITIATIVE_CAST;
+		type = INITIATIVE_CURSE;
 	}
 
 	@Override

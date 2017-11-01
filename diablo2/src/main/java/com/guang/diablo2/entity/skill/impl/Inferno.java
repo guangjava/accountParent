@@ -32,7 +32,7 @@ public class Inferno extends AbstractSkill{
 	@Override
 	public String getPlus() {
 		return ""+"<span color=#00ff00>"+"<span color=black>40: </span>"+"地狱之火 由以下技能得到额外加成:<br>"
-				+"</span>"+"<span color=black>63: </span>"+"温暖: +13% 火焰伤害每一技能等级<br>";
+				+"</span>"+"<span color=black>63: </span>"+"热情: +13% 火焰伤害每一技能等级<br>";
 	}
 
 	@Override
