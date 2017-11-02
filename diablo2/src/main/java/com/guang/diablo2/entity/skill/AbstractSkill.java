@@ -1120,6 +1120,26 @@ public abstract class AbstractSkill {
 	}
 	
 	/**
+	 * @return 冰冻持续最小伤害:/秒
+	 * @author zhouchenguang
+	 * @date 2017年10月27日下午3:30:54
+	 * @since 1.0.2
+	 */
+	public int getColdDurationMinDamage() {
+		return 0;
+	}
+	
+	/**
+	 * @return 冰冻持续最大伤害:/秒
+	 * @author zhouchenguang
+	 * @date 2017年10月27日下午3:30:54
+	 * @since 1.0.2
+	 */
+	public int getColdDurationMaxDamage() {
+		return 0;
+	}
+	
+	/**
 	 * @return 转化 % 物理伤害为魔法伤害
 	 * @author zhouchenguang
 	 * @date 2017年10月27日下午2:24:52

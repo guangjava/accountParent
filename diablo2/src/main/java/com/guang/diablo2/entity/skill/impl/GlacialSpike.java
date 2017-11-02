@@ -3,7 +3,7 @@ package com.guang.diablo2.entity.skill.impl;
 import com.guang.diablo2.entity.skill.AbstractSkill;
 
 /**
- * <b>冰尖柱</b>><BR>
+ * <b>冰尖柱</b><BR>
    <strong>须要等级:</strong> 18<BR>
    <strong>须要技能</strong>: {@link IceBolt}冰弹, {@link IceBlast}
    <p>　　比冰风暴更加强大, 这项进攻性技能是一个追求迅速杀敌的高段位法师的选择. 
