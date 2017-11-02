@@ -239,7 +239,7 @@ public abstract class AbstractSkill {
 	 */
 	public static final int CHILLING_ARMOR_ID = 60;
 	/**
-	 * 火系掌握id
+	 * 支配之焰id
 	 */
 	public static final int FIRE_MASTERY_ID = 61;
 	/**
@@ -247,7 +247,7 @@ public abstract class AbstractSkill {
 	 */
 	public static final int HYDRA_ID = 62;
 	/**
-	 * 电系掌握id
+	 * 支配闪电id
 	 */
 	public static final int LIGHTNING_MASTERY_ID = 63;
 	/**
@@ -255,7 +255,7 @@ public abstract class AbstractSkill {
 	 */
 	public static final int FROZEN_ORB_ID = 64;
 	/**
-	 * 冰冷掌握id
+	 * 支配冰冷id
 	 */
 	public static final int COLD_MASTERY_ID = 65;
 	/**
@@ -1140,6 +1140,26 @@ public abstract class AbstractSkill {
 	}
 	
 	/**
+	 * @return 火焰伤害提升%
+	 * @author zhouchenguang
+	 * @date 2017年11月2日下午11:45:10
+	 * @since 1.0.2
+	 */
+	public int getFirePercent() {
+		return 0;
+	}
+	
+	/**
+	 * @return 闪电伤害提升%
+	 * @author zhouchenguang
+	 * @date 2017年11月2日下午11:45:10
+	 * @since 1.0.2
+	 */
+	public int getLightningPercent() {
+		return 0;
+	}
+	
+	/**
 	 * @return 转化 % 物理伤害为魔法伤害
 	 * @author zhouchenguang
 	 * @date 2017年10月27日下午2:24:52
@@ -1276,6 +1296,16 @@ public abstract class AbstractSkill {
 	 * @since 1.0.2
 	 */
 	public int getReduceMonsterDefence() {
+		return 0;
+	}
+	
+	/**
+	 * @return 降低敌人冰抗:
+	 * @author zhouchenguang
+	 * @date 2017年10月27日下午4:25:38
+	 * @since 1.0.2
+	 */
+	public int getReduceMonsterColdRegist() {
 		return 0;
 	}
 	

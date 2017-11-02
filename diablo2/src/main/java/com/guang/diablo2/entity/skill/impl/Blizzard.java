@@ -21,9 +21,9 @@ public class Blizzard extends AbstractSkill{
 
 	@Override
 	public String getDetail() {
-		return ""+"<span color=black>10: </span>"+"冰冷伤害: "+(dec(dec((ln(lvl(59),45,15,30,45,55,65)<<8)*(100+((blvl(39)+blvl(45)+blvl(55))*5))/100,0)/256,0))+"-"+(dec(dec((ln(lvl(59),75,16,31,46,56,66)<<8)*(100+((blvl(39)+blvl(45)+blvl(55))*5))/100,0)/256,0))+"<br>"
-				+"<span color=black>23: </span>"+cc("持续时间: ",dec((ln(lvl(59),100,0))/25,1)," 秒 <br>")
-				+"<span color=black>1: </span>"+cc("魔法消耗: ",dec(max(ln(lvl(59),23,1)<<8,1<<8)/256,1),"<br>");
+		return ""+"<span color=black>10: </span>"+"冰冷伤害: "+getColdDurationMinDamage()+"-"+getColdDurationMaxDamage()+"<br>"
+				+"<span color=black>23: </span>"+cc("持续时间: ",getDuration()," 秒 <br>")
+				+"<span color=black>1: </span>"+cc("魔法消耗: ",getManaCost());
 	}
 
 	@Override
@@ -51,26 +51,22 @@ public class Blizzard extends AbstractSkill{
 
 	@Override
 	public int getColdDurationMinDamage() {
-		// TODO Auto-generated method stub
-		return super.getColdDurationMinDamage();
+		return ((ln(lvl(BLIZZARD_ID),45,15,30,45,55,65)<<8)*(100+((blvl(ICE_BOLT_ID)+blvl(ICE_BLAST_ID)+blvl(GLACIAL_SPIKE_ID))*5))/100)/256;
 	}
 
 	@Override
 	public int getColdDurationMaxDamage() {
-		// TODO Auto-generated method stub
-		return super.getColdDurationMaxDamage();
+		return ((ln(lvl(BLIZZARD_ID),75,16,31,46,56,66)<<8)*(100+((blvl(ICE_BOLT_ID)+blvl(ICE_BLAST_ID)+blvl(GLACIAL_SPIKE_ID))*5))/100)/256;
 	}
 
 	@Override
 	public double getManaCost() {
-		// TODO Auto-generated method stub
-		return super.getManaCost();
+		return ln(lvl(BLIZZARD_ID),23,1);
 	}
 
 	@Override
 	public double getDuration() {
-		// TODO Auto-generated method stub
-		return super.getDuration();
+		return 4d;
 	}
 
 	@Override
