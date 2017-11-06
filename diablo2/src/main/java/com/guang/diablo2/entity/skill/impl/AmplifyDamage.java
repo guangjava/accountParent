@@ -23,23 +23,44 @@ public class AmplifyDamage extends AbstractSkill{
 
 	public AmplifyDamage(int id, String name_en, String name_zh, String describe) {
 		super(id, name_en, name_zh, describe);
+		type = INITIATIVE_CURSE;
 	}
 
 	@Override
 	public String getDetail() {
-		return ""+"<span color=black>19: </span>"+"半径: "+dec(dec(ln(lvl(66),3,1),0)*2/3,1)+" 码<br>"
-				+"<span color=black>12: </span>"+cc("持续时间: ",dec((ln(lvl(66),200,75))/25,1)," 秒 <br>")
-				+"<span color=black>1: </span>"+cc("魔法消耗: ",dec(max(ln(lvl(66),4,0)<<8,1<<8)/256,1),"<br>");
+		return ""+"<span color=black>19: </span>"+"半径: "+getRadius()+" 码<br>"
+				+"<span color=black>12: </span>"+cc("持续时间: ",getDuration()," 秒 <br>")
+				+"<span color=black>1: </span>"+cc("魔法消耗: ",getManaCost(),"<br>");
 	}
 
 	@Override
 	public String getDesc2() {
-		return ""+"<span color=black>2: </span>"+cc("伤害增加: ",(dec(100,0)),"%<br>");
+		return ""+"<span color=black>2: </span>"+cc("伤害增加: ",getReduceMonsterPhysicalRegist(),"%<br>");
 	}
 
 	@Override
 	public String getPlus() {
 		return ""+"<span color=#00ff00>"+"</span>";
+	}
+
+	@Override
+	public int getReduceMonsterPhysicalRegist() {
+		return 100;
+	}
+
+	@Override
+	public double getManaCost() {
+		return 4d;
+	}
+
+	@Override
+	public double getDuration() {
+		return dec(ln(lvl(AMPLIFY_DAMAGE_ID),200,75)/25d,1);
+	}
+
+	@Override
+	public double getRadius() {
+		return dec(ln(lvl(AMPLIFY_DAMAGE_ID),3,1)*2/3d,1);
 	}
 
 }

@@ -28,17 +28,17 @@ function(){return ""+"<span color=#00ff00>"+"<span color=black>40: </span>"+"牙 
 +"<span color=black>63: </span>"+"骨牢: +15% 魔法伤害每一技能等级<br>"
 +"<span color=black>63: </span>"+"骨魂: +15% 魔法伤害每一技能等级<br>"
 },1,2
-desc68="骨盾",
+desc68="白骨装甲",
 "创造一个旋转的白骨护盾<br>来吸收近战伤害",
 function(){return ""+"<span color=black>3: </span>"+"吸收 "+dec((ln(lvl(68),20,10)+(blvl(78)+blvl(88))*15),0)+" 伤害<br>"
 +"<span color=black>1: </span>"+cc("魔法消耗: ",dec(max(ln(lvl(68),11,1)<<8,1<<8)/256,1),"<br>")
 },
 function(){return ""},
-function(){return ""+"<span color=#00ff00>"+"<span color=black>40: </span>"+"骨盾 由以下技能得到额外加成:<br>"
+function(){return ""+"<span color=#00ff00>"+"<span color=black>40: </span>"+"白骨装甲 由以下技能得到额外加成:<br>"
 +"</span>"+"<span color=black>67: </span>"+"骨墙: +"+dec(15,0)+" 伤害吸收每一技能等级<br>"
 +"<span color=black>67: </span>"+"骨牢: +"+dec(15,0)+" 伤害吸收每一技能等级<br>"
 },1,3
-desc69="骷髅掌握",
+desc69="支配骷髅",
 "被动 - 提升你召唤的骷髅，<br>法师以及重生生物的质量",
 function(){return ""+"<span color=black>70: </span>"+"骷髅生命: +"+(lvl(69)*8)+"<br>"
 +"<span color=black>70: </span>"+"骷髅伤害: +"+(lvl(69)*2)+"<br>"
@@ -61,7 +61,7 @@ function(){return ""+"<span color=black>2: </span>"+cc("伤害: ",sign(dec(((lvl(7
 function(){return ""+"<span color=black>34: </span>"+"伤害: "+dec((1+lvl(69)*2+dec(dec((ln(lvl(70),0,0,1,2,3,4)<<8),0)/256,0))*(100+((lvl(70)<4)?0:((lvl(70)-3)*7)))/100,0)+-+dec((2+lvl(69)*2+dec(dec((ln(lvl(70),0,0,1,2,3,4)<<8),0)/256,0))*(100+((lvl(70)<4)?0:((lvl(70)-3)*7)))/100,0)+"<br>"
 },
 function(){return ""+"<span color=#00ff00>"+"<span color=black>40: </span>"+"骷髅复生 由以下技能得到额外加成:<br>"
-+"</span>"+"<span color=black>18: </span>"+"骷髅掌握<br>"
++"</span>"+"<span color=black>18: </span>"+"支配骷髅<br>"
 +"<span color=black>18: </span>"+"召唤抵抗<br>"
 },1,3
 desc71="微弱暗视",
@@ -143,7 +143,7 @@ function(){return ""+"<span color=black>13: </span>"+"生命: "+dec(19*(100+((25*(
 },
 function(){return ""},
 function(){return ""+"<span color=#00ff00>"+"<span color=black>40: </span>"+"骨墙 由以下技能得到额外加成:<br>"
-+"</span>"+"<span color=black>63: </span>"+"骨盾: +10% 生命每一技能等级<br>"
++"</span>"+"<span color=black>63: </span>"+"白骨装甲: +10% 生命每一技能等级<br>"
 +"<span color=black>63: </span>"+"骨牢: +10% 生命每一技能等级<br>"
 },3,3
 desc79="石魔掌握",
@@ -163,7 +163,7 @@ function(){return ""+"<span color=black>13: </span>"+"生命: "+dec(61*(100+(0))/1
 },
 function(){return ""},
 function(){return ""+"<span color=#00ff00>"+"<span color=black>40: </span>"+"骷髅法师 由以下技能得到额外加成:<br>"
-+"</span>"+"<span color=black>18: </span>"+"骷髅掌握<br>"
++"</span>"+"<span color=black>18: </span>"+"支配骷髅<br>"
 +"<span color=black>18: </span>"+"召唤抵抗<br>"
 },3,3
 desc81="迷乱",
@@ -246,7 +246,7 @@ function(){return ""+"<span color=black>13: </span>"+"生命: "+dec(19*(100+((25*(
 },
 function(){return ""},
 function(){return ""+"<span color=#00ff00>"+"<span color=black>40: </span>"+"骨牢 由以下技能得到额外加成:<br>"
-+"</span>"+"<span color=black>63: </span>"+"骨盾: +8% 生命每一技能等级<br>"
++"</span>"+"<span color=black>63: </span>"+"白骨装甲: +8% 生命每一技能等级<br>"
 +"<span color=black>63: </span>"+"骨墙: +8% 生命每一技能等级<br>"
 },5,3
 desc89="召唤抵抗",
@@ -333,6 +333,6 @@ function(){return ""+"<span color=black>12: </span>"+cc("持续时间: ",dec((ln(lvl
 +"<span color=black>2: </span>"+cc("伤害: ",sign(dec(lvl(69)*10,0)),"%<br>",)
 },
 function(){return ""+"<span color=#00ff00>"+"<span color=black>40: </span>"+"重生 由以下技能得到额外加成:<br>"
-+"</span>"+"<span color=black>18: </span>"+"骷髅掌握<br>"
++"</span>"+"<span color=black>18: </span>"+"支配骷髅<br>"
 +"<span color=black>18: </span>"+"召唤抵抗<br>"
 },6,3

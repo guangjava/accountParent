@@ -267,13 +267,13 @@ public abstract class AbstractSkill {
 	 */
 	public static final int TEETH_ID = 67;
 	/**
-	 * 骨盾id
+	 * 白骨装甲id
 	 */
 	public static final int BONE_ARMOR_ID = 68;
 	/**
-	 * 骷髅掌握id
+	 * 支配骷髅id
 	 */
-	public static final int _SKELETON_MASTERY_ID = 69;
+	public static final int SKELETON_MASTERY_ID = 69;
 	/**
 	 * 骷髅复生id
 	 */
@@ -1080,6 +1080,26 @@ public abstract class AbstractSkill {
 	}
 	
 	/**
+	 * @return 魔法最小伤害
+	 * @author zhouchenguang
+	 * @date 2017年11月3日下午11:48:43
+	 * @since 1.0.2
+	 */
+	public int getMagicMinDamage() {
+		return 0;
+	}
+	
+	/**
+	 * @return 魔法最大伤害
+	 * @author zhouchenguang
+	 * @date 2017年11月3日下午11:48:43
+	 * @since 1.0.2
+	 */
+	public int getMagicMaxDamage() {
+		return 0;
+	}
+	
+	/**
 	 * @return 火焰持续最小伤害:/秒
 	 * @author zhouchenguang
 	 * @date 2017年10月27日下午3:30:54
@@ -1310,6 +1330,16 @@ public abstract class AbstractSkill {
 	}
 	
 	/**
+	 * @return 降低敌人物理抵抗:
+	 * @author zhouchenguang
+	 * @date 2017年10月27日下午4:25:38
+	 * @since 1.0.2
+	 */
+	public int getReduceMonsterPhysicalRegist() {
+		return 0;
+	}
+	
+	/**
 	 * @return 减缓敌人远距离速度 %
 	 * @author zhouchenguang
 	 * @date 2017年10月29日下午8:05:26
@@ -1366,6 +1396,16 @@ public abstract class AbstractSkill {
 	 * @since 1.0.2
 	 */
 	public int getAbsorbPercent() {
+		return 0;
+	}
+	
+	/**
+	 * @return 吸收伤害数值
+	 * @author zhouchenguang
+	 * @date 2017年11月4日上午12:05:40
+	 * @since 1.0.2
+	 */
+	public int getAbsorbDamage() {
 		return 0;
 	}
 	
@@ -1476,6 +1516,46 @@ public abstract class AbstractSkill {
 	 * @since 1.0.2
 	 */
 	public int getSummonAR() {
+		return 0;
+	}
+	
+	/**
+	 * @return 召唤生物增加伤害最小值
+	 * @author zhouchenguang
+	 * @date 2017年11月4日上午7:41:17
+	 * @since 1.0.2
+	 */
+	public int getSummonPlusMinDamage() {
+		return 0;
+	}
+	
+	/**
+	 * @return 召唤生物增加伤害最大值
+	 * @author zhouchenguang
+	 * @date 2017年11月4日上午7:41:44
+	 * @since 1.0.2
+	 */
+	public int getSummonPlusMaxDamage() {
+		return 0;
+	}
+	
+	/**
+	 * @return 召唤生物增加投射伤害最小值
+	 * @author zhouchenguang
+	 * @date 2017年11月4日上午7:41:17
+	 * @since 1.0.2
+	 */
+	public int getSummonPlusCastMinDamage() {
+		return 0;
+	}
+	
+	/**
+	 * @return 召唤生物增加投射伤害最大值
+	 * @author zhouchenguang
+	 * @date 2017年11月4日上午7:41:44
+	 * @since 1.0.2
+	 */
+	public int getSummonPlusCastMaxDamage() {
 		return 0;
 	}
 	
