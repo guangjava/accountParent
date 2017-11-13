@@ -23,17 +23,24 @@ public class RaiseSkeleton extends AbstractSkill{
 
 	@Override
 	public String getDetail() {
-		return "";
+		return ""+"<span color=black>2: </span>"+cc("伤害: ",dec(((lvl(70)<4)?0:((lvl(70)-3)*7)),0),"%<br>")
+		+"<span color=black>5: </span>"+"命中率: "+dec(5+(lvl(70)+lvl(69))*15,0)+"<br>"
+		+"<span color=black>5: </span>"+"防御: "+dec(5+(lvl(70)+lvl(69))*15,0)+"<br>"
+		+"<span color=black>13: </span>"+"生命: "+dec(21*(100+((lvl(70)<4)?0:(50*(lvl(70)-3))))/100+(lvl(69)*8),0)+"<br>生命: "+dec(30*(100+((lvl(70)<4)?0:(50*(lvl(70)-3))))/100+(lvl(69)*8),0)+" (噩梦)<br>生命: "+dec(42*(100+((lvl(70)<4)?0:(50*(lvl(70)-3))))/100+(lvl(69)*8),0)+" (地狱)<br>"
+		+"<span color=black>36: </span>"+" 骷髅总数: "+dec((lvl(70)<4)?lvl(70):(2+lvl(70)/3),0)+"<br>"
+		+"<span color=black>1: </span>"+cc("魔法消耗: ",dec(max(ln(lvl(70),6,1)<<8,1<<8)/256,1),"<br>");
 	}
 
 	@Override
 	public String getDesc2() {
-		return "";
+		return ""+"<span color=black>34: </span>"+"伤害: "+dec((1+lvl(69)*2+dec(dec((ln(lvl(70),0,0,1,2,3,4)<<8),0)/256,0))*(100+((lvl(70)<4)?0:((lvl(70)-3)*7)))/100,0)+-+dec((2+lvl(69)*2+dec(dec((ln(lvl(70),0,0,1,2,3,4)<<8),0)/256,0))*(100+((lvl(70)<4)?0:((lvl(70)-3)*7)))/100,0)+"<br>";
 	}
 
 	@Override
 	public String getPlus() {
-		return "";
+		return ""+"<span color=#00ff00>"+"<span color=black>40: </span>"+"骷髅复生 由以下技能得到额外加成:<br>"
+				+"</span>"+"<span color=black>18: </span>"+"支配骷髅<br>"
+				+"<span color=black>18: </span>"+"召唤抵抗<br>";
 	}
 
 }
