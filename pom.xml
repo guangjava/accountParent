@@ -194,6 +194,9 @@
 		<module>testJava</module>
 		<module>springSecurityDemo</module>
 		<module>diablo2</module>
+		<module>yingxiongsha</module>
+		<module>luceneTest</module>
+		<module>jaxb-test</module>
 	</modules>
 
 
